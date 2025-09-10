@@ -2,7 +2,7 @@
   <div>
     <div v-if="operator">
      <div class="lg:flex justify-between items-center mb-4">
-			 <h2 class="text-xl mb:text-2xl lg:text-3xl font-extrabold text-gray-900 mb-4 lg:mb-0 text-center lg:text-start">Détails et Historique pour {{ operator.prenom }} {{ operator.nom }}</h2>
+			 <h2 class="text-xl mb:text-2xl lg:text-3xl font-extrabold text-gray-900 mb-4 lg:mb-0 text-center lg:text-start">Détails et Historique pour {{ operator.first_name }} {{ operator.last_name }}</h2>
       <div class="flex align-center justify-end">
         <button
           type="button"
@@ -18,17 +18,17 @@
 			<!-- Body -->
 			<div class="flex flex-col items-center p-8 sm:p-6 w-full bg-white border border-gray-200 rounded-t-2xl md:ounded-t-2xl lg:rounded-l-2xl lg:rounded-tr-none shadow-md">
 				<h3 class="text-2xl font-bold text-gray-900 mb-3">
-					Détails pour {{ operator.prenom }} {{ operator.nom }}</h3>
+					Détails pour {{ operator.first_name }} {{ operator.last_name }}</h3>
 				<!-- Avatar -->
 				<div class="w-24 h-24 mb-3 rounded-full shadow-lg flex items-center justify-center bg-blue-100">
 					<span class="text-2xl font-bold text-blue-700">
-						{{ operator.prenom.charAt(0) }}{{ operator.nom.charAt(0) }}
+						{{ operator.first_name.charAt(0) }}{{ operator.last_name.charAt(0) }}
 					</span>
 				</div>
 
-				<!-- Nom complet -->
+				<!-- last_name complet -->
 				<h5 class="mb-1 text-xl font-bold text-gray-900">
-					{{ operator.prenom }} {{ operator.nom }}
+					{{ operator.first_name }} {{ operator.last_name }}
 				</h5>
 
 				<!-- Infos -->
@@ -145,7 +145,7 @@ const operatorsStore = useOperatorsStore();
 // --- DATA ---
 const operatorId = computed(() => parseInt(route.params.id as string, 10));
 const operator = computed<Operator | undefined>(() =>
-  operatorsStore.operators.find(o => o.id === operatorId.value)
+  operatorsStore.operators.find(o => Number(o.id) === operatorId.value)
 );
 console.log(operator.value);
 

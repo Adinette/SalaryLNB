@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
 import Sidebar from './layout/Sidebar.vue'
 </script>
 

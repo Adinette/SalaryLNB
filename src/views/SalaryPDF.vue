@@ -116,7 +116,7 @@ const operatorsStore = useOperatorsStore();
 const operatorId = parseInt(route.params.id as string, 10);
 const date = route.params.date as string;
 
-const operator = operatorsStore.operators.find(o => o.id === operatorId);
+const operator = operatorsStore.operators.find(o => Number(o.id) === operatorId);
 const record = computed(() =>
   operator?.salaryHistory.find(r => r.date === date)
 );

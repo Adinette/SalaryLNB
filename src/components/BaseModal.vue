@@ -1,14 +1,13 @@
 <template>
   <div
     v-if="modelValue"
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black overflow-auto"
+    class="fixed inset-0 z-50 flex items-center justify-center overflow-auto"
 		
   >
-    <div class="bg-white dark:bg-gray-700 rounded-lg shadow-lg w-full max-w-md p-4 md:p-6 relative">
-      
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-4 md:p-6 relative">
       <!-- Header -->
       <div class="flex items-center justify-between mb-4">
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ title }}</h3>
+        <h3 class="text-lg font-semibold text-gray-900 ">{{ title }}</h3>
         <button
           type="button"
           @click="$emit('update:modelValue', false)"
@@ -30,7 +29,7 @@
       <div class="flex justify-end space-x-2">
         <button
           type="button"
-          class="px-4 py-2 bg-green-800 rounded "
+          class="px-4 py-2 bg-green-800 rounded text-white"
           @click="$emit('update:modelValue', false)"
         >
           Annuler

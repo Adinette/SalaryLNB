@@ -5,27 +5,28 @@ import { ref } from 'vue'
 
 // This interface now includes each specific deduction for historical accuracy.
 export interface SalaryCalculation {
-  calculationDate: string;
   operatorName?: string; // Optional: To store the name at the time of calculation
   chiffreAffaireMensuelttc: number;
-  chiffreAffaireFinal: number;
   chiffreAffaireHorsTaxe: number;
+  commissionBrute:number
   percentCommissionBrute:number;
   fel: number;
   aib: number;
   dette: number;
   penalite: number;
+  calculatedFraisMomo: number;
   remboursement: number;
   ecart: number;
   totalPrelevements: number;
   salaireBrut: number;
-  debours: number;
+  date: string;
+  // debours: number;
 }
 
 export interface Operator {
-  id: number;
-  nom: string;
-  prenom: string;
+  id: string;
+  last_name: string;
+  first_name: string;
   tel: string;
   machineId: string;
   salaryHistory: SalaryCalculation[];
@@ -35,17 +36,17 @@ export const useOperatorsStore = defineStore('operators', () => {
   // --- STATE ---
   const operators = ref<Operator[]>([
     {
-      id: 1,
-      nom: 'Dupont',
-      prenom: 'Jean',
+      id: "1",
+      last_name: 'Dupont',
+      first_name: 'Jean',
       tel: '0612345678',
       machineId: 'MACHINE-001',
       salaryHistory: [],
     },
     {
-      id: 2,
-      nom: 'Curie',
-      prenom: 'Marie',
+      id: "2",
+      last_name: 'Curie',
+      first_name: 'Marie',
       tel: '0687654321',
       machineId: 'MACHINE-002',
       salaryHistory: [],
@@ -55,10 +56,10 @@ export const useOperatorsStore = defineStore('operators', () => {
   // --- ACTIONS ---
 
   function addOperator(op: Omit<Operator, 'id' | 'salaryHistory'>) {
-    const newId = operators.value.length > 0 ? Math.max(...operators.value.map(o => o.id)) + 1 : 1;
+    // const newId = operators.value.length > 0 ? Math.max(...operators.value.map(o => o.id)) + 1 : 1;
     operators.value.push({
       ...op,
-      id: newId,
+      id: crypto.randomUUID(),
       salaryHistory: [],
     });
   }
@@ -70,24 +71,34 @@ export const useOperatorsStore = defineStore('operators', () => {
     }
   }
 
-  function deleteOperator(operatorId: number) {
+  function deleteOperator(operatorId: string) {
     const index = operators.value.findIndex(o => o.id === operatorId);
     if (index !== -1) {
       operators.value.splice(index, 1);
     }
   }
 
-  function addSalaryRecord(operatorId: number, record: SalaryCalculation) {
-    const operator = operators.value.find(o => o.id === operatorId);
-    if (operator) {
-      // Add operator name to the record for historical context
-      record.operatorName = `${operator.prenom} ${operator.nom}`;
-      operator.salaryHistory.unshift(record); // Add to the beginning of the array
-      if (operator.salaryHistory.length > 3) {
-        operator.salaryHistory.pop(); // Keep only the last 3 records
-      }
-    }
+function addSalaryRecord(operatorId: string, record: SalaryCalculation) {
+  const operator = operators.value.find(o => o.id === operatorId);
+  if (!operator) return;
+
+  // Toujours ajouter le nom
+  record.operatorName = `${operator.first_name} ${operator.last_name}`;
+
+  // Sécuriser l'initialisation
+  if (!Array.isArray(operator.salaryHistory)) {
+    operator.salaryHistory = [];
   }
+
+  // Ajouter le nouveau record
+  operator.salaryHistory.unshift(record);
+
+  // Garder max 3
+  if (operator.salaryHistory.length > 3) {
+    operator.salaryHistory.pop();
+  }
+}
+
 
   return {
     operators,

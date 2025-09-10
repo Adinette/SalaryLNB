@@ -1,10 +1,13 @@
-import type { SalaryCalculation } from '@/stores/operators';
+import type { SalaryCalculation } from '../stores/operators';
 
 export interface SalaryInput {
   chiffreAffaireMensuelttc: number;
   percentCommissionBrute: number;
+  percentFraisMomo: number;
+  payement: number;
   remboursement?: number;
   ecart?: number;
+  date: string;
 }
 
 // This composable encapsulates the business logic for salary calculation.
@@ -16,34 +19,39 @@ export function useSalaryCalculator() {
       percentCommissionBrute,
       remboursement,
       ecart,
+      percentFraisMomo,
+      payement,
+      date,
     } = input;
 
-    const chiffreAffaireFinal = chiffreAffaireMensuelttc / 1.10;
-    const chiffreAffaireHorsTaxe = chiffreAffaireFinal * 0.06;
+    const chiffreAffaireHorsTaxe = chiffreAffaireMensuelttc / 1.10;
+    const commissionBrute = chiffreAffaireHorsTaxe * (percentCommissionBrute / 100);
 
     const FEL = 2500;
-    const AIB = chiffreAffaireHorsTaxe * 0.05;
-        const penalite = ecart! * 0.15;
-          const debours = chiffreAffaireMensuelttc * 0.10;
-
-    const autresPrelevements = (debours || 0) + (penalite || 0) + (remboursement || 0) + (ecart || 0);
+    const AIB = commissionBrute * 0.05;
+    const penalite = ecart! * 0.15;
+     // const debours = chiffreAffaireMensuelttc * 0.10;
+    const calculatedFraisMomo = payement * percentFraisMomo / 100
+    const autresPrelevements = (penalite || 0) + (remboursement || 0) + (ecart || 0) + (calculatedFraisMomo || 0);
     const totalPrelevements = FEL + AIB + autresPrelevements;
 
-    const salaireBrut = chiffreAffaireHorsTaxe - totalPrelevements;
+    const salaireBrut = commissionBrute - totalPrelevements;
 
     return {
       chiffreAffaireMensuelttc,
-      chiffreAffaireFinal,
       chiffreAffaireHorsTaxe,
+      commissionBrute,
       fel: FEL,
       aib: AIB,
       penalite: (penalite || 0),
+       calculatedFraisMomo: (calculatedFraisMomo || 0),
       remboursement: (remboursement || 0),
       ecart: (ecart || 0),
-      debours: (debours || 0),
+      // debours: (debours || 0),
       totalPrelevements,
       salaireBrut,
       percentCommissionBrute,
+      date,
       dette: 0, // or calculate the correct value for 'dette' if needed
     };
   };

@@ -21,6 +21,11 @@ const router = createRouter({
       props: true,
     },
     {
+      path: '/operateurs/:id/salaire/:date/pdf',
+      name: 'salaire-pdf',
+      component: () => import('../views/SalaryPDF.vue')
+    },
+    {
       path: '/machines',
       name: 'machines',
       // Placeholder component

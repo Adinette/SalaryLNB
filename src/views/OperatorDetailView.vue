@@ -143,9 +143,9 @@ const router = useRouter();
 const operatorsStore = useOperatorsStore();
 
 // --- DATA ---
-const operatorId = computed(() => parseInt(route.params.id as string, 10));
+const operatorId = computed(() => route.params.id as string);
 const operator = computed<Operator | undefined>(() =>
-  operatorsStore.operators.find(o => Number(o.id) === operatorId.value)
+  operatorsStore.operators.find(o => o.id === operatorId.value)
 );
 console.log(operator.value);
 

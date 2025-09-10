@@ -332,7 +332,9 @@ const { operators } = storeToRefs(operatorsStore)
 const { calculate } = useSalaryCalculator()
 
 function getOperatorValue(item: Operator, key: string) {
-  if (key === 'id' || key === 'nom' || key === 'prenom' || key === 'tel' || key === 'machineId') {
+  if ( key === 'last_name' || key === 'first_name' || key === 'tel' || key === 'machineId') {
+		console.log(operators.value);
+		
     return item[key as keyof Operator]
   }
   return ''
@@ -340,9 +342,8 @@ function getOperatorValue(item: Operator, key: string) {
 
 // TABLE
 const headers = ref([
-  { title: 'ID', key: 'id' },
-  { title: 'Prénom', key: 'prenom' },
-  { title: 'Nom', key: 'nom' },
+	{ title: 'Nom', key: 'last_name' },
+  { title: 'Prénom', key: 'first_name' },
   { title: 'Téléphone', key: 'tel' },
   { title: 'N° Machine', key: 'machineId' },
 ])
@@ -361,11 +362,13 @@ function openNewItemDialog() {
   editedItem.value = { ...defaultItem }
   editDialog.value = true
 }
+
 function editItem(item: Operator) {
   editedIndex.value = operators.value.findIndex((o) => o.id === item.id)
   editedItem.value = { ...item }
   editDialog.value = true
 }
+
 function saveItem() {
   if (editedIndex.value > -1) {
     operatorsStore.updateOperator(editedItem.value as Operator)
@@ -413,9 +416,11 @@ function openSalaryForm(item: Operator) {
   salaryInput.value = { ...defaultSalaryInput }
   salaryFormDialog.value = true
 }
+
 function viewItemDetails(item: Operator) {
   router.push({ name: 'operateur-details', params: { id: item.id } })
 }
+
 function confirmAndCalculate() {
   if ((salaryInput.value.chiffreAffaireMensuelttc || 0) <= 0) {
     alert('Le Chiffre d’Affaire doit être > 0')

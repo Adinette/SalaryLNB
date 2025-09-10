@@ -113,10 +113,10 @@ const route = useRoute();
 const router = useRouter();
 const operatorsStore = useOperatorsStore();
 
-const operatorId = parseInt(route.params.id as string, 10);
+const operatorId = route.params.id as string;
 const date = route.params.date as string;
 
-const operator = operatorsStore.operators.find(o => Number(o.id) === operatorId);
+const operator = operatorsStore.operators.find(o => o.id === operatorId);
 const record = computed(() =>
   operator?.salaryHistory.find(r => r.date === date)
 );

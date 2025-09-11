@@ -4,8 +4,17 @@
     class="fixed inset-0 z-50 flex items-center justify-center overflow-auto"
 		
   >
-    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-4 md:p-6 relative">
-      <!-- Header -->
+	    <!-- BACKDROP -->
+    <div
+      class="fixed inset-0 bg-black bg-opacity-50"
+      @click="$emit('update:modelValue', false)" 
+    ></div>
+	  
+ <!-- MODAL -->
+    <div
+      class="relative bg-white rounded-lg shadow-lg w-full max-w-md p-4 md:p-6 z-10"
+    >     
+		<!-- Header -->
       <div class="flex items-center justify-between mb-4">
         <h3 class="text-lg font-semibold text-gray-900 ">{{ title }}</h3>
         <button

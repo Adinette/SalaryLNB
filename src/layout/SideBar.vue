@@ -106,7 +106,7 @@ const toggleCollapse = () => {
          :class="isSidebarCollapsed ? 'sm:ml-20' : 'sm:ml-64'">
       
       <!-- Topbar -->
-      <nav class="w-full h-16 bg-white border-b border-gray-400 flex items-center justify-between p-4">
+      <nav class="w-full h-16 bg-white border-b border-gray-200 flex items-center justify-between p-4">
         <!-- mobile menu btn -->
         <button
           @click="toggleSidebar"

@@ -119,7 +119,7 @@ const toggleCollapse = () => {
         <div class="flex items-center justify-end gap-2 overflow-hidden">
           <img class="w-10 h-10 rounded-full" src="/icons/profile.svg" alt="" />
                 <span class="font-medium text-gray-900 truncate max-w-[120px] sm:max-w-none">
-Jese Leos</span>
+Rostrand Fauré</span>
         </div>
       </nav>
 

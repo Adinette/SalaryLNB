@@ -6,7 +6,7 @@
   >
 	    <!-- BACKDROP -->
     <div
-      class="fixed inset-0 bg-black bg-opacity-50"
+      class="backdrop fixed inset-0 bg-black bg-opacity-50" 
       @click="$emit('update:modelValue', false)" 
     ></div>
 	  
@@ -63,3 +63,8 @@ defineProps({
 })
 defineEmits(['update:modelValue', 'confirm'])
 </script>
+<style>
+	.backdrop{
+		opacity: 50%;
+	}
+</style>

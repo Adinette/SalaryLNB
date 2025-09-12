@@ -15,7 +15,7 @@
 
     <!-- Tableau -->
     <div class="shadow-md rounded-2xl">
-		<div v-if="!operators.length === 0">
+		<div v-if="!operators">
 					<h4 class="text-lg font-medium text-gray-900 mb-4 lg:mb-0 text-center lg:text-start">Aucun opérateurs ajouté</h4>
 		</div>
       <div class="relative overflow-x-auto md:overflow-hidden shadow-md sm:rounded-lg">

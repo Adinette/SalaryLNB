@@ -12,7 +12,8 @@
     </div>
 
     <!-- Fiche de Paie -->
-    <div class="a4 p-10 bg-white text-black border shadow-lg" v-if="record">
+    <div    class="pdf-document bg-gray-100 min-h-screen print:bg-white print:min-h-0 print:block pt-20" v-if="record">
+	 <div class="pdf-page bg-white mx-auto shadow-lg print:shadow-none">
       <!-- Header Entreprise -->
 			<h4 class="text-3xl text-green-600 font-bold text-center mb-8">Bulletin de salaire</h4>
       <div class="flex justify-between items-center border-b pb-4 mb-6">
@@ -86,9 +87,17 @@
           Salaire Brut : {{ formatFCFA(record.salaireBrut) }}
         </h2>
       </div>
-
+  <!-- Footer de la page -->
+      <div
+        class="pdf-footer text-center text-gray-500 text-sm border-t border-gray-200 pt-4"
+      >
+        <p>
+          Page 1/2 - Fiche générée le
+          {{ formatDateTime(new Date().toISOString()) }}
+        </p>
+      </div>
     </div>
-
+    </div>
     <!-- Bouton Print -->
     <div class="mt-8 text-center">
       <button
@@ -150,8 +159,177 @@ function goBack() {
   min-height: 297mm;
   margin: auto;
 }
+	.pdf-document {
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  padding-top: 5rem;
+}
+
+.pdf-page {
+  width: 210mm; /* Format A4 */
+  min-height: 297mm; /* Hauteur A4 */
+  padding: 20mm;
+  margin: 20px auto;
+  box-sizing: border-box;
+  position: relative;
+}
 @media print {
   body { background: white; }
   .a4 { box-shadow: none; }
+}
+/* Styles pour le document PDF-like */
+.pdf-document {
+  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  padding-top: 5rem;
+}
+
+.pdf-page {
+  width: 210mm; /* Format A4 */
+  min-height: 297mm; /* Hauteur A4 */
+  padding: 20mm;
+  margin: 20px auto;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.pdf-header {
+  margin-bottom: 30px;
+}
+
+.pdf-footer {
+  position: absolute;
+  bottom: 0mm;
+  left: 20mm;
+  right: 20mm;
+}
+.btn-print {
+  right: 3rem;
+}
+
+/* Styles d'impression */
+@media print {
+  /* Masquer TOUT sauf le document PDF */
+  body * {
+    visibility: hidden;
+  }
+
+  /* Afficher uniquement le document PDF et ses enfants */
+  .pdf-document,
+  .pdf-document * {
+    visibility: visible;
+  }
+
+  /* Positionner le document PDF en haut de la page */
+  .pdf-document {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    background: white !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  .pdf-page {
+    width: 100% !important;
+    max-width: none !important;
+    min-height: 100vh !important;
+    margin: 0 !important;
+    padding: 15mm !important;
+    box-shadow: none !important;
+    border: none !important;
+    page-break-after: always;
+  }
+
+  .pdf-page:last-child {
+    page-break-after: avoid;
+  }
+
+  .pdf-footer {
+    position: fixed;
+    bottom: 10mm;
+    left: 15mm;
+    right: 15mm;
+  }
+
+  /* Masquer les éléments non imprimables */
+  .print\\:hidden {
+    display: none !important;
+  }
+
+  /* Forcer les couleurs des badges */
+  .bg-green-100 {
+    background-color: #dcfce7 !important;
+  }
+  .text-green-800 {
+    color: #166534 !important;
+  }
+  .bg-red-100 {
+    background-color: #fee2e2 !important;
+  }
+  .text-red-800 {
+    color: #991b1b !important;
+  }
+  .bg-yellow-100 {
+    background-color: #fef3c7 !important;
+  }
+  .text-yellow-800 {
+    color: #92400e !important;
+  }
+  .bg-blue-50 {
+    background-color: #eff6ff !important;
+  }
+  .text-blue-600 {
+    color: #2563eb !important;
+  }
+  .bg-green-50 {
+    background-color: #f0fdf4 !important;
+  }
+  .text-green-600 {
+    color: #16a34a !important;
+  }
+  .bg-orange-50 {
+    background-color: #fff7ed !important;
+  }
+  .text-orange-600 {
+    color: #ea580c !important;
+  }
+}
+
+/* Styles responsives pour l'écran */
+@media screen and (max-width: 768px) {
+  .pdf-page {
+    width: 100%;
+    margin: 10px;
+    padding: 20px;
+  }
+
+  .grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animation pour le loading */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 2s linear infinite;
 }
 </style>

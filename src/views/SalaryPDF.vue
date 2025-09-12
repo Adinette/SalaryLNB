@@ -87,15 +87,6 @@
           Salaire Brut : {{ formatFCFA(record.salaireBrut) }}
         </h2>
       </div>
-  <!-- Footer de la page -->
-      <div
-        class="pdf-footer text-center text-gray-500 text-sm border-t border-gray-200 pt-4"
-      >
-        <p>
-          Page 1/2 - Fiche générée le
-          {{ formatDateTime(new Date().toISOString()) }}
-        </p>
-      </div>
     </div>
     </div>
     <!-- Bouton Print -->

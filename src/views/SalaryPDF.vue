@@ -99,7 +99,7 @@
     </div>
     </div>
     <!-- Bouton Print -->
-    <div class="mt-8 text-center">
+    <div class="mt-8 text-center btn-print">
       <button
         @click="handlePrint"
         class="px-6 py-2 text-white bg-green-600 rounded shadow hover:bg-green-700"
@@ -154,11 +154,11 @@ function goBack() {
 </script>
 
 <style>
-.a4 {
+/* .a4 {
   width: 210mm;
   min-height: 297mm;
   margin: auto;
-}
+} */
 	.pdf-document {
   font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
@@ -173,10 +173,7 @@ function goBack() {
   box-sizing: border-box;
   position: relative;
 }
-@media print {
-  body { background: white; }
-  .a4 { box-shadow: none; }
-}
+
 /* Styles pour le document PDF-like */
 .pdf-document {
   font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -223,12 +220,13 @@ function goBack() {
   /* Positionner le document PDF en haut de la page */
   .pdf-document {
     position: absolute;
-    left: 0;
     top: 0;
-    width: 100% !important;
-    background: white !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    left: 0;
+    width: 210mm;   /* format A4 */
+    min-height: 297mm;
+    margin: 0;
+    padding: 20mm;
+    background: white;
   }
 
   * {
@@ -262,45 +260,10 @@ function goBack() {
   .print\\:hidden {
     display: none !important;
   }
-
-  /* Forcer les couleurs des badges */
-  .bg-green-100 {
-    background-color: #dcfce7 !important;
+	  /* Masquer le bouton print */
+  .btn-print {
+    display: none !important;
   }
-  .text-green-800 {
-    color: #166534 !important;
-  }
-  .bg-red-100 {
-    background-color: #fee2e2 !important;
-  }
-  .text-red-800 {
-    color: #991b1b !important;
-  }
-  .bg-yellow-100 {
-    background-color: #fef3c7 !important;
-  }
-  .text-yellow-800 {
-    color: #92400e !important;
-  }
-  .bg-blue-50 {
-    background-color: #eff6ff !important;
-  }
-  .text-blue-600 {
-    color: #2563eb !important;
-  }
-  .bg-green-50 {
-    background-color: #f0fdf4 !important;
-  }
-  .text-green-600 {
-    color: #16a34a !important;
-  }
-  .bg-orange-50 {
-    background-color: #fff7ed !important;
-  }
-  .text-orange-600 {
-    color: #ea580c !important;
-  }
-}
 
 /* Styles responsives pour l'écran */
 @media screen and (max-width: 768px) {

@@ -35,22 +35,22 @@ export interface Operator {
 export const useOperatorsStore = defineStore('operators', () => {
   // --- STATE ---
   const operators = ref<Operator[]>([
-    {
-      id: "1",
-      last_name: 'Dupont',
-      first_name: 'Jean',
-      tel: '0612345678',
-      machineId: 'MACHINE-001',
-      salaryHistory: [],
-    },
-    {
-      id: "2",
-      last_name: 'Curie',
-      first_name: 'Marie',
-      tel: '0687654321',
-      machineId: 'MACHINE-002',
-      salaryHistory: [],
-    },
+    // {
+    //   id: "1",
+    //   last_name: 'Dupont',
+    //   first_name: 'Jean',
+    //   tel: '0612345678',
+    //   machineId: 'MACHINE-001',
+    //   salaryHistory: [],
+    // },
+    // {
+    //   id: "2",
+    //   last_name: 'Curie',
+    //   first_name: 'Marie',
+    //   tel: '0687654321',
+    //   machineId: 'MACHINE-002',
+    //   salaryHistory: [],
+    // },
   ]);
 
   // --- ACTIONS ---

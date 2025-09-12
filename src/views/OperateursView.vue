@@ -448,7 +448,6 @@ const finalRecord: SalaryCalculation = {
    date: selectedDate.value, // 🟢 On prend la date choisie dans l'input
   }
 
-  console.log('Record enregistré :', finalRecord)
 
   operatorsStore.addSalaryRecord(currentOperator.value.id, finalRecord)
   salaryConfirmDialog.value = false
@@ -459,6 +458,10 @@ const finalRecord: SalaryCalculation = {
     router.push({ name: 'operateur-details', params: { id: operatorId } })
   }
 }
+	onMounted(async () => {
+		  console.log('operateur enregistré :', operators)
+
+	})
 </script>
 
 

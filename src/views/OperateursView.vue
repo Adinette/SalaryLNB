@@ -12,7 +12,6 @@
       </button>
     </div>
 	 </div> 
-
     <!-- Tableau -->
     <div class="shadow-md rounded-2xl">
 		<div v-if="!operators">

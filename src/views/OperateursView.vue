@@ -458,10 +458,7 @@ const finalRecord: SalaryCalculation = {
     router.push({ name: 'operateur-details', params: { id: operatorId } })
   }
 }
-	onMounted(async () => {
-		  console.log('operateur enregistré :', operators)
 
-	})
 </script>
 
 

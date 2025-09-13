@@ -12,42 +12,47 @@
       </button>
     </div>
 	 </div> 
-    <!-- Tableau -->
-    <div class="shadow-md rounded-2xl">
-		<div v-if="!operators">
-					<h4 class="text-lg font-medium text-gray-900 mb-4 lg:mb-0 text-center lg:text-start">Aucun opérateurs ajouté</h4>
-		</div>
-      <div class="relative overflow-x-auto md:overflow-hidden shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-          <thead class="text-base bg-green-600 text-white uppercase">
-            <tr>
-              <th
-                v-for="header in headers"
-                :key="header.key"
-                scope="col"
-                class="px-6 py-3"
-              >
-                {{ header.title }}
-              </th>
-              <th scope="col" class="px-6 py-3">Actions</th>
-            </tr>
-          </thead>
+<!-- Tableau -->
+<div class="shadow-md rounded-2xl">
+  <!-- Si aucun opérateur -->
+  <div v-if="operators.length === 0" class="p-6">
+    <h4 class="text-lg font-medium text-gray-900 mb-4 text-center">
+      Aucun opérateur ajouté
+    </h4>
+  </div>
 
-          <tbody>
-            <tr
-              v-for="item in operators"
-              :key="item.id"
-              class="bg-white border-b border-gray-200 hover:bg-gray-50 text-base font-semibold"
-            >
-              <td
-                v-for="header in headers"
-                :key="header.key"
-                class="px-6 py-4"
-              >
-                {{ getOperatorValue(item, header.key) }}
-              </td>
+  <!-- Sinon on affiche le tableau -->
+  <div v-else class="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+      <thead class="text-base bg-green-600 text-white uppercase">
+        <tr>
+          <th
+            v-for="header in headers"
+            :key="header.key"
+            scope="col"
+            class="px-6 py-3"
+          >
+            {{ header.title }}
+          </th>
+          <th scope="col" class="px-6 py-3">Actions</th>
+        </tr>
+      </thead>
 
-              <td class="px-6 py-4 flex space-x-2">
+      <tbody>
+        <tr
+          v-for="item in operators"
+          :key="item.id"
+          class="bg-white border-b border-gray-200 hover:bg-gray-50 text-base font-semibold"
+        >
+          <td
+            v-for="header in headers"
+            :key="header.key"
+            class="px-6 py-4"
+          >
+            {{ getOperatorValue(item, header.key) }}
+          </td>
+
+           <td class="px-6 py-4 flex space-x-2">
                 <!-- Détails -->
 
 							<button data-tooltip-target="tooltip-default" type="button" @click="viewItemDetails(item)" class="w-5 h-5 text-white font-medium rounded-lg text-sm text-center">
@@ -90,11 +95,12 @@
 								</div>
 															
               </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
 
    <!-- Add/Edit Dialog -->
   <BaseModal v-model="editDialog" :title="formTitle" @confirm="saveItem">
@@ -332,6 +338,9 @@ const router = useRouter()
 const operatorsStore = useOperatorsStore()
 const { operators } = storeToRefs(operatorsStore)
 const { calculate } = useSalaryCalculator()
+
+console.log(operators.value);
+
 
 function getOperatorValue(item: Operator, key: string) {
   if ( key === 'last_name' || key === 'first_name' || key === 'tel' || key === 'machineId') {

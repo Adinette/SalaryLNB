@@ -28,12 +28,11 @@ const toggleCollapse = () => {
     >
       <!-- Header -->
       <div class="flex items-center justify-between p-4">
-        <span
-          v-if="!isSidebarCollapsed"
-          class="text-xl font-semibold text-green-900"
-        >
-          TEA
-        </span>
+       
+					<div v-if="!isSidebarCollapsed">
+					<h2 class="text-2xl font-extrabold text-green-700 font-[Quicksand, sans-serif]">TEA</h2>
+					<p class="text-xs font-extrabold text-green-700 font-[Quicksand, sans-serif]">Services</p>
+				</div>
 
         <button
           @click="toggleCollapse"

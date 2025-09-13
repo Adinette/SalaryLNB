@@ -50,11 +50,11 @@
 				<!-- Actions -->
 				<div class="flex mt-6 space-x-2">
 					<button
-						class="px-4 py-2 text-sm font-medium text-white bg-blue-700 rounded-xl hover:bg-blue-800">
+						class="px-4 py-2 text-base font-medium text-white bg-blue-700 rounded-xl hover:bg-blue-800">
 						Modifier
 					</button>
 					<button
-						class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-300 rounded-xl 
+						class="px-4 py-2 text-base font-medium text-gray-900 bg-white border border-gray-300 rounded-xl 
 									hover:bg-gray-100 hover:text-blue-700 focus:outline-none focus:ring-4 focus:ring-gray-100">
 						Supprimer
 					</button>
@@ -105,23 +105,22 @@
 									<h6 class="text-base font-medium text-gray-900">Date de calcul : {{ extractMonthAndYear(record.date).month }} {{ extractMonthAndYear(record.date).year }}</h6>
 								</div>
 
-							<div>
-								<!-- Salaire net -->
-								<div class="inline-flex items-center text-base font-semibold text-green-600 dark:text-green-400">
-									<span class="bg-green-600 text-white text-xs font-medium me-2 px-2.5 py-0.5 rounded-full">{{ formatFCFA(record.salaireBrut) }}</span>
-								</div>
 							</div>
+							<div class="mt-4 flex items-center justify-between">
+								<!-- Salaire net -->
+							<div class=" ms-12 inline-flex items-center text-base font-semibold text-green-600 dark:text-green-400">
+								<span class="bg-green-600 text-white text-xl font-medium me-2 px-4 py-2 rounded-full">{{ formatFCFA(record.salaireBrut) }}</span>
 							</div>
 								<!-- Bouton d'exportation -->
-								<!-- Actions -->
 								<div class="ml-4 flex items-center justify-end">
 									<button
 										@click="exportPDF(record)"
-										class="px-3 py-1 text-xs font-medium text-white bg-blue-700 rounded-xl hover:bg-blue-800"
+										class="px-4 py-2 text-base font-medium text-white bg-blue-700 rounded-xl hover:bg-blue-800"
 									>
 										Exporter PDF
 									</button>
 								</div>
+							</div>
 						</li>
 					</ul>
 				</div>

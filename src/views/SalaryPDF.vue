@@ -1,5 +1,5 @@
 <template>
-  <div>
+     <div class="items-center mb-4">
     <!-- Retour -->
     <div class="flex justify-end items-center mb-4" v-if="record">
       <button
@@ -12,68 +12,79 @@
     </div>
 
     <!-- Fiche de Paie -->
-    <div    class="pdf-document bg-gray-100 min-h-screen print:bg-white print:min-h-0 print:block pt-20" v-if="record">
+    <div class="pdf-document bg-gray-100 min-h-screen print:bg-white print:min-h-0 print:block " v-if="record">
 	 <div class="pdf-page bg-white mx-auto shadow-lg print:shadow-none">
       <!-- Header Entreprise -->
-			<h4 class="text-3xl text-green-600 font-bold text-center mb-8">Bulletin de salaire</h4>
-      <div class="flex justify-between items-center border-b pb-4 mb-6">
-          <h2 class="text-2xl font-extrabold text-green-700">TEA Services</h2>
-        <div class="text-right text-base text-gray-900">
+			<h4 class="text-3xl text-green-700 font-bold text-center mb-8">Bulletin de salaire</h4>
+   <div class=" border-b pb-4 mb-6">
+		   <div class="flex justify-between mb-2">
+				<div>
+					<h2 class="text-2xl font-extrabold text-green-700 font-[Quicksand, sans-serif]">TEA</h2>
+					<p class="text-xs font-extrabold text-green-700 font-[Quicksand, sans-serif]">Services</p>
+				</div>
+        <div class="text-right text-xl font-bold text-gray-950">
           <p>Date d’émission : {{ formatDate(new Date().toISOString()) }}</p>
+					          <p><span class="text-lg font-bold">Salaire du mois :</span> <span class="text-base font-bold">{{ extractMonthAndYear(record.date).month }} {{ extractMonthAndYear(record.date).year }}</span> </p>
+
         </div>
       </div>
+			<div>
+						<h2 class="text-lg font-bold text-gray-950">IFU : <span class="text-base font-medium text-gray-950">0202112432071</span></h2>
+												<h2 class="text-lg font-bold text-gray-950">RCCM : <span class="text-base font-medium text-gray-950">COTONOU N° RB/ABC/24 A 116906</span></h2>
+					</div>
+	 </div>
 
       <!-- Infos Employé -->
       <div class="mb-6">
-        <h2 class="text-2xl font-bold text-gray-900 mb-2">Informations de l’opérateur</h2>
-        <div class="grid grid-cols-2 gap-4 text-sm">
-          <p><span class="font-semibold">Nom :</span> {{ record.operatorName }}</p>
-          <p><span class="font-semibold">Mois :</span> {{ extractMonthAndYear(record.date).month }} {{ extractMonthAndYear(record.date).year }}</p>
+        <h2 class="text-2xl font-bold text-green-700 mb-2 text-center">Informations de l’opérateur</h2>
+        <div class="">
+          <p><span class="text-lg font-bold">Nom :</span> <span class="text-base font-medium">{{ record.operatorName }}</span></p>
+					<p><span class="text-lg font-bold">Téléphone :</span> <span class="text-base font-medium">{{ operator?.tel }}</span> </p>
         </div>
       </div>
 
       <!-- Tableau de rémunération -->
       <div>
-        <h2 class="text-2xl font-bold text-gray-900 mb-3">Détails du calcul</h2>
-        <table class="w-full border-collapse text-sm">
+        <h2 class="text-2xl font-bold text-green-700 mb-3 text-center">Détails du calcul</h2>
+        <table class="w-full border-collapse text-lg text-gray-900 font-bold">
           <tbody>
             <tr class="border-b">
-              <td class="pb-4 font-medium">Chiffre d’affaire TTC</td>
+              <td class="pb-4 font-bold">Chiffre d’affaire TTC</td>
               <td class="pb-4 text-right">{{ formatFCFA(record.chiffreAffaireMensuelttc) }}</td>
             </tr>
             <tr class="border-b">
-              <td class="py-4 font-medium">Chiffre d’affaire HT</td>
+              <td class="py-4 font-bold">Chiffre d’affaire HT</td>
               <td class="py-4 text-right">{{ formatFCFA(record.chiffreAffaireHorsTaxe) }}</td>
             </tr>
             <tr class="border-b">
-              <td class="py-4 font-medium">Commission brute ({{ record.percentCommissionBrute }}%)</td>
+              <td class="py-4 font-bold">Commission brute ({{ record.percentCommissionBrute }}%)</td>
               <td class="py-4 text-right">{{ formatFCFA(record.commissionBrute) }}</td>
             </tr>
             <tr v-if="record.aib" class="border-b">
-              <td class="py-4 font-medium">AIB</td>
+              <td class="py-4 font-bold">AIB</td>
               <td class="py-4 text-right">{{ formatFCFA(record.aib) }}</td>
             </tr>
             <tr v-if="record.dette" class="border-b">
-              <td class="py-4 font-medium">Dette</td>
+              <td class="py-4 font-bold">Dette</td>
               <td class="py-4 text-right">{{ formatFCFA(record.dette) }}</td>
             </tr>
             <tr v-if="record.penalite" class="border-b">
-              <td class="py-4 font-medium">Pénalité</td>
+              <td class="py-4 font-bold">Pénalité</td>
               <td class="py-4 text-right">{{ formatFCFA(record.penalite) }}</td>
             </tr>
             <tr v-if="record.remboursement" class="border-b">
-              <td class="py-4 font-medium">Remboursement</td>
+              <td class="py-4 font-bold">Remboursement</td>
               <td class="py-4 text-right">{{ formatFCFA(record.remboursement) }}</td>
             </tr>
             <tr v-if="record.ecart" class="border-b">
-              <td class="py-4 font-medium">Écart</td>
+              <td class="py-4 font-bold">Écart</td>
               <td class="py-4 text-right">{{ formatFCFA(record.ecart) }}</td>
             </tr>
             <tr v-if="record.calculatedFraisMomo" class="border-b">
-              <td class="py-4 font-medium">Frais MoMo</td>
+              <td class="py-4 font-bold">Frais MoMo</td>
               <td class="py-4 text-right">{{ formatFCFA(record.calculatedFraisMomo) }}</td>
             </tr>
-            <tr class="border-t-2 border-gray-700 font-semibold">
+            <tr class="border-t-2 border-gray-700 font-bold">
               <td class="py-4">Total des prélèvements</td>
               <td class="py-4 text-right">{{ formatFCFA(record.totalPrelevements) }}</td>
             </tr>
@@ -83,8 +94,8 @@
 
       <!-- Salaire Net -->
       <div class="mt-8 text-right">
-        <h2 class="text-2xl font-extrabold text-green-600">
-          Salaire Brut : {{ formatFCFA(record.salaireBrut) }}
+        <h2 class="text-2xl font-extrabold text-green-700">
+          Salaire : {{ formatFCFA(record.salaireBrut) }}
         </h2>
       </div>
     </div>
@@ -120,6 +131,8 @@ const operator = operatorsStore.operators.find(o => o.id === operatorId);
 const record = computed(() =>
   operator?.salaryHistory.find(r => r.date === date)
 );
+console.log(operator);
+
 
 const currencyFormatter = new Intl.NumberFormat('fr-FR', {
   style: 'currency',
@@ -145,17 +158,6 @@ function goBack() {
 </script>
 
 <style>
-/* .a4 {
-  width: 210mm;
-  min-height: 297mm;
-  margin: auto;
-} */
-	.pdf-document {
-  font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  line-height: 1.6;
-  padding-top: 5rem;
-}
-
 .pdf-page {
   width: 210mm; /* Format A4 */
   min-height: 297mm; /* Hauteur A4 */
@@ -169,7 +171,6 @@ function goBack() {
 .pdf-document {
   font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   line-height: 1.6;
-  padding-top: 5rem;
 }
 
 .pdf-page {
@@ -255,6 +256,7 @@ function goBack() {
   .btn-print {
     display: none !important;
   }
+}
 
 /* Styles responsives pour l'écran */
 @media screen and (max-width: 768px) {

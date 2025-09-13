@@ -6,6 +6,7 @@ import { ref } from 'vue'
 // This interface now includes each specific deduction for historical accuracy.
 export interface SalaryCalculation {
   operatorName?: string; // Optional: To store the name at the time of calculation
+    tel?: string;
   chiffreAffaireMensuelttc: number;
   chiffreAffaireHorsTaxe: number;
   commissionBrute:number

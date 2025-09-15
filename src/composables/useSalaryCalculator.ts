@@ -6,6 +6,7 @@ export interface SalaryInput {
   percentFraisMomo: number;
   payement: number;
   remboursement?: number;
+  dette?: number;
   ecart?: number;
   date: string;
 }
@@ -19,6 +20,7 @@ export function useSalaryCalculator() {
       percentCommissionBrute,
       remboursement,
       ecart,
+      dette,
       percentFraisMomo,
       payement,
       date,
@@ -32,7 +34,9 @@ export function useSalaryCalculator() {
     const penalite = ecart! * 0.15;
      // const debours = chiffreAffaireMensuelttc * 0.10;
     const calculatedFraisMomo = payement * percentFraisMomo / 100
-    const autresPrelevements = (penalite || 0) + (remboursement || 0) + (ecart || 0) + (calculatedFraisMomo || 0);
+    const autresPrelevements = (penalite || 0) + (remboursement || 0) + (dette || 0) + (ecart || 0) + (calculatedFraisMomo || 0);
+    console.log("autrePrelevement", penalite, dette, remboursement, ecart, autresPrelevements);
+    
     const totalPrelevements = FEL + AIB + autresPrelevements;
 
     const salaireBrut = commissionBrute - totalPrelevements;
@@ -46,13 +50,13 @@ export function useSalaryCalculator() {
       penalite: (penalite || 0),
        calculatedFraisMomo: (calculatedFraisMomo || 0),
       remboursement: (remboursement || 0),
+       dette: (dette || 0),
       ecart: (ecart || 0),
       // debours: (debours || 0),
       totalPrelevements,
       salaireBrut,
       percentCommissionBrute,
       date,
-      dette: 0, // or calculate the correct value for 'dette' if needed
     };
   };
 

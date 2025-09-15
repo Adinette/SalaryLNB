@@ -112,7 +112,13 @@
 								<span class="bg-green-600 text-white text-xl font-medium me-2 px-4 py-2 rounded-full">{{ formatFCFA(record.salaireBrut) }}</span>
 							</div>
 								<!-- Bouton d'exportation -->
+								 
 								<div class="flex md:flex items-center md:justify-end justify-center mt-3 md:mt-0">
+										<button
+										class="px-4 py-2 text-base font-medium text-white bg-blue-700 rounded-xl hover:bg-blue-800 mr-4"
+									>
+										Modifier
+									</button>
 									<button
 										@click="exportPDF(record)"
 										class="px-4 py-2 text-base font-medium text-white bg-blue-700 rounded-xl hover:bg-blue-800"
@@ -125,6 +131,10 @@
 					</ul>
 				</div>
 			</div>
+
+
+			
+
 	</div>
 </div>
 </div>

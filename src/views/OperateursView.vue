@@ -252,6 +252,17 @@
       />
     </div>
 
+		 <div>
+      <label class="block mb-1 text-sm font-medium">Dette</label>
+      <input
+        v-model.number="salaryInput.dette"
+        type="number"
+        placeholder="Dette"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg 
+               block w-full p-2.5 "
+      />
+    </div>
+
     <div>
       <label class="block mb-1 text-sm font-medium">Écart</label>
       <input

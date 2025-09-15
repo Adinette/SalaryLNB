@@ -16,23 +16,23 @@
 	 <div class="pdf-page bg-white mx-auto shadow-lg print:shadow-none">
       <!-- Header Entreprise -->
 			<h4 class="text-3xl text-green-700 font-bold text-center mb-8">Bulletin de salaire</h4>
-   <div class=" border-b pb-4 mb-6">
-		   <div class="flex justify-between mb-2">
-				<div>
-					<h2 class="text-2xl font-extrabold text-green-700 font-[Quicksand, sans-serif]">TEA</h2>
-					<p class="text-xs font-extrabold text-green-700 font-[Quicksand, sans-serif]">Services</p>
-				</div>
-        <div class="text-right text-xl font-bold text-gray-950">
-          <p>Date d’émission : {{ formatDate(new Date().toISOString()) }}</p>
-					          <p><span class="text-lg font-bold">Salaire du mois :</span> <span class="text-base font-bold">{{ extractMonthAndYear(record.date).month }} {{ extractMonthAndYear(record.date).year }}</span> </p>
-
-        </div>
-      </div>
-			<div>
-						<h2 class="text-lg font-bold text-gray-950">IFU : <span class="text-base font-medium text-gray-950">0202112432071</span></h2>
-												<h2 class="text-lg font-bold text-gray-950">RCCM : <span class="text-base font-medium text-gray-950">COTONOU N° RB/ABC/24 A 116906</span></h2>
+		<div class=" border-b pb-4 mb-6">
+				<div class="flex justify-between mb-2">
+					<div>
+						<h2 class="text-2xl font-extrabold text-green-700 font-[Quicksand, sans-serif]">TEA</h2>
+						<p class="text-xs font-extrabold text-green-700 font-[Quicksand, sans-serif]">Services</p>
 					</div>
-	 </div>
+					<div class="text-right text-xl font-bold text-gray-950">
+						<p>Date d’émission : {{ formatDate(new Date().toISOString()) }}</p>
+						<p><span class="text-lg font-bold">Salaire du mois :</span> <span class="text-base font-bold">{{ extractMonthAndYear(record.date).month }} {{ extractMonthAndYear(record.date).year }}</span> </p>
+
+					</div>
+				</div>
+				<div>
+					<h2 class="text-lg font-bold text-gray-950">IFU : <span class="text-base font-medium text-gray-950">0202112432071</span></h2>
+					<h2 class="text-lg font-bold text-gray-950">RCCM : <span class="text-base font-medium text-gray-950">COTONOU N° RB/ABC/24 A 116906</span></h2>
+				</div>
+		</div>
 
       <!-- Infos Employé -->
       <div class="mb-6">
@@ -131,8 +131,6 @@ const operator = operatorsStore.operators.find(o => o.id === operatorId);
 const record = computed(() =>
   operator?.salaryHistory.find(r => r.date === date)
 );
-console.log(operator);
-
 
 const currencyFormatter = new Intl.NumberFormat('fr-FR', {
   style: 'currency',
@@ -234,11 +232,15 @@ function goBack() {
     padding: 15mm !important;
     box-shadow: none !important;
     border: none !important;
-    page-break-after: always;
+		    page-break-after: avoid !important;
+    page-break-before: avoid !important;
+    page-break-inside: avoid !important;
+    /* ❌ on supprime le page-break-after: always */
   }
 
+  /* On laisse le navigateur gérer les sauts */
   .pdf-page:last-child {
-    page-break-after: avoid;
+    page-break-after: auto;
   }
 
   .pdf-footer {
@@ -252,10 +254,17 @@ function goBack() {
   .print\\:hidden {
     display: none !important;
   }
-	  /* Masquer le bouton print */
+
+  /* Masquer le bouton print */
   .btn-print {
     display: none !important;
   }
+  /* Forcer une seule page si le contenu tient dedans */
+  html, body {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
 }
 
 /* Styles responsives pour l'écran */

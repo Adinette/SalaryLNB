@@ -1,0 +1,17 @@
+{
+	"validators": {
+		"required": "This field is required",
+		"email": "This field must be a valid email address",
+		"password": "Password must contain at least one uppercase, one lowercase, one special character and one digit and be at least 12 characters long",
+		"confirmed": "Confirmation does not match",
+		"between": "Enter a number between {{min}} and {{max}}",
+		"integer": "This field must be an integer",
+		"regex": "Invalid format",
+		"alpha": "This field must contain only alphabetic characters",
+		"url": "Invalid URL",
+		"length": "This field must be exactly {{length}} characters",
+		"alphaDash": "This field may only contain alphanumeric characters, dashes and underscores",
+		"importExcelFile": "File must be an Excel file (.xlsx or .xls) and not exceed 2 MB",
+		"phone": "Invalid phone number. Format: 229 01 23 45 67 89"
+	}
+}

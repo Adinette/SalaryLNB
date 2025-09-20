@@ -1,37 +1,24 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router/auto";
+import { routes as generatedRoutes } from "vue-router/auto-routes";
+import { setupLayouts } from "virtual:generated-layouts";
+import { authGuard } from "./middlewares/auth_guard";
+import { permissionGuard } from "./middlewares/permission_guard";
+
+const routes = setupLayouts(generatedRoutes);
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'dashboard',
-      // For now, let's point it to the operators view as the main page
-      component: () => import('../views/OperateursView.vue'),
-    },
-    {
-      path: '/operateurs',
-      name: 'operateurs',
-      component: () => import('../views/OperateursView.vue'),
-    },
-    {
-      path: '/operateur/:id',
-      name: 'operateur-details',
-      component: () => import('../views/OperatorDetailView.vue'),
-      props: true,
-    },
-    {
-      path: '/operateurs/:id/salaire/:date/pdf',
-      name: 'salaire-pdf',
-      component: () => import('../views/SalaryPDF.vue')
-    },
-    {
-      path: '/machines',
-      name: 'machines',
-      // Placeholder component
-      component: () => import('../views/MachinesView.vue'),
-    },
-  ],
-})
+	history: createWebHistory(import.meta.env.BASE_URL),
+	scrollBehavior(to) {
+		if (to.hash) return { el: to.hash, behavior: "smooth", top: 60 };
 
-export default router
+		return { top: 0 };
+	},
+	routes,
+});
+
+router.beforeEach(authGuard);
+router.beforeEach(permissionGuard);
+
+export { router };
+
+export default router;

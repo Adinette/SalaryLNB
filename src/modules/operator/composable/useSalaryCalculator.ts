@@ -1,4 +1,4 @@
-import type { SalaryCalculation } from '../stores/operators';
+import type { SalaryCalculation } from '../../../stores copy/operators';
 
 export interface SalaryInput {
   chiffreAffaireMensuelttc: number;

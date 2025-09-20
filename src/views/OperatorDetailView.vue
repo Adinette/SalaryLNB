@@ -141,7 +141,7 @@
 </template>
 
 <script setup lang="ts">
-import { useOperatorsStore, type Operator } from '../stores/operators';
+import { useOperatorsStore, type Operator } from '../stores copy/operators';
 import { useRoute, useRouter } from 'vue-router';
 import { computed } from 'vue';
 import { extractMonthAndYear } from '../utils/formatDate'

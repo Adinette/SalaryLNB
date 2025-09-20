@@ -331,8 +331,8 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { useOperatorsStore, type Operator, type SalaryCalculation } from '../stores/operators'
-import { useSalaryCalculator, type SalaryInput } from '../composables/useSalaryCalculator'
+import { useOperatorsStore, type Operator, type SalaryCalculation } from '../stores copy/operators'
+import { useSalaryCalculator, type SalaryInput } from '../modules/operator/composable/useSalaryCalculator'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import BaseModal from '../components/BaseModal.vue'

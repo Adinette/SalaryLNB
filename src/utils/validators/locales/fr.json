@@ -1,0 +1,15 @@
+{
+	"required": "Ce champ est requis",
+	"email": "Le champ doit contenir une adresse email valide",
+	"password": "Le mot de passe doit contenir au moins une majuscule, une minuscule, un caractère spécial et un chiffre d'au moins 12 caractères",
+	"confirmed": "Le champ de confirmation du mot de passe ne correspond pas",
+	"between": "Entrer un nombre entre {{min}} et {{max}}",
+	"integer": "Le champ doit être un nombre entier",
+	"regex": "Le format de champ est invalide",
+	"alpha": "Le champ ne peut contenir que des caractères alphabétiques",
+	"url": "Le lien est invalide",
+	"length": "Le champ doit contenir exactement {{length}} caractères",
+	"alphaDash": "Le champ ne peut contenir que des caractères alphanumériques, des tirets et des underscores",
+	"importExcelFile": "Le fichier doit être un fichier Excel (.xlsx ou .xls) et ne pas dépasser 2 MB",
+	"phone": "Le champ téléphone n'est pas valide. Format : 229 01 23 45 67 89"
+}

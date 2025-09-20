@@ -114,7 +114,7 @@
 
 
 <script setup lang="ts">
-import { useOperatorsStore } from '../stores/operators';
+import { useOperatorsStore } from '../stores copy/operators';
 import { useRoute, useRouter } from 'vue-router';
 import { computed } from 'vue';
 import { extractMonthAndYear } from '../utils/formatDate'

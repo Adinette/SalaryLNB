@@ -1,4 +1,5 @@
-import { GenericStoreService } from "@/services/generic_store_service";
+import type { GenericStoreService } from "../../services/generic_store_service";
+import { appLogger } from "../../utils/logger";
 
 export function createBaseStoreActions<T>(service: GenericStoreService<T>) {
 	return {

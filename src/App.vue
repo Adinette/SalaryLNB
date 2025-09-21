@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import Sidebar from './layout/SideBar.vue'
 </script>
 
 <template>
-
-  <Sidebar/>
+	<RouterView />
 </template>
 
 <style scoped>

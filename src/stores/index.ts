@@ -1,1 +1,1 @@
-export { useInitializedGlobalStore, type GlobalStore } from "@/stores/global";
+export { useInitializedGlobalStore, type GlobalStore } from "../stores/global";

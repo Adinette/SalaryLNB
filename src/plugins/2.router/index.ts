@@ -1,5 +1,13 @@
-import type { App } from "vue";
+import type { App } from 'vue'
 
-export default function (app: App) {
-	app.use(router);
+// Plugins
+import { createPinia } from 'pinia'
+import router from '../../router'
+
+export function registerPlugins(app: App) {
+  app.use(createPinia())
+  app.use(router)
+  // app.use(vuetify)
+  // app.use(i18n)
+  // app.use(Toast)
 }

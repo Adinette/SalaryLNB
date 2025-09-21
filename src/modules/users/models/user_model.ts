@@ -1,6 +1,5 @@
-import { AppRole, AppRoles } from "@/modules/roles/enums/role_enum";
-import { UserInterface } from "../interfaces";
-import { EmployeeModel } from "@/modules/employees/models/employee_model";
+import { ApiResourceModel } from "../../../models/ApiResourceModel";
+import type { UserInterface } from "../interfaces";
 
 export class UserModel extends ApiResourceModel implements UserInterface {
   first_name: UserInterface["first_name"];
@@ -8,7 +7,6 @@ export class UserModel extends ApiResourceModel implements UserInterface {
   email: UserInterface["email"];
   phone: UserInterface["phone"];
   is_active: UserInterface["is_active"];
-  permanent_function: UserInterface["permanent_function"];
 
   constructor(data: UserInterface) {
     super(data);
@@ -17,7 +15,6 @@ export class UserModel extends ApiResourceModel implements UserInterface {
     this.email = data.email;
     this.phone = data.phone;
     this.is_active = data.is_active;
-    this.permanent_function = data.permanent_function;
   }
 
   get interface(): UserInterface {
@@ -28,7 +25,6 @@ export class UserModel extends ApiResourceModel implements UserInterface {
       email: this.email,
       phone: this.phone,
       is_active: this.is_active,
-      permanent_function: this.permanent_function,
     };
   }
 
@@ -40,20 +36,4 @@ export class UserModel extends ApiResourceModel implements UserInterface {
     return `${this.first_name} ${this.last_name}`;
   }
 
-  get role() {
-    switch (this.permanent_function?.position.role) {
-      case AppRole.MANAGER:
-        return AppRoles.Manager;
-      case AppRole.EMPLOYEE:
-        return AppRoles.Employee;
-      case AppRole.ADMIN:
-        return AppRoles.Admin;
-      case AppRole.DEVELOPER:
-        return AppRoles.Developer;
-      case AppRole.SUPERADMIN:
-        return AppRoles.SuperAdmin;
-      default:
-        return AppRoles.Manager;
-    }
-  }
 }

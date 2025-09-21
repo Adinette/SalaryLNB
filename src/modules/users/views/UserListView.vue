@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import { useSelectableList } from "@/composables/useSelectableList";
+import { useSelectableList } from "../../../composables/useSelectableList";
 import { UserModel } from "../models/user_model";
 import { useUserActions } from "../composables/use_user_actions";
-import { useBootstrapToast } from "@/composables/useBootstrapToast";
+import { useBootstrapToast } from "../../../composables/useBootstrapToast";
 import Table from "@/components/Table.vue";
-import { useTable } from "@/composables/useTable";
+import { useTable } from "../../../composables/useTable";
+import { computed, ref } from "vue";
+import type { ListApiArgsInterface } from "../../../api/interfaces/list_api_args_interface";
+import { toast } from "../../../utils/toast";
+import router from "../../../router";
+import appRoutes from "../../../router/routes";
+
 
 const {
   processing: loading,
@@ -27,9 +33,6 @@ const searchArgs = computed<ListApiArgsInterface>(() => ({
   search: searchQuery.value || undefined,
 }));
 
-const statusArgs = computed<PositionListFilterInterface>(() => ({
-  is_active: isActiveQuery.value !== null ? isActiveQuery.value : undefined,
-}));
 
 const {
   selected,

@@ -6,10 +6,10 @@ import { createLogger } from "../../../utils/logger";
 import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 import { toast } from "../../../utils/toast";
 import { AppUtils } from "../../../utils";
-import router from "../../..";
 import { ApiError, UnprocessableEntityApiError } from "../../../api/errors";
 import { useOperatorActions } from "../composable/use_operator_actions";
 import { faker } from "@faker-js/faker";
+import router from "../../../router";
 
 const logger = createLogger("operatorAddView");
 

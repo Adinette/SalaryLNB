@@ -4,7 +4,8 @@
  * 'to' attribute points to the route name, not the path url
  */
 
-import { AppPermissions } from "@/modules/permissions/enums/permission_enum";
+import { AppPermissions } from "../modules/permissions/enums/permission_enum";
+import appRoutes from "../router/routes";
 
 export default {
   main: [
@@ -15,120 +16,71 @@ export default {
       permissions: [AppPermissions.Dashboard.VIEW_DASHBOARD],
     },
     {
-      name: "Sprint",
+      name: "Suivi et Calcul",
       heading: true,
-      permissions: [AppPermissions.sprints.VIEW_SPRINTS],
     },
     {
-      name: "Suivis",
+      name: "Machine",
       icon: "ri-search-eye-fill",
-      subActivePaths: "/sprint-trackings",
-      permissions: [AppPermissions.sprints.VIEW_SPRINTS],
+      subActivePaths: "/machines",
+      permissions: [AppPermissions.sprints.VIEW_Machines],
       sub: [
         {
           name: "Liste",
           icon: "ri-list-check-2",
-          to: "sprint-trackings",
-          permissions: [AppPermissions.sprints.VIEW_SPRINTS_TRACKING],
+          to: "machines",
+          permissions: [AppPermissions.sprints.VIEW_Machines],
         },
-        {
-          name: "Evaluer",
-          icon: "ri-list-check-3",
-          to: "sprint-trackings-evaluate",
+         {
+          name: "Ajouter",
+          icon: "ri-function-add-fill",
+          to: "machines-add",
           permissions: [
-            AppPermissions.sprints.VIEW_SPRINTS_TRACKING,
-            AppPermissions.sprints.EVALUATE_SPRINTS_TRACKING,
+            AppPermissions.sprints.ADD_Machines,
+            AppPermissions.sprints.ADD_Machines,
           ],
         },
         {
           name: "Exportation",
           icon: "ri-export-fill",
-          to: "sprint-trackings-exportation",
+          to: "machines-exportation",
           permissions: [
-            AppPermissions.sprints.VIEW_SPRINTS_TRACKING,
-            AppPermissions.sprints.EXPORT_SPRINTS_TRACKING,
+            AppPermissions.sprints.VIEW_Machines,
+            AppPermissions.sprints.EXPORT_Machines,
           ],
         },
       ],
     },
     {
-      name: "Objectifs",
+      name: "Operators",
       icon: "ri-file-user-fill",
-      subActivePaths: "/sprint-objectives",
-      permissions: [AppPermissions.sprints.VIEW_SPRINTS_OBJECTIVES],
+      subActivePaths: "/operators",
+      permissions: [AppPermissions.sprints.VIEW_Operators],
       sub: [
         {
           name: "Liste",
           icon: "ri-list-check-2",
-          to: "sprint-objectives",
-          permissions: [AppPermissions.sprints.VIEW_SPRINTS_OBJECTIVES],
+          to: "operators",
+          permissions: [AppPermissions.sprints.VIEW_Machines],
         },
         {
           name: "Ajouter",
           icon: "ri-function-add-fill",
-          to: "sprint-objectives-add",
+          to: "operators-add",
           permissions: [
-            AppPermissions.sprints.VIEW_SPRINTS_OBJECTIVES,
-            AppPermissions.sprints.ADD_SPRINTS_OBJECTIVES,
+            AppPermissions.sprints.ADD_Operators,
+            AppPermissions.sprints.ADD_Operators,
           ],
         },
         {
           name: "Exportation",
           icon: "ri-export-fill",
-          to: "sprint-objectives-exportation",
+          to: "operators-exportation",
           permissions: [
-            AppPermissions.sprints.VIEW_SPRINTS_OBJECTIVES,
-            AppPermissions.sprints.EXPORT_SPRINTS_OBJECTIVES,
+            AppPermissions.sprints.VIEW_Machines,
+            AppPermissions.sprints.EXPORT_Operators,
           ],
         },
-      ],
-    },
-    {
-      name: "Evaluations",
-      icon: "ri-shake-hands-fill",
-      subActivePaths: "/sprint-evaluations",
-      permissions: [AppPermissions.sprints.VIEW_SPRINTS_EVALUATIONS],
-      sub: [
-        {
-          name: "Liste",
-          icon: "ri-list-check-2",
-          to: "sprint-evaluations",
-          permissions: [AppPermissions.sprints.VIEW_SPRINTS_EVALUATIONS],
-        },
-        // {
-        // 	name: "Ajouter",
-        // 	icon: "ri-function-add-fill",
-        // 	to: "sprint-evaluations-add",
-        // 	permissions: [
-        // 		AppPermissions.sprints.VIEW_SPRINTS_EVALUATIONS,
-        // 		AppPermissions.sprints.ADD_SPRINTS_EVALUATIONS,
-        // 	],
-        // },
-        {
-          name: "Statistiques",
-          icon: "ri-bar-chart-box-fill",
-          to: "sprint-evaluations-statistics",
-          permissions: [AppPermissions.sprints.VIEW_SPRINTS_EVALUATIONS],
-        },
-        {
-          name: "Exportation",
-          icon: "ri-export-fill",
-          to: "sprint-evaluations-exportation",
-          permissions: [
-            AppPermissions.sprints.VIEW_SPRINTS_EVALUATIONS,
-            AppPermissions.sprints.EXPORT_SPRINTS_EVALUATIONS,
-          ],
-        },
-      ],
-    },
-    {
-      name: "Administration",
-      heading: true,
-      permissions: [
-        AppPermissions.Administration.VIEW_EMPLOYEES,
-        AppPermissions.Administration.VIEW_USERS,
-        AppPermissions.Administration.VIEW_DEPARTMENTS,
-        AppPermissions.Administration.VIEW_POSITIONS,
       ],
     },
     {
@@ -150,76 +102,6 @@ export default {
           permissions: [
             AppPermissions.Administration.VIEW_USERS,
             AppPermissions.Administration.ADD_USERS,
-          ],
-        },
-      ],
-    },
-    {
-      name: "Départements",
-      icon: "ri-building-4-fill",
-      subActivePaths: "/departments",
-      permissions: [AppPermissions.Administration.VIEW_DEPARTMENTS],
-      sub: [
-        {
-          name: "Liste",
-          icon: "ri-list-check-2",
-          to: "departments",
-          permissions: [AppPermissions.Administration.VIEW_DEPARTMENTS],
-        },
-        {
-          name: "Ajouter",
-          icon: "ri-function-add-fill",
-          to: "departments-add",
-          permissions: [
-            AppPermissions.Administration.VIEW_DEPARTMENTS,
-            AppPermissions.Administration.ADD_DEPARTMENTS,
-          ],
-        },
-      ],
-    },
-    {
-      name: "Positions",
-      icon: "ri-id-card-fill",
-      subActivePaths: "/positions",
-      permissions: [AppPermissions.Administration.VIEW_POSITIONS],
-      sub: [
-        {
-          name: "Liste",
-          icon: "ri-list-check-2",
-          to: "positions",
-          permissions: [AppPermissions.Administration.VIEW_POSITIONS],
-        },
-        {
-          name: "Ajouter",
-          icon: "ri-function-add-fill",
-          to: "positions-add",
-          permissions: [
-            AppPermissions.Administration.VIEW_POSITIONS,
-            AppPermissions.Administration.ADD_POSITIONS,
-          ],
-        },
-      ],
-    },
-
-    {
-      name: "Employés",
-      icon: "ri-group-2-fill",
-      subActivePaths: "/employees",
-      permissions: [AppPermissions.Administration.VIEW_EMPLOYEES],
-      sub: [
-        {
-          name: "Liste",
-          icon: "ri-list-check-2",
-          to: "employees",
-          permissions: [AppPermissions.Administration.VIEW_EMPLOYEES],
-        },
-        {
-          name: "Ajouter",
-          icon: "ri-function-add-fill",
-          to: "employees-add",
-          permissions: [
-            AppPermissions.Administration.VIEW_EMPLOYEES,
-            AppPermissions.Administration.ADD_EMPLOYEES,
           ],
         },
       ],

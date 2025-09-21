@@ -24,15 +24,26 @@ export type PageLoaderEnum = "on" | "off" | "toggle";
 
 export type MainContentEnum = "full" | "boxed" | "narrow";
 
-export type DarkModeEnum = "on" | "off" | "system";
+// enums.ts
+export const ColorThemeEnum = {
+  Default: "",
+  Amethyst: "amethyst",
+  City: "city",
+  Flat: "flat",
+  Modern: "modern",
+  Smooth: "smooth",
+} as const;
 
-export type ColorThemeEnum =
-  | ""
-  | "amethyst"
-  | "city"
-  | "flat"
-  | "modern"
-  | "smooth";
+export type ColorThemeEnum = typeof ColorThemeEnum[keyof typeof ColorThemeEnum];
+
+export const DarkModeEnum = {
+  On: "on",
+  Off: "off",
+  System: "system",
+} as const;
+
+export type DarkModeEnum = typeof DarkModeEnum[keyof typeof DarkModeEnum];
+
 
 export type LayoutEnum = "header" | "sidebar" | "sideOverlay" | "footer";
 
@@ -48,7 +59,16 @@ export type SidebarStyleModeEnum = "dark" | "light" | "toggle";
 
 export type DarkModeModeEnum = "on" | "off" | "system";
 
-export type MainContentModeEnum = "" | "boxed" | "narrow";
+// export type MainContentModeEnum = "" | "boxed" | "narrow";
+
+// ---- MainContentMode ----
+export const MainContentModeEnum = {
+  Default: "",
+  Boxed: "boxed",
+  Narrow: "narrow",
+} as const;
+export type MainContentModeEnum = typeof MainContentModeEnum[keyof typeof MainContentModeEnum];
+
 
 export type HeaderModeEnum = "fixed" | "static" | "toggle";
 

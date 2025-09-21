@@ -1,8 +1,8 @@
-import { NavigationGuardNext, RouteLocationNormalized } from "vue-router/auto";
-import { useInitializedGlobalStore } from "@/stores";
-import { type AppPermission } from "@/modules/permissions/enums/permission_enum";
-import menu from "@/data/menu";
-import { createLogger } from "@/utils/logger";
+import { type AppPermission } from "../../modules/permissions/enums/permission_enum";
+import menu from "../../data/menu";
+import { createLogger } from "../../utils/logger";
+import { useInitializedGlobalStore } from "../../stores";
+import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 
 const logger = createLogger("permissionGuard");
 

@@ -1,7 +1,13 @@
-import { AppLocalesEnum } from "@/locales";
-import { AppUtils } from "@/utils";
-import { createBaseStoreActions } from "@/stores/utils/create_base_store_actions";
 import { globalStoreDefinition } from "../definition";
+import type { AppLocalesEnum } from "../../../locales";
+import { createLogger } from "../../../utils/logger";
+import { createBaseStoreActions } from "../../utils/create_base_store_actions";
+import type { GlobalStore } from "../..";
+import type { LoginInterface } from "../../../modules/authentication/interfaces/login_interface";
+import type { ForgotPasswordInterface } from "../../../modules/authentication/interfaces/forgot_password_interface";
+import type { ResetPasswordInterface } from "../../../modules/authentication/interfaces/reset_password_interface";
+import type { GlobalStoreInterface } from "../../interfaces/global_store_interface";
+import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 
 const logger = createLogger("GlobalStoreActions");
 
@@ -57,7 +63,7 @@ export const globalStoreActions = {
 	},
 	removeAlert(store: GlobalStore, alertId: AppAlertInterface["id"]): void {
 		logger.info(`[🌍][${store.$id}]: Removing alert with ID ${alertId}`);
-		store.alerts = store.alerts.filter((alert) => alert.id !== alertId);
+		store.alerts = store.alerts.filter((alert: any) => alert.id !== alertId);
 	},
 	clearAlerts(store: GlobalStore): void {
 		logger.info(`[🌍][${store.$id}]: Clearing all alerts`);

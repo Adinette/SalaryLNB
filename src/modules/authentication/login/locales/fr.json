@@ -1,0 +1,21 @@
+{
+	"form": {
+		"username": {
+			"label": "Nom d'utilisateur",
+			"placeholder": "Entrez votre nom d'utilisateur"
+		},
+		"password": {
+			"label": "Mot de passe",
+			"placeholder": "Entrez votre mot de passe"
+		},
+		"rememberMe": {
+			"label": "Rester connecté",
+			"placeholder": ""
+		}
+	},
+	"title": "Connexion",
+	"subtitle": "Connectez-vous à votre compte pour continuer l'aventure",
+	"forgotPassword": "Mot de passe oublié ?",
+	"login": "Se connecter",
+	"copyRight": "Tous droits réservés"
+}

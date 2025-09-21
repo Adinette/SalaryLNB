@@ -7,6 +7,8 @@ import { useOperatorActions } from "../composable/use_operator_actions";
 import type { OperatorModel } from "../models/operator-model";
 import { useSelectableList } from "../../../composables/useSelectableList";
 import { useTable } from "../../../composables/useTable";
+import appRoutes from "../../../router/routes";
+import router from "../../../router";
 
 const {
   processing: loading,
@@ -184,22 +186,6 @@ onMounted(async () => {
             <div class="btn-group btn-group-">
               <button
                 type="button"
-                class="btn btn-sm btn-alt-secondary"
-                @click="
-                  updateOperatorActivateOrDesactivate(user.id, user.is_active, {
-                    fullname: user.fullName,
-                  })
-                "
-              >
-                <i
-                  :class="`${user.is_active ? 'fa-ban' : 'fa-check-double'} fa fa-fw mr-0`"
-                ></i>
-                <VTooltip activator="parent" location="top">{{
-                  user.is_active ? "Désactiver" : "Activer"
-                }}</VTooltip>
-              </button>
-              <button
-                type="button"
                 :class="tableClasses.button.action"
                 @click="
                   router.push({
@@ -210,16 +196,6 @@ onMounted(async () => {
               >
                 <i class="fa fa-fw fa-pencil-alt mr-0"></i>
                 <VTooltip activator="parent" location="top">Modifier</VTooltip>
-              </button>
-              <button
-                type="button"
-                class="btn text-error btn-sm btn-alt-secondary"
-                @click="updateResetPassword(user.interface)"
-              >
-                <i class="ri-reset-left-fill" style="color: #009ddc"></i>
-                <VTooltip activator="parent" location="top">
-                  Réinitialiser le mot de passe
-                </VTooltip>
               </button>
               <button
                 type="button"

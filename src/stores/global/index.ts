@@ -2,7 +2,11 @@ import { defineStore } from "pinia";
 import { globalStoreDefinition } from "./definition";
 import { globalStoreGetters } from "./getters";
 import { globalStoreActions } from "./actions";
-import { AppLocalesEnum } from "@/locales";
+import type { GlobalStoreInterface } from "../interfaces/global_store_interface";
+import type { LoginInterface } from "../../modules/authentication/interfaces/login_interface";
+import type { ForgotPasswordInterface } from "../../modules/authentication/interfaces/forgot_password_interface";
+import type { ResetPasswordInterface } from "../../modules/authentication/interfaces/reset_password_interface";
+import type { AppAlertInterface } from "../../interfaces/AppAlertInterface";
 
 export const useGlobalStore = defineStore(globalStoreDefinition.key, {
 	state: (): GlobalStoreInterface => ({ ...globalStoreDefinition.service.defaults }),

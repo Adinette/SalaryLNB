@@ -5,13 +5,15 @@ import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 import { useInitializedMachineStore, type MachineStore } from "../store";
 import { AppUtils } from "../../../utils";
 import { toast } from "../../../utils/toast";
-import router from "../../..";
+import router from "../../../router";
 import { useMachineActions } from "../composable/use_machine_actions";
 import { useRoute } from "vue-router";
 import { createLogger } from "../../../utils/logger";
 import type { MachineCreateInterface } from "../interfaces";
 import { ApiError, UnprocessableEntityApiError } from "../../../api/errors";
 import { MachineModel } from "../models/machine-model";
+import appRoutes from "../../../router/routes";
+
 
 const logger = createLogger("machineEditView");
 

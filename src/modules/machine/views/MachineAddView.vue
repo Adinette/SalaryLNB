@@ -6,9 +6,11 @@ import { createLogger } from "../../../utils/logger";
 import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 import { toast } from "../../../utils/toast";
 import { AppUtils } from "../../../utils";
-import router from "../../..";
+import router from "../../../router";
 import { ApiError, UnprocessableEntityApiError } from "../../../api/errors";
 import { useMachineActions } from "../composable/use_machine_actions";
+import appRoutes from "../../../router/routes";
+
 
 const logger = createLogger("machineAddView");
 

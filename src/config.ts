@@ -1,7 +1,7 @@
-import { DarkModeEnum, EnvEnum, MainContentModeEnum } from "./enums";
+import { DarkModeEnum, ColorThemeEnum, EnvEnum, MainContentModeEnum } from "./enums";
 import { ApiModeEnum } from "./enums/api_mode_enum";
 import type { TemplateSettingsInterface } from "./stores/interfaces/template_settings_interface";
-import appEnv from "./env";
+import {appEnv} from "../env";
 
 
 const env = appEnv[EnvEnum.PRODUCTION];
@@ -25,7 +25,7 @@ const templateSettings: TemplateSettingsInterface = {
 	pageLoader: false,
 	rtlSupport: false,
 	sideTransitions: true,
-	mainContent: MainContentModeEnum.Full,
+	mainContent: MainContentModeEnum.Boxed,
 };
 
 const config = {

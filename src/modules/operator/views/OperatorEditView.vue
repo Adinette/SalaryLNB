@@ -5,7 +5,7 @@ import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 import { useInitializedOperatorStore } from "../store";
 import { AppUtils } from "../../../utils";
 import { toast } from "../../../utils/toast";
-import router from "../../..";
+import router from "../../../router";
 import { useOperatorActions } from "../composable/use_operator_actions";
 import { useRoute } from "vue-router";
 import { createLogger } from "../../../utils/logger";

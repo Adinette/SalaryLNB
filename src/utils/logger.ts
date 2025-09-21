@@ -1,6 +1,6 @@
 /** Configuration globale de l'application (environnement, etc.) */
-import config from "@/config";
-import { EnvEnum } from "@/enums";
+import config from "../config";
+import { EnvEnum } from "../enums";
 import { type ConsolaInstance, createConsola, LogLevels } from "consola/basic";
 
 /**

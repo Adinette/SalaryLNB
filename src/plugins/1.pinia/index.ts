@@ -1,7 +1,11 @@
 import { createPinia } from "pinia";
 import type { App } from "vue";
 import { createAutoPersistPlugin } from "./auto_persist_plugin";
-import { StoreKeysEnum } from "@/enums";
+import { StoreKeysEnum } from "../../enums";
+import { globalStoreDefinition } from "../../stores/global/definition";
+import { operatorStoreDefinition } from "../../modules/operator/store/definition";
+import { machineStoreDefinition } from "../../modules/machine/store/definition";
+import { userStoreDefinition } from "../../modules/users/store/definition";
 
 export default function (app: App) {
   const pinia = createPinia();
@@ -11,38 +15,16 @@ export default function (app: App) {
         service: globalStoreDefinition.service,
         throttleMs: 1000, // 1 second throttle for non-critical stores
       },
-      [StoreKeysEnum.Permission]: {
-        service: permissionStoreDefinition.service,
+      [StoreKeysEnum.Operator]: {
+        service: operatorStoreDefinition.service,
         throttleMs: 1000, // 1 second throttle for non-critical stores
       },
-      [StoreKeysEnum.Role]: undefined,
-      [StoreKeysEnum.Position]: {
-        service: positionStoreDefinition.service,
+      [StoreKeysEnum.Machine]: {
+        service: machineStoreDefinition.service,
         throttleMs: 1000, // 1 second throttle for non-critical stores
       },
       [StoreKeysEnum.User]: {
         service: userStoreDefinition.service,
-        throttleMs: 1000, // 1 second throttle for non-critical stores
-      },
-      [StoreKeysEnum.application]: undefined,
-      [StoreKeysEnum.Department]: {
-        service: departmentStoreDefinition.service,
-        throttleMs: 1000, // 1 second throttle for non-critical stores
-      },
-      [StoreKeysEnum.Employee]: {
-        service: employeeStoreDefinition.service,
-        throttleMs: 1000, // 1 second throttle for non-critical stores
-      },
-      [StoreKeysEnum.sprintObjective]: {
-        service: sprintObjectiveStoreDefinition.service,
-        throttleMs: 1000, // 1 second throttle for non-critical stores
-      },
-      [StoreKeysEnum.sprintTracking]: {
-        service: sprintTrackingStoreDefinition.service,
-        throttleMs: 1000, // 1 second throttle for non-critical stores
-      },
-      [StoreKeysEnum.sprintEvaluation]: {
-        service: sprintEvaluationStoreDefinition.service,
         throttleMs: 1000, // 1 second throttle for non-critical stores
       },
     })

@@ -6,6 +6,9 @@ import { useMachineActions } from "../composable/use_machine_actions";
 import { useSelectableList } from "../../../composables/useSelectableList";
 import type { MachineModel } from "../models/machine-model";
 import { useTable } from "../../../composables/useTable";
+import appRoutes from "../../../router/routes";
+import router from "../../../router";
+
 
 const {
   processing: loading,

@@ -1,8 +1,8 @@
 // plugins/piniaAutoPersistPlugin.ts
 import { watch } from "vue";
 import throttle from "lodash.throttle";
-import { StoreKeysEnum } from "@/enums";
-import { type GenericStoreService } from "@/services/generic_store_service";
+import { StoreKeysEnum } from "./../../enums";
+import { type GenericStoreService } from "./../../services/generic_store_service";
 
 interface PersistableStore {
 	$state: object;

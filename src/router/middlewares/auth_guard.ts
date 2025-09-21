@@ -1,6 +1,7 @@
-import { NavigationGuardNext, RouteLocationNormalized } from "vue-router/auto";
-import { RouteNamedMap } from "vue-router/auto-routes";
-import { useInitializedGlobalStore } from "@/stores";
+import { RouteNamedMap } from "vue-router/auto-routes"
+import appRoutes from "../routes";
+import { useInitializedGlobalStore } from "../../stores";
+import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
 
 /**
  * Liste des routes publiques accessibles sans authentification.

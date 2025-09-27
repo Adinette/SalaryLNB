@@ -12,12 +12,14 @@ import ConflictApiError from "../errors/ConflictApiError";
 import GeneralApiError from "../errors/GeneralApiError";
 import NotFoundApiError from "../errors/NotFoundApiError";
 import ApiHttpMethod from "../enums/api_http_method_enum";
-import { ApiRouteInterface } from "../interfaces";
-import { sahgesEvalApiClient } from "../clients";
+import { salaryApiClient } from "../clients";
+import type { ApiRouteInterface } from "../interfaces";
+import { appLogger } from "../../utils/logger";
+import { AppUtils } from "../../utils";
 
 export class ApiRoute implements ApiRouteInterface {
   path = "";
-  method = ApiHttpMethod.GET;
+  method: ApiHttpMethod = ApiHttpMethod.GET;
   data: object;
   useFormDataType: boolean;
 
@@ -52,7 +54,7 @@ export class ApiRoute implements ApiRouteInterface {
   async request(): Promise<object | ApiError> {
     this.data = JSON.parse(JSON.stringify(this.data));
     try {
-      const response = await sahgesEvalApiClient.request(
+      const response = await salaryApiClient.request(
         this.getRequestConfig()
       );
 

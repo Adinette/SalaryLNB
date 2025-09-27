@@ -1,12 +1,18 @@
 <script setup lang="ts">
-	import { VForm } from "vuetify/components/VForm";
-	import { requiredValidator, emailValidator } from "@/utils/validators";
-	import { appRoutes } from "@/router/routes";
-	import { appLocalesMapping } from "@/locales/appLocalesMapping";
 	import { faker } from "@faker-js/faker";
-	import { GlobalStore, useInitializedGlobalStore } from "@/stores";
 	import LoginRoute from "../../apis/login_route";
-	import { ApiError, UnauthorizedApiError, UnprocessableEntityApiError } from "@/api/errors";
+import { useI18n } from "vue-i18n";
+import { onMounted, ref } from "vue";
+import type { AppAlertInterface } from "../../../../interfaces/AppAlertInterface";
+import { useInitializedGlobalStore, type GlobalStore } from "../../../../stores";
+import type { appLocalesMapping } from "../../../../locales/appLocalesMapping";
+import type { LoginInterface } from "../../interfaces/login_interface";
+import { AppUtils } from "../../../../utils";
+import SessionModel from "../models/session_model";
+import { toast } from "../../../../utils/toast";
+import router from "../../../../router";
+import appRoutes from "../../../../router/routes";
+import { ApiError, UnauthorizedApiError, UnprocessableEntityApiError } from "../../../../api/errors";
 
 	const { t } = useI18n<{ message: typeof appLocalesMapping }>();
 
@@ -104,8 +110,6 @@
 				<VLabel class="mb-2">Email</VLabel>
 				<VTextField
 					v-model="form.credential"
-					:placeholder="t(appLocalesMapping.authentication.login.form.username.placeholder)"
-					:rules="[requiredValidator, emailValidator]"
 					variant="filled"
 					density="compact"
 					prepend-inner-icon="ri-user-3-line"
@@ -118,8 +122,6 @@
 
 				<VTextField
 					v-model="form.password"
-					:placeholder="t(appLocalesMapping.authentication.login.form.password.placeholder)"
-					:rules="[requiredValidator]"
 					variant="filled"
 					density="compact"
 					prepend-inner-icon="ri-lock-2-line"

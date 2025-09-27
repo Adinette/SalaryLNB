@@ -1,14 +1,14 @@
 import { defineStore } from "pinia";
-import { config } from "@/config";
-import { ColorThemeEnum, DarkModeEnum, MainContentModeEnum } from "@/enums";
+import { ColorThemeEnum, DarkModeEnum, MainContentModeEnum } from "../enums";
+import config from "../config";
 
 // Main Pinia Store
 export const useTemplateStore = defineStore("template", {
 	state: () => ({
 		// App vital details
 		app: {
-			name: config.env.app_name,
-			version: config.env.app_version,
+			name: config.env.apiUrl,
+			version: config.env.apiUrl,
 			copyright: new Date().getFullYear(),
 		},
 
@@ -170,10 +170,8 @@ export const useTemplateStore = defineStore("template", {
 			}
 		},
 		// Sets main content mode (full, boxed, narrow)
-		mainContent(payload: { mode: "full" | "boxed" | "narrow" }) {
-			if (payload.mode === "full") {
-				this.settings.mainContent = MainContentModeEnum.Full;
-			} else if (payload.mode === "boxed") {
+		mainContent(payload: { mode: "boxed" | "narrow" }) {
+			if (payload.mode === "boxed") {
 				this.settings.mainContent = MainContentModeEnum.Boxed;
 			} else if (payload.mode === "narrow") {
 				this.settings.mainContent = MainContentModeEnum.Narrow;

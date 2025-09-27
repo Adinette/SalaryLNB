@@ -1,7 +1,6 @@
 <script setup lang="ts">
 	import { useTemplateStore } from "../../stores/template";
 
-	import LogoSanlamAllianz from "../../assets/images/sanlam-allianz-logo.svg";
 	import { appLocalesMapping } from "../../locales/appLocalesMapping";
 	// Vuelidate, for more info and examples you can check out https://github.com/vuelidate/vuelidate
 	import LoginForm from "@/modules/authentication/login/views/LoginForm.vue";
@@ -9,6 +8,7 @@ import { useI18n } from "vue-i18n";
 	const { t } = useI18n<{ message: typeof appLocalesMapping }>();
 
 	definePage({
+				name: "authentication-login",
 		meta: {
 			layout: "blank",
 			public: true,
@@ -19,7 +19,7 @@ import { useI18n } from "vue-i18n";
 	const store = useTemplateStore();
 
 
-function definePage(arg0: { meta: { layout: string; public: boolean; }; }) {
+function definePage(arg0: { name?: string; meta: { layout: string; public: boolean; }; }) {
 	throw new Error("Function not implemented.");
 }
 </script>
@@ -61,7 +61,6 @@ function definePage(arg0: { meta: { layout: string; public: boolean; }; }) {
 				</div>
 				<div class="hidden sm:inline">&mdash;</div>
 				<div class="flex items-center gap-2">
-					<img :src="LogoSanlamAllianz" class="h-4" />
 					&bullet;
 					<span class="text-primary">{{
 						t(appLocalesMapping.authentication.login.copyRight)

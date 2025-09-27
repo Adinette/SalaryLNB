@@ -1,4 +1,4 @@
-import { ApiErrorData } from '.'
+import type { ApiErrorData } from '.'
 import ApiError from './ApiError'
 
 export default class UnauthorizedApiError extends ApiError {

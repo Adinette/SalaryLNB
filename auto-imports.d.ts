@@ -137,6 +137,9 @@ declare global {
   export type { UserModel } from './src/modules/users/models/user_model'
   import('./src/modules/users/models/user_model')
   // @ts-ignore
+  export type { ApiRouteInterface } from './src/api/interfaces/index'
+  import('./src/api/interfaces/index')
+  // @ts-ignore
   export type { ListApiArgsInterface } from './src/api/interfaces/list_api_args_interface'
   import('./src/api/interfaces/list_api_args_interface')
   // @ts-ignore
@@ -186,7 +189,6 @@ type UnwrapRefs<T> = {
 }
 namespace _ComponentCustomProperties {
   const { ApiResourceModel }: typeof import('./src/models/ApiResourceModel')
-  const { ApiRouteInterface }: typeof import('./src/api/interfaces/index')
   const { AppIndexedDBService }: typeof import('./src/services/indexed_db')
   const { AppIndexedDBStorage, default: appIndexedDbStorage }: typeof import('./src/services/app_indexed_db_storage')
   const { AppLogger, appLogger, createLogger }: typeof import('./src/utils/logger')

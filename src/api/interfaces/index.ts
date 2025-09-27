@@ -1,5 +1,7 @@
-import ApiRouteInterface from "./api_route_interface";
+// import ApiRouteInterface from "./api_route_interface";
 
-export {
+import type ApiRouteInterface from "./api_route_interface";
+
+export type {
     ApiRouteInterface,
 }

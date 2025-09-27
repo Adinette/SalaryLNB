@@ -19,7 +19,7 @@
 	const store = useTemplateStore();
 
 	// Set example settings
-	store.mainContent({ mode: "full" });
+	store.mainContent({ mode: "boxed" });
 
 	// Set dark mode based on localStorage or on store settings (if not saved before)
 	const savedDarkMode = localStorage.getItem("oneuiVueDarkMode") as DarkModeEnum;
@@ -62,10 +62,10 @@
 		});
 
 		// Set meta title and description
-		document.title = config.env.app_name;
+		document.title = config.env.apiUrl;
 		document
 			.querySelector("meta[name='description']")
-			?.setAttribute("content", config.env.app_description || "");
+			?.setAttribute("content", config.env.apiUrl || "");
 	});
 </script>
 
@@ -79,7 +79,7 @@
 			<div
 				class="fixed bottom-0 left-0 z-50 px-3 py-1 rounded-r-md text-xs shadow text-white uppercase font-bold font-mono mb-5 bg-primary"
 			>
-				V {{ config.env.app_version }}
+				V {{ config.env.apiUrl }}
 			</div>
 		</div>
 	</div>

@@ -19,7 +19,7 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/authentication/forgot/password': RouteRecordInfo<'/authentication/forgot/password', '/authentication/forgot/password', Record<never, never>, Record<never, never>>,
-    '/authentication/login': RouteRecordInfo<'/authentication/login', '/authentication/login', Record<never, never>, Record<never, never>>,
+    'authentication-login': RouteRecordInfo<'authentication-login', '/authentication/login', Record<never, never>, Record<never, never>>,
     '/operators': RouteRecordInfo<'/operators', '/operators', Record<never, never>, Record<never, never>>,
     '/operators/add': RouteRecordInfo<'/operators/add', '/operators/add', Record<never, never>, Record<never, never>>,
     '/operators/edit/:id': RouteRecordInfo<'/operators/edit/:id', '/operators/edit/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
@@ -47,7 +47,7 @@ declare module 'vue-router/auto-routes' {
       views: never
     }
     'src/pages/authentication/login.vue': {
-      routes: '/authentication/login'
+      routes: 'authentication-login'
       views: never
     }
     'src/pages/operators/index.vue': {

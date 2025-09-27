@@ -1,16 +1,16 @@
-import { RouteNamedMap } from "vue-router/auto-routes"
 import appRoutes from "../routes";
 import { useInitializedGlobalStore } from "../../stores";
 import type { NavigationGuardNext, RouteLocationNormalized } from "vue-router";
+import type { RouteNamedMap } from "vue-router/auto";
 
 /**
  * Liste des routes publiques accessibles sans authentification.
  */
-const publicRoutes: (keyof RouteNamedMap)[] = [
+const publicRoutes = [
 	appRoutes.authentication.login,
 	appRoutes.authentication.forgotPassword,
 	"forbidden", // Route d'erreur 403
-];
+] as const;
 
 /**
  * Middleware global d'authentification.
@@ -24,7 +24,7 @@ export async function authGuard(
 ) {
 	const globalStore = await useInitializedGlobalStore();
 
-	const isPublic = publicRoutes.includes(to.name);
+	const isPublic = publicRoutes.includes(to.name as typeof publicRoutes[number]);
 	const isAuthenticated = globalStore.isAuthenticated;
 
 	// Blocage simple : utilisateur non connecté sur route protégée

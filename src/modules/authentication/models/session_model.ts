@@ -1,4 +1,5 @@
-import { UserModel } from "@/modules/users/models/user_model";
+import { UserModel } from "../../users/models/user_model";
+import type { SessionInterface } from "../interfaces/session_interface";
 
 export class SessionModel implements SessionInterface {
   user: UserModel;

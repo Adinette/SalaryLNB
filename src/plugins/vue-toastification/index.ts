@@ -1,6 +1,5 @@
-import { App } from "vue";
-
-import Toast, { PluginOptions, POSITION } from "vue-toastification";
+import type { App } from "vue";
+import Toast, { type PluginOptions, POSITION } from "vue-toastification";
 // Import the CSS or use your own!
 
 export default function setupVueToastification(app: App) {

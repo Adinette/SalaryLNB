@@ -1,11 +1,11 @@
-import { openDB, IDBPDatabase } from "idb";
-import { AppCrypto } from "@/appcrypto";
-import { createLogger } from "@/utils/logger";
-import config from "@/config";
+import { openDB, type IDBPDatabase } from "idb";
+import { AppCrypto } from "../appcrypto";
+import config from "../config";
+import { createLogger } from "../utils/logger";
 
 const logger = createLogger("AppIndexedDBStorage");
 
-const DB_NAME = config.env.app_name;
+const DB_NAME = config.env.apiUrl;
 const STORE_NAME = "secure";
 const PREFIX = "sahges-eval-";
 const ENCRYPTED_FLAG = "__ENCRYPTED__:";

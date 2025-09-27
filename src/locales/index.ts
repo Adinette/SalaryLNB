@@ -1,12 +1,11 @@
 import authenticationLocales from "../modules/authentication/locales/index.ts";
 import { type AuthenticationLocalization } from "../modules/authentication/types/authentication_localization";
-import formValidatorLocales, {
-	FormValidatorLocalization,
-} from "../utils/validators/locales/index.ts";
+import formValidatorLocales, { type FormValidatorLocalization } from "../utils/validators/locales/index.ts";
 
-export enum AppLocalesEnum {
-	fr = "fr",
-}
+export const AppLocalesEnum = {
+	fr: "fr",
+} as const;
+export type AppLocalesEnum = keyof typeof AppLocalesEnum;
 
 export type ModuleLocalization = {
 	[key in AppLocalesEnum]: object;

@@ -1,17 +1,30 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
-import { createRouter, createWebHistory } from 'vue-router'
-import { registerPlugins } from '../src/plugins/2.router/index'
-import { routes } from 'vue-router/auto-routes'
+// main.ts
+import { createApp } from "vue";
+import App from "./App.vue";
 
-const app = createApp(App)
+// Template components
+import BaseBlock from "../src/components/BaseBlock.vue";
+import BaseBackground from "../src/components/BaseBackground.vue";
+import BasePageHeading from "../src/components/BasePageHeading.vue";
 
-registerPlugins(app)
-const router = createRouter({
-  history: createWebHistory(),
-  routes,
-})
+// Utils
+import { AppUtils } from "./utils";
 
-app.use(router)
-app.mount('#app')
+// ⚡ Import du router configuré
+import router from "./router";
+
+const app = createApp(App);
+
+// Global components
+app.component("BaseBlock", BaseBlock);
+app.component("BaseBackground", BaseBackground);
+app.component("BasePageHeading", BasePageHeading);
+
+// Register plugins
+AppUtils.registerPlugins(app);
+
+// ⚡ Brancher le router
+app.use(router);
+
+// Mount app
+app.mount("#app");

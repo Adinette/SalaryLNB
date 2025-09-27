@@ -1,0 +1,75 @@
+<script setup lang="ts">
+	import { useTemplateStore } from "../../stores/template";
+
+	import LogoSanlamAllianz from "../../assets/images/sanlam-allianz-logo.svg";
+	import { appLocalesMapping } from "../../locales/appLocalesMapping";
+	// Vuelidate, for more info and examples you can check out https://github.com/vuelidate/vuelidate
+	import LoginForm from "@/modules/authentication/login/views/LoginForm.vue";
+import { useI18n } from "vue-i18n";
+	const { t } = useI18n<{ message: typeof appLocalesMapping }>();
+
+	definePage({
+		meta: {
+			layout: "blank",
+			public: true,
+		},
+	});
+
+	// Main store and Router
+	const store = useTemplateStore();
+
+
+function definePage(arg0: { meta: { layout: string; public: boolean; }; }) {
+	throw new Error("Function not implemented.");
+}
+</script>
+
+<template>
+	<!-- Page Content -->
+	<div class="hero-static d-flex align-items-center bg-body-extra-light">
+		<div class="w-100 bg-body-light shadow-sm">
+			<!-- Sign In Section -->
+			<div class="bg-body-light">
+				<div class="content content-full">
+					<div class="row g-0 justify-content-center">
+						<div class="col-md-8 col-lg-6 col-xl-4 py-4 px-4 px-lg-5">
+							<!-- Header -->
+							<div class="text-center">
+								<div class="mb-2 flex justify-center">
+									<AppLogo />
+								</div>
+								<h1 class="h4 mb-1">{{ t(appLocalesMapping.authentication.login.title) }}</h1>
+							</div>
+							<!-- END Header -->
+
+							<!-- Sign In Form -->
+							<LoginForm />
+							<!-- END Sign In Form -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END Sign In Section -->
+
+			<!-- Footer -->
+			<div
+				class="fs-sm text-center text-muted py-3 flex justify-center items-center gap-2 flex-col sm:flex-row"
+			>
+				<div>
+					<strong>{{ store.app.name + " " + store.app.version }}</strong> &copy;
+					{{ store.app.copyright }}
+				</div>
+				<div class="hidden sm:inline">&mdash;</div>
+				<div class="flex items-center gap-2">
+					<img :src="LogoSanlamAllianz" class="h-4" />
+					&bullet;
+					<span class="text-primary">{{
+						t(appLocalesMapping.authentication.login.copyRight)
+					}}</span>
+				</div>
+			</div>
+			<!-- END Footer -->
+		</div>
+	</div>
+	<!-- END Page Content -->
+</template>

@@ -1,6 +1,5 @@
-import { UserStore } from "@/modules/users/store";
-import { GlobalStore } from "./global";
-import { FunctionStore } from "@/modules/functions/store";
-import { PositionStore } from "@/modules/positions/store";
+import type { UserStore } from "../modules/users/store";
+import type { GlobalStore } from "./global";
 
-export type AppStore = GlobalStore | UserStore | FunctionStore | PositionStore
+
+export type AppStore = GlobalStore | UserStore

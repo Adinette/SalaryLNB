@@ -1,7 +1,7 @@
 import { createI18n } from "vue-i18n";
 import { type App } from "vue";
 
-import { appLocales, AppLocalesEnum } from "@/locales";
+import { appLocales, AppLocalesEnum } from "../../locales";
 
 export const i18n = createI18n({
 	legacy: false,

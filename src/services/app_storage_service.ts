@@ -1,9 +1,9 @@
 // services/AppStorageService.ts
-import { AppStore } from "@/stores/type";
 import AppIndexedDBStorage from "./app_indexed_db_storage";
 import AppSessionStorage from "./AppSessionStorage";
-import { createLogger } from "@/utils/logger";
-import { StoreKeysEnum } from "@/enums";
+import { createLogger } from "../utils/logger";
+import { StoreKeysEnum } from "../enums";
+import type { AppStore } from "../stores/type";
 
 const logger = createLogger("AppStorageService");
 

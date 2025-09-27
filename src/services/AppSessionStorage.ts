@@ -4,8 +4,8 @@
  * All values are encrypted before storage and decrypted upon retrieval.
  */
 
-import { AppCrypto } from "@/appcrypto";
-import { createLogger } from "@/utils/logger";
+import { AppCrypto } from "../appcrypto";
+import { createLogger } from "../utils/logger";
 
 // Logger dedicated to this class
 const logger = createLogger("AppSessionStorage");

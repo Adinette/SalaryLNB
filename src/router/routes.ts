@@ -20,8 +20,10 @@ export const appRoutes: Readonly<Routes> = Object.freeze({
   dashboard: "dashboard",
     authentication: authenticationRoutes,
 
-  comingSoon: "$all",  operators: operatorRoutes, machines: machineRoutes,
-      users: typeof userRoutes,
+  comingSoon: "$all", 
+   operators: operatorRoutes, 
+   machines: machineRoutes,
+      users: userRoutes,
 
 });
 

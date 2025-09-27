@@ -15,7 +15,9 @@ const router = createRouter({
 		return { top: 0 };
 	},
 	routes,
+	
 });
+console.log("routes", routes);
 
 router.beforeEach(authGuard);
 router.beforeEach(permissionGuard);

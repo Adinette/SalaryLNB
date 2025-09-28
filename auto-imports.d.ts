@@ -217,6 +217,7 @@ namespace _ComponentCustomProperties {
   const { default: sessionModel }: typeof import('./src/modules/authentication/login/models/session_model')
   const { default: starter }: typeof import('./src/router/starter')
   const { extractMonthAndYear }: typeof import('./src/utils/formatDate')
+  const { formIsValid }: typeof import('./src/utils/form_is_valid')
   const { formatPhoneWithSpaces, removeWhitespace }: typeof import('./src/utils/remove_white_space')
   const { globalStoreDefinition }: typeof import('./src/stores/global/definition')
   const { hexToRgba }: typeof import('./src/utils/hex_to_rgba')

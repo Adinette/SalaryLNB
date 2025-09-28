@@ -28,9 +28,9 @@ export async function authGuard(
 	const isAuthenticated = globalStore.isAuthenticated;
 
 	// Blocage simple : utilisateur non connecté sur route protégée
-	if (!isPublic && !isAuthenticated) {
-		return next({ name: appRoutes.authentication.login });
-	}
+	// if (!isPublic && !isAuthenticated) {
+	// 	return next({ name: appRoutes.authentication.login });
+	// }
 
 	return next();
 }

@@ -1,3 +1,4 @@
+import type { UserInterface } from "../../../users/interfaces";
 
 export default interface SessionInterface {
     token: string;

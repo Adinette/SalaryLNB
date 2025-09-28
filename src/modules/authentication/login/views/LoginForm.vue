@@ -1,11 +1,9 @@
 <script setup lang="ts">
 	import { faker } from "@faker-js/faker";
 	import LoginRoute from "../../apis/login_route";
-import { useI18n } from "vue-i18n";
 import { onMounted, ref } from "vue";
 import type { AppAlertInterface } from "../../../../interfaces/AppAlertInterface";
 import { useInitializedGlobalStore, type GlobalStore } from "../../../../stores";
-import type { appLocalesMapping } from "../../../../locales/appLocalesMapping";
 import type { LoginInterface } from "../../interfaces/login_interface";
 import { AppUtils } from "../../../../utils";
 import SessionModel from "../models/session_model";
@@ -14,9 +12,14 @@ import router from "../../../../router";
 import appRoutes from "../../../../router/routes";
 import { ApiError, UnauthorizedApiError, UnprocessableEntityApiError } from "../../../../api/errors";
 
-	const { t } = useI18n<{ message: typeof appLocalesMapping }>();
 
-	const loginFormRef = ref<VForm>();
+interface FormRef {
+  validate: () => Promise<{ valid: boolean }>;
+  reset?: () => void;
+  resetValidation?: () => void;
+}
+
+const loginFormRef = ref<FormRef>();
 	const showPassword = ref(false);
 	const globalStore = ref<GlobalStore | null>(null);
 	const alert = ref<AppAlertInterface | null>(null);
@@ -38,62 +41,81 @@ import { ApiError, UnauthorizedApiError, UnprocessableEntityApiError } from "../
 	};
 
 	const onSubmit = async () => {
-		loading.value = true;
-		// wait 3 seconds to simulate a network request
-		AppUtils.logger.info("Submitting login form", form.value);
-		await new Promise((resolve) => setTimeout(resolve, 3000));
+  console.log("SUBMIT CALLED");
 
-		const isValid = await AppUtils.formIsValid(loginFormRef as Ref);
-		if (!isValid) return;
+  loading.value = true;
+  AppUtils.logger.info("Submitting login form", form.value);
 
-		try {
-			const route = new LoginRoute(form.value);
-			const result = await route.request();
-			console.log("result avant", route);
+  // ✅ Validation manuelle
+  if (!form.value.credential) {
+    fieldsErrors.value.credential = ["L'email ou identifiant est requis"];
+    loading.value = false;
+    return;
+  } else {
+    fieldsErrors.value.credential = [];
+  }
 
-			if (result instanceof SessionModel) {
-				console.log("result après", result);
+  if (!form.value.password) {
+    fieldsErrors.value.password = ["Le mot de passe est requis"];
+    loading.value = false;
+    return;
+  } else {
+    fieldsErrors.value.password = [];
+  }
 
-				globalStore.value?.setSession(result);
-				toast.success("Connexion réussie !");
-				setTimeout(() => {
-					router.replace({ name: appRoutes.dashboard });
-				}, 2000);
-				return;
-			}
+  try {
+    console.log("VALID => continue dans le try");
+    console.log("result avant", form.value);
 
-			if (result instanceof UnprocessableEntityApiError) {
-				fieldsErrors.value.credential = result.data.credential ?? null;
-				fieldsErrors.value.password = result.data.password ?? null;
-			} else if (result instanceof UnauthorizedApiError || result instanceof ApiError) {
-				alert.value = {
-					type: "danger",
-					id: faker.string.uuid(),
-					title: "Erreur",
-					message: result.message,
-				};
-			}
-		} catch (error) {
-			console.error("Erreur inattendue pendant la connexion:", error);
-			alert.value = {
-				type: "danger",
-				id: faker.string.uuid(),
-				title: "Erreur inattendue",
-				message: "Une erreur est survenue. Veuillez réessayer plus tard.",
-			};
-		} finally {
-			loading.value = false;
-		}
-	};
+    const route = new LoginRoute(form.value);
+    const result = await route.request();
+
+    if (result instanceof SessionModel) {
+      console.log("result après", result);
+      globalStore.value?.setSession(result);
+      toast.success("Connexion réussie !");
+      setTimeout(() => {
+        router.replace({ name: appRoutes.dashboard });
+      }, 2000);
+      return;
+    }
+
+    if (result instanceof UnprocessableEntityApiError) {
+      fieldsErrors.value.credential = result.data.credential ?? [];
+      fieldsErrors.value.password = result.data.password ?? [];
+    } else if (
+      result instanceof UnauthorizedApiError ||
+      result instanceof ApiError
+    ) {
+      alert.value = {
+        type: "danger",
+        id: faker.string.uuid(),
+        title: "Erreur",
+        message: result.message,
+      };
+    }
+  } catch (error) {
+    console.error("Erreur inattendue pendant la connexion:", error);
+    alert.value = {
+      type: "danger",
+      id: faker.string.uuid(),
+      title: "Erreur inattendue",
+      message: "Une erreur est survenue. Veuillez réessayer plus tard.",
+    };
+  } finally {
+    loading.value = false;
+  }
+};
+
 	onMounted(async () => {
 		globalStore.value = await useInitializedGlobalStore();
 	});
 </script>
 <template>
-	<VForm ref="loginFormRef" @submit.prevent="onSubmit">
+	<form ref="loginFormRef" @submit.prevent="onSubmit">
 		<div class="py-3">
-			<VCol cols="12" v-if="alert">
-				<Alert
+			<div cols="12" v-if="alert">
+				<div
 					:type="alert.type"
 					:id="alert.id"
 					:title="alert.title"
@@ -104,11 +126,11 @@ import { ApiError, UnauthorizedApiError, UnprocessableEntityApiError } from "../
 							alert = null;
 						}
 					"
-				/>
-			</VCol>
+				></div>
+					</div>
 			<div class="mb-4">
-				<VLabel class="mb-2">Email</VLabel>
-				<VTextField
+				<label class="mb-2">Email</label>
+				<input
 					v-model="form.credential"
 					variant="filled"
 					density="compact"
@@ -118,9 +140,9 @@ import { ApiError, UnauthorizedApiError, UnprocessableEntityApiError } from "../
 				/>
 			</div>
 			<div class="mb-4">
-				<VLabel class="mb-2">Mot de passe</VLabel>
+				<label class="mb-2">Mot de passe</label>
 
-				<VTextField
+				<input
 					v-model="form.password"
 					variant="filled"
 					density="compact"
@@ -156,16 +178,15 @@ import { ApiError, UnauthorizedApiError, UnprocessableEntityApiError } from "../
       </div> -->
 		</div>
 		<div class="row justify-content-center px-3">
-			<VBtn
+			<button
 				:loading="loading"
 				type="submit"
 				block
 				variant="flat"
 				class="flex justify-center items-center gap-8"
-			>
-				<VIcon icon="ri-login-box-fill" />
-				<span class="ml-1">{{ t(appLocalesMapping.authentication.login.login) }}</span>
-			</VBtn>
+			>Connexion
+				<!-- <VIcon icon="ri-login-box-fill" /> -->
+			</button>
 		</div>
-	</VForm>
+	</form>
 </template>

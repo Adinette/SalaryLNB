@@ -1,6 +1,7 @@
 <script setup lang="ts">
-	import { AppLocalesEnum } from "@/locales";
-	import { GlobalStore, useInitializedGlobalStore } from "@/stores";
+	import { AppLocalesEnum } from "../locales";
+	import { type GlobalStore, useInitializedGlobalStore } from "../stores";
+import { computed, onMounted, ref } from "vue";
 
 	const globalStore = ref<GlobalStore | null>(null);
 

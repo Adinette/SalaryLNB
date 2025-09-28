@@ -14,7 +14,7 @@ import { ApiModeEnum } from "@/enums/api_mode_enum";
  */
 export async function createUser(store: UserStore, { data }: { data: UserCreateInterface }) {
 	const apiRoute = new UserCreateRoute(data);
-	const result = await apiRoute.request();
+	const result = await apiRoute.mock();
 	if (result instanceof ApiError) return result;
 	return result;
 }

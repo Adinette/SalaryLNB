@@ -6,6 +6,7 @@ import { showAlert } from "./show_alert";
 import { registerPlugins } from "./plugins";
 import { formatPhoneWithSpaces, removeWhitespace } from "./remove_white_space";
 import { i18n } from "../plugins/4.i18n";
+import { formIsValid } from "./form_is_valid";
 
 export class AppUtils {
   static logger = appLogger;
@@ -16,5 +17,6 @@ export class AppUtils {
   static toast = toast;
   static showAlert = showAlert;
   static registerPlugins = registerPlugins;
+    static formIsValid = formIsValid;
   static translate = i18n.global.t;
 }

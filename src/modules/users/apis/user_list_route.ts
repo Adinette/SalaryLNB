@@ -1,10 +1,9 @@
 import ApiHttpMethod from "@/api/enums/api_http_method_enum";
 import ApiError from "@/api/errors/ApiError";
-import { UserInterface } from "../interfaces/user_interface";
 
 import { UserModel } from "../models/user_model";
 import { UserRoute } from "./_user_route";
-import { UserStore } from "../store";
+import type { UserInterface } from "../interfaces";
 
 export class UserListRoute extends UserRoute {
 	constructor(args: ListApiArgsInterface = {}) {

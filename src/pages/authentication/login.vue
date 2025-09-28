@@ -4,8 +4,9 @@
 	import { appLocalesMapping } from "../../locales/appLocalesMapping";
 	// Vuelidate, for more info and examples you can check out https://github.com/vuelidate/vuelidate
 	import LoginForm from "@/modules/authentication/login/views/LoginForm.vue";
-import { useI18n } from "vue-i18n";
-	const { t } = useI18n<{ message: typeof appLocalesMapping }>();
+	
+
+
 
 	definePage({
 				name: "authentication-login",
@@ -36,9 +37,8 @@ function definePage(arg0: { name?: string; meta: { layout: string; public: boole
 							<!-- Header -->
 							<div class="text-center">
 								<div class="mb-2 flex justify-center">
-									<AppLogo />
 								</div>
-								<h1 class="h4 mb-1">{{ t(appLocalesMapping.authentication.login.title) }}</h1>
+								<h1 class="h4 mb-1">Connecter vous</h1>
 							</div>
 							<!-- END Header -->
 
@@ -62,9 +62,7 @@ function definePage(arg0: { name?: string; meta: { layout: string; public: boole
 				<div class="hidden sm:inline">&mdash;</div>
 				<div class="flex items-center gap-2">
 					&bullet;
-					<span class="text-primary">{{
-						t(appLocalesMapping.authentication.login.copyRight)
-					}}</span>
+					<span class="text-primary">copyRight</span>
 				</div>
 			</div>
 			<!-- END Footer -->

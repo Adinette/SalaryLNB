@@ -7,7 +7,7 @@ import {appEnv} from "../env";
 const env = appEnv[EnvEnum.PRODUCTION];
 
 const templateSettings: TemplateSettingsInterface = {
-	colorTheme: ColorThemeEnum,
+	colorTheme: ColorThemeEnum.Modern,
 	darkMode: DarkModeEnum.System,
 	darkModeActive: null,
 	sidebarLeft: true,

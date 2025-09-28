@@ -212,18 +212,23 @@ export const useTemplateStore = defineStore("template", {
 			// Matches all classes which start with 'theme-'
 			let regx = new RegExp("\\btheme-[^ ]*[ ]?\\b", "g");
 
-			// Set new theme
-			this.settings.colorTheme = (payload.theme as ColorThemeEnum) || ColorThemeEnum.Modern;
+			// Get theme and ensure it's a string. If not, consider it unset.
+			// This prevents errors if an object is passed by mistake.
+			const theme = (typeof payload.theme === "string") ? payload.theme : undefined;
+
+			// Set new theme in store. Use Modern as fallback if theme is undefined.
+			this.settings.colorTheme = theme ?? ColorThemeEnum.Modern;
 
 			// Remove all classes which start with 'theme-' from body element
 			lHtml.className = lHtml.className.replace(regx, "");
 
-			// If theme is set, add the theme class to body element
-			if (payload.theme) {
-				lHtml.classList.add("theme-" + payload.theme);
+			// If theme is set (and is not an empty string), add the theme class to body element
+			if (theme) {
+				lHtml.classList.add("theme-" + theme);
 			}
 
-			localStorage.setItem("oneuiVueColorTheme", payload.theme || "");
+			// Save the theme to local storage. If undefined, save an empty string.
+			localStorage.setItem("oneuiVueColorTheme", theme ?? "");
 		},
 		// Sets side transitions
 		setSideTransitions(payload: { transitions: boolean }) {

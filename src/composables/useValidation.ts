@@ -1,4 +1,4 @@
-import { ref, computed, watch } from "vue";
+import { ref, computed, watch, readonly } from "vue";
 
 interface ValidationRule {
 	test: (value: any) => boolean;

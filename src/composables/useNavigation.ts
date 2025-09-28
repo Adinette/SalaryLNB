@@ -1,7 +1,9 @@
-import menu from "@/data/menu";
+import menu from "../data/menu";
 import { useCurrentSession } from "./useCurrentSession";
-import { type AppPermission, AppPermissions } from "@/modules/permissions/enums/permission_enum";
+import { type AppPermission } from "../modules/permissions/enums/permission_enum";
 import { computed } from "vue";
+import { useRoute } from "vue-router";
+import { createLogger } from "../utils/logger";
 
 export const useNavigation = () => {
 	const routeName = useRoute().path;

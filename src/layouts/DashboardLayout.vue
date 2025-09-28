@@ -17,6 +17,7 @@
 import { useInitializedGlobalStore, type GlobalStore } from "../stores";
 import type { AppAlertInterface } from "../interfaces/AppAlertInterface";
 import { computed, onMounted, ref } from "vue";
+import { ApplicationModel } from "../modules/applications/models/application_model";
 
 	// Get filtered navigation with permissions
 	const { navigation } = useNavigation();
@@ -77,9 +78,7 @@ import { computed, onMounted, ref } from "vue";
 						v-for="app in appsToShowOnMiniNav"
 						:key="app.id"
 						class="mini-nav-item nav-link"
-						:class="{
-							active: app.name.toLocaleLowerCase() === config.env.app_name.toLocaleLowerCase(),
-						}"
+					 
 						href="javascript:void(0)"
 					>
 						<i :class="app.icon + ' fs-sm'"></i>

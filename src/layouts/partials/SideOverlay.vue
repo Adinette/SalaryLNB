@@ -39,7 +39,10 @@
 
 	// Init SimpleBar (custom scrolling) and attach ESCAPE key event listener
 	onMounted(() => {
-		new SimpleBar(document.getElementById("side-overlay"));
+		const sideOverlayEl = document.getElementById("side-overlay");
+		if (sideOverlayEl) {
+			new SimpleBar(sideOverlayEl);
+		}
 
 		document.addEventListener("keydown", eventSideOverlay);
 	});
@@ -59,11 +62,11 @@
 				<slot name="header">
 					<!-- User Avatar -->
 					<a class="img-link me-1" href="javascript:void(0)">
-						<img
+						<!-- <img
 							class="img-avatar img-avatar32"
 							src="/assets/media/avatars/avatar10.jpg"
 							alt="Avatar"
-						/>
+						/> -->
 					</a>
 					<!-- END User Avatar -->
 

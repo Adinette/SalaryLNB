@@ -1,4 +1,4 @@
-import { ColorThemeEnum, DarkModeEnum, MainContentModeEnum } from "@/enums";
+import { ColorThemeEnum, DarkModeEnum, MainContentModeEnum } from "../../enums";
 
 export interface TemplateSettingsInterface {
 	colorTheme: ColorThemeEnum;

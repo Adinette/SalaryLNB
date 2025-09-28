@@ -15,7 +15,7 @@
 	});
 
 	// Set various template options for this layout variation
-	store.mainContent({ mode: "full" });
+	store.mainContent({ mode: "boxed" });
 </script>
 
 <template>

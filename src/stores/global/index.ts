@@ -7,6 +7,7 @@ import type { LoginInterface } from "../../modules/authentication/interfaces/log
 import type { ForgotPasswordInterface } from "../../modules/authentication/interfaces/forgot_password_interface";
 import type { ResetPasswordInterface } from "../../modules/authentication/interfaces/reset_password_interface";
 import type { AppAlertInterface } from "../../interfaces/AppAlertInterface";
+import type { AppLocalesEnum } from "../../locales";
 
 export const useGlobalStore = defineStore(globalStoreDefinition.key, {
 	state: (): GlobalStoreInterface => ({ ...globalStoreDefinition.service.defaults }),

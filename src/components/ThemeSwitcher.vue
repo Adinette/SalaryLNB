@@ -1,10 +1,17 @@
 <script setup lang="ts">
-	import { DarkModeEnum } from "@/enums";
-	import { useTemplateStore } from "@/stores/template";
+	// Declare window.bootstrap for TypeScript
+	declare global {
+		interface Window {
+			bootstrap?: any;
+		}
+	}
+
+	import { DarkModeEnum } from "../enums";
+	import { useTemplateStore } from "../stores/template";
 	import { ref, computed, onMounted } from "vue";
 
 	const store = useTemplateStore();
-
+	
 	// Animation state
 	const isChangingTheme = ref(false);
 	const animationClass = ref("");

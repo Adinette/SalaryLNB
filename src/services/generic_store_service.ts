@@ -1,8 +1,8 @@
 // services/storage/generic_store_service.ts
 
-import { StoreKeysEnum } from "@/enums";
+import { StoreKeysEnum } from "../enums";
 import { AppStorageService } from "./app_storage_service";
-import { AppLogger } from "@/utils/logger";
+import { AppLogger, createLogger } from "../utils/logger";
 
 export interface GenericStoreOptions<T> {
 	name: StoreKeysEnum;

@@ -1,6 +1,6 @@
-import { ref } from "vue";
-import { toast } from "@/utils/toast";
-import { createLogger } from "@/utils/logger";
+import { readonly, ref, watch } from "vue";
+import { toast } from "../utils/toast";
+import { createLogger } from "../utils/logger";
 
 interface ErrorConfig {
 	showToast?: boolean;

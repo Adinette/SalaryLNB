@@ -6,7 +6,7 @@ import { useInitializedGlobalStore } from "../../stores";
 import AppLocalStorage from "../../services/AppLocalStorage";
 
 const salaryApiClient = axios.create({
-	baseURL: appConfig.env.api_url,
+	baseURL: appConfig.env.apiUrl,
 	timeout: 30000,
 });
 

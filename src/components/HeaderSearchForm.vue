@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTemplateStore } from "@/stores/template";
+import { useTemplateStore } from "../stores/template";
 
 	const props = defineProps<{
 		onSubmitSearch: (query: string) => void;

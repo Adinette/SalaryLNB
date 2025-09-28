@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import VueCountdown from "@chenfengyuan/vue-countdown";
+	import { appRoutes } from "../router/routes"; // Adjust the path as needed
 </script>
 
 <template>

@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import type { ApplicationInterface } from "../modules/applications/interfaces/application_interface";
 
 export const applicationsMock: ApplicationInterface[] = [
 	{

@@ -1,1 +1,1 @@
-export { defaultStoreState } from "@/constants/default_store_state";
+export { defaultStoreState } from "../constants/default_store_state";

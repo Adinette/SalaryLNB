@@ -1,6 +1,5 @@
-import { AppCrypto } from "@/appcrypto";
-import config from "@/config";
-import { AppUtils } from "@/utils";
+import { AppCrypto } from "../appcrypto";
+import { AppUtils } from "../utils";
 
 interface IndexedDBServiceOptions {
 	dbName: string;

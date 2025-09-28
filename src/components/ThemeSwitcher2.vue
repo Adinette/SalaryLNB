@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { computed } from "vue";
-	import { DarkModeEnum } from "@/enums";
-	import { useTemplateStore } from "@/stores/template";
+	import { DarkModeEnum } from "../enums";
+	import { useTemplateStore } from "../stores/template";
 
 	const store = useTemplateStore();
 

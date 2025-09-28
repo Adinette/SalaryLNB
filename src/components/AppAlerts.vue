@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { AppAlertInterface } from '../interfaces/AppAlertInterface';
+
 	const props = defineProps<{ alerts: AppAlertInterface[] }>();
 </script>
 <template>

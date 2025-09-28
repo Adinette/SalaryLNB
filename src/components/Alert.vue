@@ -1,5 +1,6 @@
 <script setup lang="ts">
-	import { AppAlertInterface } from "../interfaces/AppAlertInterface";
+	import { computed } from "vue";
+import type { AppAlertInterface } from "../interfaces/AppAlertInterface";
 	// Props du composant
 	const props = defineProps<AppAlertInterface>();
 

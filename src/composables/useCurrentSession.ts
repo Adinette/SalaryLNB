@@ -1,3 +1,11 @@
+import { onMounted, ref } from "vue";
+import type { SessionModel } from "../modules/authentication/models/session_model";
+import { useInitializedGlobalStore } from "../stores";
+import { AppUtils } from "../utils";
+import router from "../router";
+import { toast } from "../utils/toast";
+import appRoutes from "../router/routes";
+
 export const useCurrentSession = () => {
 	const currentSession = ref<SessionModel | null>(null);
 

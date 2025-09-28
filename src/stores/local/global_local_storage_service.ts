@@ -1,6 +1,7 @@
-import { defaultStoreState } from "@/constants";
-import { AppLocalesEnum } from "@/locales";
-import { AppLocalStorageService } from "@/services/local_storage";
+import { defaultStoreState } from "../../constants";
+import { AppLocalesEnum } from "../../locales";
+import { AppLocalStorageService } from "../../services/local_storage";
+import type { GlobalStoreInterface } from "../interfaces/global_store_interface";
 
 export class GlobalLocalStorageService extends AppLocalStorageService {
 	static storeName = "global_store";

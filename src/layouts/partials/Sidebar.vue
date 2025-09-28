@@ -2,6 +2,8 @@
 import { onMounted } from 'vue';
 import menu from '../../data/menu';
 import { useTemplateStore } from '../../stores/template';
+import { ColorThemeEnum } from '../../enums';
+import { appRoutes } from '../../router/routes';
 
 	// import { onMounted } from "vue";
 	// import { useTemplateStore } from "@/stores/template";
@@ -34,7 +36,10 @@ import { useTemplateStore } from '../../stores/template';
 
 	// Init SimpleBar (custom scrolling)
 	onMounted(() => {
-		new SimpleBar(document.getElementById("simplebar-sidebar"));
+		const sidebarElement = document.getElementById("simplebar-sidebar");
+		if (sidebarElement) {
+			new SimpleBar(sidebarElement);
+		}
 	});
 </script>
 
@@ -140,8 +145,7 @@ import { useTemplateStore } from '../../stores/template';
 								<button
 									@click="store.setColorTheme({ theme: '' })"
 									type="button"
-									class="dropdown-item d-flex align-items-center justify-content-between fw-medium"
-									:class="{ active: store.settings.colorTheme === ColorThemeEnum. }"
+									:class="{ active: store.settings.colorTheme === ColorThemeEnum.Default }"
 								>
 									<span>Default</span>
 									<i class="fa fa-circle text-default"></i>

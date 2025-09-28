@@ -12,7 +12,7 @@
 	// Grab menu navigation arrays
 	import menu from "../../data/menu";
 
-	const navigation = menu.boxed;
+	const navigation = menu.main;
 
 	// Main store
 	const store = useTemplateStore();
@@ -32,6 +32,12 @@
 	// Set various template options for this layout variation
 	store.headerStyle({ mode: "dark" });
 	store.mainContent({ mode: "boxed" });
+
+	// Handle search form submission
+	function onSubmitSearch() {
+		// You can add your search logic here, for now just log the search term
+		console.log("Search submitted:", baseSearchTerm.value);
+	}
 </script>
 
 <template>

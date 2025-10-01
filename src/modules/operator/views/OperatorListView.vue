@@ -6,9 +6,10 @@ import { toast } from "../../../utils/toast";
 import { useOperatorActions } from "../composable/use_operator_actions";
 import type { OperatorModel } from "../models/operator-model";
 import { useSelectableList } from "../../../composables/useSelectableList";
-import { useTable } from "../../../composables/useTable";
+import { useCustomTable } from "../../../composables/useCustomTable";
 import appRoutes from "../../../router/routes";
 import router from "../../../router";
+import CustomTable from "../../../components/CustomTable.vue";
 
 const {
   processing: loading,
@@ -39,7 +40,7 @@ const {
 
 // Configuration de la table 
 const { tableClasses, getStatusBadge, getStatusText, commonHeaders } =
-  useTable();
+  useCustomTable();
 const tableHeaders = commonHeaders.user();
 
 const deleteSelected = async () => {
@@ -142,7 +143,7 @@ onMounted(async () => {
       </div>
     </template>
 
-    <Table
+    <CustomTable
       :headers="tableHeaders"
       :items="operators"
       :selectable="true"
@@ -209,6 +210,6 @@ onMounted(async () => {
           </td>
         </tr>
       </template>
-    </Table>
+    </CustomTable>
   </BaseBlock>
 </template>

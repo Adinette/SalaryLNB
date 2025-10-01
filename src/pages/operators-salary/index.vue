@@ -1,9 +1,9 @@
 <script setup lang="ts">
 	import { definePage } from "vue-router/auto";
-import OperatorListView from "../../modules/operator/views/OperatorListView.vue";
+import OperatorSalaryListView from "../../modules/operator-salary/views/OperatorSalaryListView.vue";
 
-	const pageTitle = "Opérateurs";
-	const pageSubtitle = "Gérez les pérateurs de l'entreprise efficacement.";
+	const pageTitle = "Salaire de l'opérateur";
+	const pageSubtitle = "Gérez les salaires des opérateurs de l'entreprise efficacement.";
 
 	definePage({
 		meta: {
@@ -18,15 +18,15 @@ import OperatorListView from "../../modules/operator/views/OperatorListView.vue"
 		<template #extra>
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb breadcrumb-alt">
-					<li class="breadcrumb-item" aria-current="page">Opérateurs</li>
-					<li class="breadcrumb-item" aria-current="page">Liste des opérateurs</li>
+					<li class="breadcrumb-item" aria-current="page">Salaire d'un opérateur</li>
+					<li class="breadcrumb-item" aria-current="page">Liste des salaires de l'opérateur</li>
 				</ol>
 			</nav>
 		</template>
 	</BasePageHeading>
 	<!-- Page Content -->
 	<div class="content">
-		<OperatorListView />
+		<OperatorSalaryListView />
 	</div>
 	<!-- END Page Content -->
 </template>

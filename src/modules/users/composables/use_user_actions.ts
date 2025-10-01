@@ -1,5 +1,15 @@
-import { ApiError, UnprocessableEntityApiError } from "@/api/errors";
-import { UserInterface } from "../interfaces";
+
+import { createLogger } from "../../../utils/logger";
+import { computed, onMounted, ref } from "vue";
+import { toast } from "../../../utils/toast";
+import type { UserListFilterInterface } from "../interfaces/user_list_filter_interface";
+import { useInitializedUserStore, type UserStore } from "../store";
+import { UserModel } from "../models/user_model";
+import ApiError from "../../../api/errors/ApiError";
+import type { UserInterface } from "../interfaces/user_interface";
+import type { UserCreateInterface } from "../interfaces/user_create_interface";
+import type { UserUpdateInterface } from "../interfaces";
+import { AppUtils } from "../../../utils";
 
 const logger = createLogger("use_user_actions");
 
@@ -87,78 +97,6 @@ export const useUserActions = () => {
     return new UserModel(result.interface);
   };
 
-  const updateResetPassword = async (element: UserInterface) => {
-    AppUtils.showAlert({
-      title: "Êtes-vous sûr ?",
-      html: `Vous êtes sur le point de réinitialisé le mot de passe de l'utilisateur <b class="font-mono">${element.first_name} ${element.last_name}</b>. Cette action est <b class="text-pink-950">irréversible</b>`,
-
-      confirmButtonText: `Oui, réinitialiser`,
-      onConfirm: async () => {
-        if (!userStore.value) {
-          userStore.value = await useInitializedUserStore();
-        }
-        const result = await userStore.value.updateUserResetPassword(
-          element.id
-        );
-        if (result instanceof ApiError) {
-          logger.error("Error reset user:", result);
-
-          toast.error(
-            `Erreur lors de la suppression de l'utilisateur: ${result.message}`
-          );
-          return false;
-        }
-        toast.success(
-          `Utilisateur ${element.first_name} ${element.last_name} réinitialisé avec succès.`
-        );
-        getUsers();
-
-        return true;
-      },
-    });
-  };
-
-  const updateUserActivateOrDesactivate = async (
-    id: string | undefined,
-    shouldActivate: boolean | undefined,
-    data: {
-      fullname: string;
-    }
-  ) => {
-    const action = shouldActivate ? "de désactiver" : "d'activer";
-
-    AppUtils.showAlert({
-      title: "Êtes-vous sûr ?",
-      html: `Vous êtes sur le point ${action} le compte de l'utilisateur <b class="font-mono">${data.fullname}</b>.
-      Êtes-vous sûr de vouloir continuer ?<br><br> Cette action est <b class="text-pink-950">irréversible</b>`,
-      confirmButtonText: `Oui, ${shouldActivate ? "Désactiver" : "Activer"}`,
-      onConfirm: async () => {
-        let result;
-
-        if (shouldActivate) {
-          result = await userStore.value?.updateUserDesactivate(id!);
-        } else {
-          result = await userStore.value?.updateUserActivate(id!);
-        }
-
-        if (result instanceof ApiError) {
-          logger.error("Error creating user:", result);
-
-          toast.error(
-            `Erreur lors de  ${shouldActivate ? "la désactivation" : "l'activation"} de l'utilisateur: ${result.message}`
-          );
-          return result;
-        }
-
-        toast.success(
-          `${shouldActivate ? "Désactivation" : "Activation"} de l'utilisateur réussie!`
-        );
-
-        await getUsers({});
-      },
-    });
-  };
-
   const deleteUser = async (element: UserInterface) => {
     AppUtils.showAlert({
       title: "Êtes-vous sûr?",
@@ -191,7 +129,7 @@ export const useUserActions = () => {
 
   onMounted(async () => {
     userStore.value = await useInitializedUserStore();
-    users.value = userStore.value.elements.map((user) => new UserModel(user));
+    users.value = userStore.value.elements.map((user: UserInterface) => new UserModel(user));
   });
 
   return {
@@ -201,8 +139,6 @@ export const useUserActions = () => {
     findUser,
     createUser,
     updateUser,
-    updateResetPassword,
-    updateUserActivateOrDesactivate,
     deleteUser,
   };
 };

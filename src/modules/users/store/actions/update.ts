@@ -1,6 +1,6 @@
+import type { UserStore } from "..";
+import type { UserInterface } from "../../interfaces";
 
-import { UserStore } from "../index";
-import { UserInterface } from "../../interfaces/user_interface";
 /**
  * update action
  *
@@ -9,7 +9,7 @@ import { UserInterface } from "../../interfaces/user_interface";
  * @returns {void}
  */
 export function update(store: UserStore, { id, data }: { id: UserInterface["id"], data: UserInterface }) {
-  const index = store.elements.findIndex((e) => e.id === id);
+  const index = store.elements.findIndex((e: UserInterface) => e.id === id);
   if (index !== -1) {
     store.elements[index] = { ...store.elements[index], ...data };
   }

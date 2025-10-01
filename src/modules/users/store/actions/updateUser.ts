@@ -1,11 +1,8 @@
-import { UserStore } from "../index";
-import { UserModel } from "../../models/user_model";
-import ApiError from "@/api/errors/ApiError";
-import { UserUpdateRoute } from "../../../operator/apis/operator_update_route";
-import { UserUpdateInterface } from "../../interfaces/user_update_interface";
-import { UserInterface } from "../../interfaces/user_interface";
-import config from "@/config";
-import { ApiModeEnum } from "@/enums/api_mode_enum";
+import type { UserStore } from "..";
+import { ApiError } from "../../../../api/errors";
+import { UserUpdateRoute } from "../../apis/user_update_route";
+import type { UserInterface, UserUpdateInterface } from "../../interfaces";
+
 /**
  * updateUser action
  *

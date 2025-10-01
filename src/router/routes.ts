@@ -1,5 +1,6 @@
 
 import operatorRoutes from "../modules/operator/routes";
+import operatorSalaryRoutes from "../modules/operator-salary/routes";
 import machineRoutes from "../modules/machine/routes";
 import authenticationRoutes from "../modules/authentication/routes"
 import userRoutes from "../modules/users/routes";
@@ -11,6 +12,8 @@ interface Routes {
     authentication: typeof authenticationRoutes;
 
   operators: typeof operatorRoutes;
+    operatorsSalary: typeof operatorSalaryRoutes;
+
     machines: typeof machineRoutes;
       users: typeof userRoutes;
 
@@ -21,7 +24,9 @@ export const appRoutes: Readonly<Routes> = Object.freeze({
     authentication: authenticationRoutes,
 
   comingSoon: "$all", 
-   operators: operatorRoutes, 
+   operators: operatorRoutes,
+       operatorsSalary: operatorSalaryRoutes,
+ 
    machines: machineRoutes,
       users: userRoutes,
 

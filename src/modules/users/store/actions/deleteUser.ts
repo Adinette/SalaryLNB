@@ -1,10 +1,7 @@
-import { UserStore } from "../index";
-import { UserModel } from "../../models/user_model";
-import ApiError from "@/api/errors/ApiError";
-import { UserDeleteRoute } from "../../../operator/apis/operator_delete_route";
-import { UserInterface } from "../../interfaces/user_interface";
-import config from "@/config";
-import { ApiModeEnum } from "@/enums/api_mode_enum";
+import type { UserStore } from "..";
+import ApiError from "../../../../api/errors/ApiError";
+import { UserDeleteRoute } from "../../apis/user_delete_route";
+import type { UserInterface } from "../../interfaces";
 /**
  * deleteUser action
  *

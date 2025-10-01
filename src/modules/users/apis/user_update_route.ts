@@ -1,19 +1,23 @@
-import ApiHttpMethod from "@/api/enums/api_http_method_enum";
-import ApiError from "@/api/errors/ApiError";
-import { UserInterface } from "../interfaces/user_interface";
-import { UserUpdateInterface } from "../interfaces/user_update_interface";
+
+import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
+import ApiError from "../../../api/errors/ApiError";
+import NotFoundApiError from "../../../api/errors/NotFoundApiError";
+import type { UserInterface } from "../interfaces/user_interface";
+import type { UserUpdateInterface } from "../interfaces/user_update_interface";
 import { UserModel } from "../models/user_model";
+import type { UserStore } from "../store";
 import { UserRoute } from "./_user_route";
-import { faker } from "@faker-js/faker";
-import { UserStore } from "../store";
-import NotFoundApiError from "@/api/errors/NotFoundApiError";
 
 export class UserUpdateRoute extends UserRoute {
+	elementId: UserInterface["id"];
+	data: UserUpdateInterface;
+
 	constructor(
-		private elementId: UserInterface["id"],
-		public data: UserUpdateInterface
+		elementId: UserInterface["id"],
+		data: UserUpdateInterface
 	) {
 		super(`/${UserRoute.name}/${elementId}`, ApiHttpMethod.PUT, data);
+		this.elementId = elementId;
 		this.data = data;
 	}
 

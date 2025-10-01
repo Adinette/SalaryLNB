@@ -3,11 +3,10 @@ import {
   requiredValidator,
   emailValidator,
   phoneValidator,
-} from "@/utils/validators";
-import { VForm } from "vuetify/components/VForm";
+} from "../../../utils/validators";
 import { ref, watch, defineEmits, defineProps } from "vue";
-import { useUserActions } from "../composables/use_user_actions";
-import { vMaska } from "maska/vue";
+import type { UserCreateInterface } from "../interfaces/user_create_interface";
+import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 
 const props = defineProps<{
   modelValue: UserCreateInterface;
@@ -20,10 +19,13 @@ const props = defineProps<{
   isEditMode?: boolean; // 👈 Ajout ici
 }>();
 const emit = defineEmits(["update:modelValue", "submit"]);
+interface FormRef {
+  validate: () => Promise<{ valid: boolean }>;
+  reset?: () => void;
+  resetValidation?: () => void;
+}
 
-const { processing: loading } = useUserActions();
-
-const formRef = ref<VForm>();
+const formRef = ref<FormRef>();
 const localForm = ref<UserCreateInterface>({ ...props.modelValue });
 
 watch(
@@ -73,7 +75,7 @@ async function onSubmit() {
           prepend-inner-icon="ri-user-line"
           persistent-placeholder
           :error-messages="props.errors?.first_name"
-          @update:model-value="(val) => updateField('first_name', val)"
+          @update:model-value="(val:any) => updateField('first_name', val)"
         />
       </VCol>
       <VCol cols="12" md="6">
@@ -88,7 +90,7 @@ async function onSubmit() {
           prepend-inner-icon="ri-user-line"
           persistent-placeholder
           :error-messages="props.errors?.last_name"
-          @update:model-value="(val) => updateField('last_name', val)"
+          @update:model-value="(val:any) => updateField('last_name', val)"
         />
       </VCol>
       <VCol cols="12">
@@ -104,7 +106,7 @@ async function onSubmit() {
           :disabled="props.isEditMode"
           persistent-placeholder
           :error-messages="props.errors?.email"
-          @update:model-value="(val) => updateField('email', val)"
+          @update:model-value="(val:any) => updateField('email', val)"
         />
       </VCol>
       <VCol cols="12">
@@ -121,7 +123,7 @@ async function onSubmit() {
           persistent-placeholder
           :rules="[phoneValidator]"
           :error-messages="props.errors?.phone"
-          @update:model-value="(val) => updateField('phone', val)"
+          @update:model-value="(val:any) => updateField('phone', val)"
         />
       </VCol>
     </VRow>

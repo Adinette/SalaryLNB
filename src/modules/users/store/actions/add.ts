@@ -1,4 +1,5 @@
-import { UserStore } from "../index";
+import type { UserStore } from "..";
+import type { UserInterface } from "../../interfaces";
 /**
  * add action
  *

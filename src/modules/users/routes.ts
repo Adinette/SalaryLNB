@@ -1,3 +1,5 @@
+import { createRoutes } from "../../utils/routes";
+
 const routes = createRoutes({
 	list: "users",
 	add: "users-add",

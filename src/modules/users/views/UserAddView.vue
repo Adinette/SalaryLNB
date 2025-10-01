@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import BaseBlock from "@/components/BaseBlock.vue";
 import { ref } from "vue";
-import { ApiError, UnprocessableEntityApiError } from "@/api/errors/index";
-import { appRoutes } from "@/router/routes";
 import { faker } from "@faker-js/faker";
 import { useUserActions } from "../composables/use_user_actions";
+import type { UserCreateInterface } from "../interfaces";
+import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
+import { createLogger } from "../../../utils/logger";
+import { toast } from "../../../utils/toast";
+import { AppUtils } from "../../../utils";
+import { router } from "../../../router";
+import { ApiError, UnprocessableEntityApiError } from "../../../api/errors";
 
 const logger = createLogger("userAddView");
 
@@ -13,7 +18,6 @@ const form = ref<UserCreateInterface>({
   last_name: "",
   email: "",
   phone: "",
-  is_active: true,
 });
 
 const fieldsErrors = ref<{ [key in keyof UserCreateInterface]: string[] }>({
@@ -21,7 +25,6 @@ const fieldsErrors = ref<{ [key in keyof UserCreateInterface]: string[] }>({
   last_name: [],
   email: [],
   phone: [],
-  is_active: [],
 });
 
 const alert = ref<AppAlertInterface | null>(null);
@@ -39,7 +42,6 @@ const setUnprocessableEntityApiErrors = (
   fieldsErrors.value.last_name = apiError.data.last_name || [];
   fieldsErrors.value.email = apiError.data.email || [];
   fieldsErrors.value.phone = apiError.data.phone || [];
-  fieldsErrors.value.is_active = apiError.data.is_active || [];
 };
 
 const createUser = async (user: UserCreateInterface) => {
@@ -70,7 +72,6 @@ const resetForm = () => {
     last_name: [],
     email: [],
     phone: [],
-    is_active: [],
   };
   alert.value = null;
 };

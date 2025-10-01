@@ -1,6 +1,5 @@
-import { ApiRoute } from "@/api/routes/api_route";
-import { useInitializedUserStore } from "../store";
-import { UserStore } from "../store";
+import { ApiRoute } from "../../../api/routes/api_route";
+import { useInitializedUserStore, type UserStore } from "../store";
 
 export class UserRoute extends ApiRoute {
   static name = "users";

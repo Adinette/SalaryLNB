@@ -1,12 +1,12 @@
-import ApiHttpMethod from "@/api/enums/api_http_method_enum";
-import ApiError from "@/api/errors/ApiError";
-import { UserInterface } from "../interfaces/user_interface";
+import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
+import { ApiError } from "../../../api/errors";
 
 import { UserModel } from "../models/user_model";
 import { UserRoute } from "./_user_route";
 import { faker } from "@faker-js/faker";
-import { UserStore } from "../store";
-import { UserCreateInterface } from "../interfaces/user_create_interface";
+import type { UserStore } from "../store";
+import type { UserCreateInterface } from "../interfaces/user_create_interface";
+import type { UserInterface } from "../interfaces/user_interface";
 
 export class UserCreateRoute extends UserRoute {
 	data: UserCreateInterface;

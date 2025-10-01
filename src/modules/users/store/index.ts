@@ -1,6 +1,9 @@
 import { userStoreDefinition } from "./definition";
 import { userStoreGetters } from "./getters";
 import { userStoreActions } from "./actions";
+import type { UserCreateInterface, UserInterface, UserStoreInterface, UserUpdateInterface } from "../interfaces";
+import type { ListApiArgsInterface } from "../../../api/interfaces/list_api_args_interface";
+import { defineStore } from "pinia";
 
 const useUserStore = defineStore(userStoreDefinition.key, {
   state: (): UserStoreInterface =>
@@ -30,19 +33,6 @@ const useUserStore = defineStore(userStoreDefinition.key, {
     },
     updateUser(elementId: UserInterface["id"], data: UserUpdateInterface) {
       return userStoreActions.updateUser(this, { elementId, data });
-    },
-    updateUserResetPassword(elementId: UserInterface["id"]) {
-      return userStoreActions.updateUserResetPassword(this, { elementId });
-    },
-    updateUserActivate(id: UserInterface["id"]) {
-      return userStoreActions.updateUserActivate(this, {
-        elementId: id,
-      });
-    },
-    updateUserDesactivate(id: UserInterface["id"]) {
-      return userStoreActions.updateUserDesactivate(this, {
-        elementId: id,
-      });
     },
     deleteUser(elementId: UserInterface["id"]) {
       return userStoreActions.deleteUser(this, { elementId });

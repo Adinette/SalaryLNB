@@ -1,5 +1,4 @@
 import { userStoreDefinition } from "../definition";
-import { createBaseStoreActions } from "@/stores/utils/create_base_store_actions";
 import { add } from "./add";
 import { find } from "./find";
 import { update } from "./update";
@@ -10,9 +9,7 @@ import { createUser } from "./createUser";
 import { updateUser } from "./updateUser";
 import { deleteUser } from "./deleteUser";
 import { setUsers } from "./setUsers";
-import { updateUserActivate } from "./updateUserActivate";
-import { updateUserDesactivate } from "./updateUserDesactivate";
-import { updateUserResetPassword } from "./updateUserResetPassword";
+import { createBaseStoreActions } from "../../../../stores/utils/create_base_store_actions";
 
 export const userStoreActions = {
   setUsers,
@@ -25,9 +22,6 @@ export const userStoreActions = {
   findUser,
   createUser,
   updateUser,
-  updateUserActivate,
-  updateUserDesactivate,
-  updateUserResetPassword,
   deleteUser,
   // Add any other specific actions for the User store here
   // For example, you might have actions like:

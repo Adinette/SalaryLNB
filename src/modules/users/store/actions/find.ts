@@ -1,6 +1,6 @@
 
-import {UserInterface} from "../../interfaces/user_interface";
-import { UserStore } from "../index";
+import type { UserStore } from "..";
+import type { UserInterface } from "../../interfaces";
 /**
  * find action
  *
@@ -9,5 +9,5 @@ import { UserStore } from "../index";
  * @returns {UserInterface | undefined}
  */
 export function find(store: UserStore, { id }: { id: UserInterface["id"] }) {
-  return store.elements.find((e) => e.id === id);
+  return store.elements.find((e: { id: string; }) => e.id === id);
 }

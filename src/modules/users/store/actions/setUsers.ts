@@ -1,5 +1,6 @@
-import { UserStore } from "..";
-import { userStoreDefinition } from "../definition";
+import type { UserStore } from "..";
+import { appLogger } from "../../../../utils/logger";
+import type { UserModel } from "../../models/user_model";
 
 /**
  * setUsers action

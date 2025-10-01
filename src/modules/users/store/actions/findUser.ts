@@ -1,10 +1,8 @@
-import { UserStore } from "../index";
-import { UserModel } from "../../models/user_model";
-import ApiError from "@/api/errors/ApiError";
-import { UserFindRoute } from "../../../operator/apis/operator_find_route";
-import { UserInterface } from "../../interfaces/user_interface";
-import config from "@/config";
-import { ApiModeEnum } from "@/enums/api_mode_enum";
+
+import type { UserInterface } from "../../interfaces";
+import { UserFindRoute } from "../../apis/user_find_route";
+import { ApiError } from "../../../../api/errors";
+import type { UserStore } from "..";
 /**
  * findUser action
  *

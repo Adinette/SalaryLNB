@@ -67,33 +67,33 @@ const loginFormRef = ref<FormRef>();
     console.log("VALID => continue dans le try");
     console.log("result avant", form.value);
 
-    const route = new LoginRoute(form.value);
-    const result = await route.request();
+    // const route = new LoginRoute(form.value);
+    // const result = await route.request();
 
-    if (result instanceof SessionModel) {
-      console.log("result après", result);
-      globalStore.value?.setSession(result);
+    // if (result instanceof SessionModel) {
+      // console.log("result après", result);
+      // globalStore.value?.setSession(result);
       toast.success("Connexion réussie !");
       setTimeout(() => {
-        router.replace({ name: appRoutes.dashboard });
+        router.replace({ name: "/users" });
       }, 2000);
       return;
-    }
+    // }
 
-    if (result instanceof UnprocessableEntityApiError) {
-      fieldsErrors.value.credential = result.data.credential ?? [];
-      fieldsErrors.value.password = result.data.password ?? [];
-    } else if (
-      result instanceof UnauthorizedApiError ||
-      result instanceof ApiError
-    ) {
-      alert.value = {
-        type: "danger",
-        id: faker.string.uuid(),
-        title: "Erreur",
-        message: result.message,
-      };
-    }
+    // if (result instanceof UnprocessableEntityApiError) {
+    //   fieldsErrors.value.credential = result.data.credential ?? [];
+    //   fieldsErrors.value.password = result.data.password ?? [];
+    // } else if (
+    //   result instanceof UnauthorizedApiError ||
+    //   result instanceof ApiError
+    // ) {
+    //   alert.value = {
+    //     type: "danger",
+    //     id: faker.string.uuid(),
+    //     title: "Erreur",
+    //     message: result.message,
+    //   };
+    // }
   } catch (error) {
     console.error("Erreur inattendue pendant la connexion:", error);
     alert.value = {

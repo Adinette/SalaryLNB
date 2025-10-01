@@ -5,9 +5,10 @@ import { toast } from "../../../utils/toast";
 import { useMachineActions } from "../composable/use_machine_actions";
 import { useSelectableList } from "../../../composables/useSelectableList";
 import type { MachineModel } from "../models/machine-model";
-import { useTable } from "../../../composables/useTable";
 import appRoutes from "../../../router/routes";
 import router from "../../../router";
+import { useCustomTable } from "../../../composables/useCustomTable";
+import CustomTable from "../../../components/CustomTable.vue";
 
 
 const {
@@ -20,9 +21,6 @@ const {
 // État pour la recherche
 const searchQuery = ref<string>("");
 
-const searchArgs = computed<ListApiArgsInterface>(() => ({
-  search: searchQuery.value || undefined,
-}));
 
 
 const {
@@ -39,7 +37,7 @@ const {
 
 // Configuration de la table 
 const { tableClasses, getStatusBadge, getStatusText, commonHeaders } =
-  useTable();
+  useCustomTable();
 const tableHeaders = commonHeaders.user();
 
 const deleteSelected = async () => {
@@ -142,7 +140,7 @@ onMounted(async () => {
       </div>
     </template>
 
-    <Table
+    <CustomTable
       :headers="tableHeaders"
       :items="machines"
       :selectable="true"
@@ -209,6 +207,6 @@ onMounted(async () => {
           </td>
         </tr>
       </template>
-    </Table>
+    </CustomTable>
   </BaseBlock>
 </template>

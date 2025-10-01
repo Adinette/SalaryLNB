@@ -1,6 +1,7 @@
+import type { UserStore } from "..";
+import type { UserInterface } from "../../interfaces";
 
-import { UserStore } from "../index";
-import { UserInterface } from "../../interfaces/user_interface";
+
 /**
  * remove action
  *
@@ -9,5 +10,5 @@ import { UserInterface } from "../../interfaces/user_interface";
  * @returns {void}
  */
 export function remove(store: UserStore, { id }: { id: UserInterface["id"] }) {
-  store.elements = store.elements.filter((e) => e.id !== id);
+  store.elements = store.elements.filter((e: UserInterface) => e.id !== id);
 }

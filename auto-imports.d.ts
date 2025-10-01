@@ -32,6 +32,9 @@ declare global {
   export type { MachineStore } from './src/modules/machine/store/index'
   import('./src/modules/machine/store/index')
   // @ts-ignore
+  export type { OperatorSalaryStore } from './src/modules/operator-salary/store/index'
+  import('./src/modules/operator-salary/store/index')
+  // @ts-ignore
   export type { OperatorStore } from './src/modules/operator/store/index'
   import('./src/modules/operator/store/index')
   // @ts-ignore
@@ -71,6 +74,18 @@ declare global {
   export type { MachineStoreInterface } from './src/modules/machine/interfaces/machine_store_interface'
   import('./src/modules/machine/interfaces/machine_store_interface')
   // @ts-ignore
+  export type { OperatorSalaryInterface } from './src/modules/operator-salary/interfaces/operator_salary_interface'
+  import('./src/modules/operator-salary/interfaces/operator_salary_interface')
+  // @ts-ignore
+  export type { OperatorSalaryCreateInterface } from './src/modules/operator-salary/interfaces/operator_salary_create_interface'
+  import('./src/modules/operator-salary/interfaces/operator_salary_create_interface')
+  // @ts-ignore
+  export type { OperatorSalaryUpdateInterface } from './src/modules/operator-salary/interfaces/operator_salary_update_interface'
+  import('./src/modules/operator-salary/interfaces/operator_salary_update_interface')
+  // @ts-ignore
+  export type { OperatorSalaryStoreInterface } from './src/modules/operator-salary/interfaces/operator_salary_store_interface'
+  import('./src/modules/operator-salary/interfaces/operator_salary_store_interface')
+  // @ts-ignore
   export type { OperatorInterface } from './src/modules/operator/interfaces/operator_interface'
   import('./src/modules/operator/interfaces/operator_interface')
   // @ts-ignore
@@ -82,9 +97,6 @@ declare global {
   // @ts-ignore
   export type { OperatorStoreInterface } from './src/modules/operator/interfaces/operator_store_interface'
   import('./src/modules/operator/interfaces/operator_store_interface')
-  // @ts-ignore
-  export type { OperatorSalaryInterface } from './src/modules/operator/interfaces/operator_salary_interface'
-  import('./src/modules/operator/interfaces/operator_salary_interface')
   // @ts-ignore
   export type { PermissionCreateInterface } from './src/modules/permissions/interfaces/permission_create_interface'
   import('./src/modules/permissions/interfaces/permission_create_interface')
@@ -125,11 +137,11 @@ declare global {
   export type { MachineModel } from './src/modules/machine/models/machine-model'
   import('./src/modules/machine/models/machine-model')
   // @ts-ignore
+  export type { OperatorSalaryModel } from './src/modules/operator-salary/models/operator-salary-model'
+  import('./src/modules/operator-salary/models/operator-salary-model')
+  // @ts-ignore
   export type { OperatorModel } from './src/modules/operator/models/operator-model'
   import('./src/modules/operator/models/operator-model')
-  // @ts-ignore
-  export type { OperatorSalaryModel } from './src/modules/operator/models/operator-salary-model'
-  import('./src/modules/operator/models/operator-salary-model')
   // @ts-ignore
   export type { PermissionModel } from './src/modules/permissions/models/permission_model'
   import('./src/modules/permissions/models/permission_model')
@@ -200,7 +212,7 @@ namespace _ComponentCustomProperties {
   const { GenericStoreService }: typeof import('./src/services/generic_store_service')
   const { MachineModel }: typeof import('./src/modules/machine/models/machine-model')
   const { OperatorModel }: typeof import('./src/modules/operator/models/operator-model')
-  const { OperatorSalaryModel }: typeof import('./src/modules/operator/models/operator-salary-model')
+  const { OperatorSalaryModel }: typeof import('./src/modules/operator-salary/models/operator-salary-model')
   const { PermissionModel }: typeof import('./src/modules/permissions/models/permission_model')
   const { SessionModel }: typeof import('./src/modules/authentication/models/session_model')
   const { UserModel }: typeof import('./src/modules/users/models/user_model')
@@ -223,6 +235,7 @@ namespace _ComponentCustomProperties {
   const { hexToRgba }: typeof import('./src/utils/hex_to_rgba')
   const { machineStoreDefinition }: typeof import('./src/modules/machine/store/definition')
   const { numberFormatter }: typeof import('./src/utils/number_formatter')
+  const { operatorSalaryStoreDefinition }: typeof import('./src/modules/operator-salary/store/definition')
   const { operatorStoreDefinition }: typeof import('./src/modules/operator/store/definition')
   const { permissionStoreDefinition, useInitializedPermissionStore }: typeof import('./src/modules/permissions/store/index')
   const { registerPlugins }: typeof import('./src/utils/plugins')
@@ -231,6 +244,7 @@ namespace _ComponentCustomProperties {
   const { useGlobalStore, useInitializedGlobalStore }: typeof import('./src/stores/global/index')
   const { useI18n }: typeof import('vue-i18n')
   const { useInitializedMachineStore }: typeof import('./src/modules/machine/store/index')
+  const { useInitializedOperatorSalaryStore }: typeof import('./src/modules/operator-salary/store/index')
   const { useInitializedOperatorStore }: typeof import('./src/modules/operator/store/index')
   const { useInitializedUserStore }: typeof import('./src/modules/users/store/index')
   const { userStoreDefinition }: typeof import('./src/modules/users/store/definition')

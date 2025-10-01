@@ -27,9 +27,10 @@ declare module 'vue-router/auto-routes' {
     '/operators': RouteRecordInfo<'/operators', '/operators', Record<never, never>, Record<never, never>>,
     '/operators/add': RouteRecordInfo<'/operators/add', '/operators/add', Record<never, never>, Record<never, never>>,
     '/operators/edit/:id': RouteRecordInfo<'/operators/edit/:id', '/operators/edit/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
-    '/operators copy': RouteRecordInfo<'/operators copy', '/operators copy', Record<never, never>, Record<never, never>>,
-    '/operators copy/add': RouteRecordInfo<'/operators copy/add', '/operators copy/add', Record<never, never>, Record<never, never>>,
-    '/operators copy/edit/:id': RouteRecordInfo<'/operators copy/edit/:id', '/operators copy/edit/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/operators-salary': RouteRecordInfo<'/operators-salary', '/operators-salary', Record<never, never>, Record<never, never>>,
+    '/operators-salary/add': RouteRecordInfo<'/operators-salary/add', '/operators-salary/add', Record<never, never>, Record<never, never>>,
+    '/operators-salary/details/:id': RouteRecordInfo<'/operators-salary/details/:id', '/operators-salary/details/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/operators-salary/edit/:id': RouteRecordInfo<'/operators-salary/edit/:id', '/operators-salary/edit/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/users': RouteRecordInfo<'/users', '/users', Record<never, never>, Record<never, never>>,
     '/users/add': RouteRecordInfo<'/users/add', '/users/add', Record<never, never>, Record<never, never>>,
     '/users/edit/:id': RouteRecordInfo<'/users/edit/:id', '/users/edit/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
@@ -82,16 +83,20 @@ declare module 'vue-router/auto-routes' {
       routes: '/operators/edit/:id'
       views: never
     }
-    'src/pages/operators copy/index.vue': {
-      routes: '/operators copy'
+    'src/pages/operators-salary/index.vue': {
+      routes: '/operators-salary'
       views: never
     }
-    'src/pages/operators copy/add.vue': {
-      routes: '/operators copy/add'
+    'src/pages/operators-salary/add.vue': {
+      routes: '/operators-salary/add'
       views: never
     }
-    'src/pages/operators copy/edit/[id].vue': {
-      routes: '/operators copy/edit/:id'
+    'src/pages/operators-salary/details/[id].vue': {
+      routes: '/operators-salary/details/:id'
+      views: never
+    }
+    'src/pages/operators-salary/edit/[id].vue': {
+      routes: '/operators-salary/edit/:id'
       views: never
     }
     'src/pages/users/index.vue': {

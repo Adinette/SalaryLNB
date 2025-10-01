@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import BaseBlock from "@/components/BaseBlock.vue";
-import { ref, onMounted } from "vue";
-import { ApiError, UnprocessableEntityApiError } from "@/api/errors/index";
-import { appRoutes } from "@/router/routes";
+import { ref, onMounted, computed } from "vue";
 import { faker } from "@faker-js/faker";
 import { useUserActions } from "../composables/use_user_actions";
 import { UserModel } from "../models/user_model";
+import type { UserCreateInterface } from "../interfaces";
+import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
+import { useInitializedUserStore, type UserStore } from "../store";
+import { useRoute } from "vue-router";
+import { createLogger } from "../../../utils/logger";
+import { ApiError, UnprocessableEntityApiError } from "../../../api/errors";
+import { AppUtils } from "../../../utils";
+import { toast } from "../../../utils/toast";
+import router from "../../../router";
 
 const logger = createLogger("userEditView");
 
@@ -18,7 +25,6 @@ const form = ref<UserCreateInterface>({
   last_name: "",
   email: "",
   phone: "",
-  is_active: true,
 });
 
 const fieldsErrors = ref<{ [key in keyof UserCreateInterface]: string[] }>({
@@ -26,7 +32,6 @@ const fieldsErrors = ref<{ [key in keyof UserCreateInterface]: string[] }>({
   last_name: [],
   email: [],
   phone: [],
-  is_active: [],
 });
 
 const alert = ref<AppAlertInterface | null>(null);
@@ -44,7 +49,6 @@ const setUnprocessableEntityApiErrors = (
   fieldsErrors.value.last_name = apiError.data.last_name || [];
   fieldsErrors.value.email = apiError.data.email || [];
   fieldsErrors.value.phone = apiError.data.phone || [];
-  fieldsErrors.value.is_active = apiError.data.is_active || [];
 };
 
 const fetchUser = async () => {
@@ -71,7 +75,6 @@ const fetchUser = async () => {
     phone: currentUser.phone
       ? AppUtils.formatPhoneWithSpaces(currentUser.phone)
       : "",
-    is_active: currentUser.is_active,
   };
 };
 
@@ -111,7 +114,6 @@ const resetForm = () => {
     last_name: [],
     email: [],
     phone: [],
-    is_active: [],
   };
   alert.value = null;
 };

@@ -1,8 +1,8 @@
-import { UserStore } from "../index";
-import ApiError from "@/api/errors/ApiError";
-import { UserListRoute } from "../../../operator/apis/operator_list_route";
-import config from "@/config";
-import { ApiModeEnum } from "@/enums/api_mode_enum";
+import type { UserStore } from "..";
+import { ApiError } from "../../../../api/errors";
+import type { ListApiArgsInterface } from "../../../../api/interfaces/list_api_args_interface";
+import { UserListRoute } from "../../apis/user_list_route";
+
 /**
  * getUsers action
  *
@@ -16,6 +16,6 @@ export async function getUsers(store: UserStore, { args }: { args?: ListApiArgsI
 
 	if (result instanceof ApiError) return result;
 
-	store.elements = result.map((model) => model.interface);
+	store.elements = result.map((model: { interface: any; }) => model.interface);
 	return result;
 }

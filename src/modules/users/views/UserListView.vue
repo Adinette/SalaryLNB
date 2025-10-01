@@ -3,32 +3,31 @@ import { useSelectableList } from "../../../composables/useSelectableList";
 import { UserModel } from "../models/user_model";
 import { useUserActions } from "../composables/use_user_actions";
 import { useBootstrapToast } from "../../../composables/useBootstrapToast";
-import Table from "@/components/Table.vue";
-import { useTable } from "../../../composables/useTable";
-import { computed, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import type { ListApiArgsInterface } from "../../../api/interfaces/list_api_args_interface";
 import { toast } from "../../../utils/toast";
 import router from "../../../router";
 import appRoutes from "../../../router/routes";
+import { useCustomTable } from "../../../composables/useCustomTable";
+import CustomTable from "../../../components/CustomTable.vue";
+import { useDebounceFn } from "@vueuse/core";
 
 
 const {
   processing: loading,
   users,
   getUsers,
-  updateResetPassword,
-  updateUserActivateOrDesactivate,
   deleteUser,
 } = useUserActions();
 
 // État pour la recherche
 const searchQuery = ref<string>("");
-const isActiveQuery = ref<boolean>();
-const status = [
-  { label: "Tout les utilisateurs", value: null },
-  { label: "Activé", value: true },
-  { label: "Désactivé", value: false },
-];
+// const isActiveQuery = ref<boolean>();
+// const status = [
+//   { label: "Tout les utilisateurs", value: null },
+//   { label: "Activé", value: true },
+//   { label: "Désactivé", value: false },
+// ];
 const searchArgs = computed<ListApiArgsInterface>(() => ({
   search: searchQuery.value || undefined,
 }));
@@ -45,17 +44,17 @@ const {
   clearSelection,
 } = useSelectableList<UserModel>(() => users.value);
 
-const { show: notify } = useBootstrapToast();
+// const { show: notify } = useBootstrapToast();
 
 // Configuration de la table 
 const { tableClasses, getStatusBadge, getStatusText, commonHeaders } =
-  useTable();
+  useCustomTable();
 const tableHeaders = commonHeaders.user();
 
-const debouncedIsActive = useDebounceFn(async () => {
-  await getUsers(statusArgs.value);
-  clearSelection(); // Nettoie la sélection après le filtre
-}, 300);
+// const debouncedIsActive = useDebounceFn(async () => {
+//   await getUsers(statusArgs.value);
+//   clearSelection(); // Nettoie la sélection après le filtre
+// }, 300);
 
 const deleteSelected = async () => {
   if (selected.value.length === 0) return;
@@ -114,7 +113,7 @@ onMounted(async () => {
     <template #options>
       <div class="flex justify-end items-center gap-2">
         <!--Champ de filtre de status-->
-        <VCol cols="4">
+        <!-- <VCol cols="4">
           <VSelect
             v-model="isActiveQuery"
             :items="status"
@@ -134,7 +133,7 @@ onMounted(async () => {
           @click="debouncedIsActive"
         >
           Filtrer
-        </VBtn>
+        </VBtn> -->
         <!-- Champ de recherche -->
         <VTextField
           v-model="searchQuery"
@@ -178,7 +177,7 @@ onMounted(async () => {
       </div>
     </template>
 
-    <Table
+    <CustomTable
       :headers="tableHeaders"
       :items="users"
       :selectable="true"
@@ -220,7 +219,7 @@ onMounted(async () => {
           </td>
           <td class="text-center">
             <div class="btn-group btn-group-">
-              <button
+              <!-- <button
                 type="button"
                 class="btn btn-sm btn-alt-secondary"
                 @click="
@@ -235,7 +234,7 @@ onMounted(async () => {
                 <VTooltip activator="parent" location="top">{{
                   user.is_active ? "Désactiver" : "Activer"
                 }}</VTooltip>
-              </button>
+              </button> -->
               <button
                 type="button"
                 :class="tableClasses.button.action"
@@ -249,7 +248,7 @@ onMounted(async () => {
                 <i class="fa fa-fw fa-pencil-alt mr-0"></i>
                 <VTooltip activator="parent" location="top">Modifier</VTooltip>
               </button>
-              <button
+              <!-- <button
                 type="button"
                 class="btn text-error btn-sm btn-alt-secondary"
                 @click="updateResetPassword(user.interface)"
@@ -258,7 +257,7 @@ onMounted(async () => {
                 <VTooltip activator="parent" location="top">
                   Réinitialiser le mot de passe
                 </VTooltip>
-              </button>
+              </button> -->
               <button
                 type="button"
                 :class="tableClasses.button.danger"
@@ -271,6 +270,6 @@ onMounted(async () => {
           </td>
         </tr>
       </template>
-    </Table>
+    </CustomTable>
   </BaseBlock>
 </template>

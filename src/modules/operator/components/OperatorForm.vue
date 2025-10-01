@@ -20,8 +20,12 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(["update:modelValue", "submit"]);
 
-
-const formRef = ref<form>();
+interface FormRef {
+  validate: () => Promise<{ valid: boolean }>;
+  reset?: () => void;
+  resetValidation?: () => void;
+}
+const formRef = ref<FormRef>();
 const localForm = ref<OperatorCreateInterface>({ ...props.modelValue });
 
 watch(

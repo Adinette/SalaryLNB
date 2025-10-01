@@ -38,7 +38,7 @@ import { computed, onMounted, ref } from "vue";
 		<template #prepend>
 			<VIcon icon="ri-translate-2" />
 		</template>
-		<div class="font-bold">{{ resolveLocaleLabel(locale) }}</div>
+		<!-- <div class="font-bold">{{ resolveLocaleLabel(locale) }}</div> -->
 
 		<!-- Menu -->
 		<VMenu activator="parent" :location="'bottom end'" offset="15px" width="160">

@@ -1,10 +1,8 @@
-import { UserStore } from "../index";
-import { UserModel } from "../../models/user_model";
-import ApiError from "@/api/errors/ApiError";
-import { UserCreateRoute } from "../../../operator/apis/operator_create_route";
-import { UserCreateInterface } from "../../interfaces/user_create_interface";
-import config from "@/config";
-import { ApiModeEnum } from "@/enums/api_mode_enum";
+import type { UserStore } from "..";
+import ApiError from "../../../../api/errors/ApiError";
+import { UserCreateRoute } from "../../apis/user_create_route";
+import type { UserCreateInterface } from "../../interfaces";
+
 /**
  * createUser action
  *

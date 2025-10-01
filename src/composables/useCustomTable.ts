@@ -9,7 +9,7 @@ export type TableHeader = {
 /**
  * Composable pour les styles et utilitaires des tables
  */
-export function useTable() {
+export function useCustomTable() {
   // Classes CSS prêtes à l'emploi
   const tableClasses = {
     badge: {
@@ -97,33 +97,6 @@ export function useTable() {
     user: (): TableHeader[] => [
       createHeaders.info("Informations"),
       createHeaders.status(),
-      createHeaders.actions(),
-    ],
-
-    // Pour EmployeeListView
-    employee: (): TableHeader[] => [
-      createHeaders.info("Informations"),
-      createHeaders.status(),
-      createHeaders.actions(),
-    ],
-
-    // Pour PositionListView
-    position: (): TableHeader[] => [
-      createHeaders.info("Informations"),
-      createHeaders.status(),
-      createHeaders.actions(),
-    ],
-
-    // Pour DepartmentListView (sans statut)
-    department: (): TableHeader[] => [
-      createHeaders.info("Informations"),
-      createHeaders.actions(),
-    ],
-
-    // Pour sprintTrackingListView
-    sprintTracking: (): TableHeader[] => [
-      createHeaders.info("Période"),
-      { title: "Objectifs", key: "objective_count" },
       createHeaders.actions(),
     ],
   };

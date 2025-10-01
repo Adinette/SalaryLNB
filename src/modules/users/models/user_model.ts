@@ -6,7 +6,6 @@ export class UserModel extends ApiResourceModel implements UserInterface {
   last_name: UserInterface["last_name"];
   email: UserInterface["email"];
   phone: UserInterface["phone"];
-  is_active: UserInterface["is_active"];
 
   constructor(data: UserInterface) {
     super(data);
@@ -14,7 +13,6 @@ export class UserModel extends ApiResourceModel implements UserInterface {
     this.last_name = data.last_name;
     this.email = data.email;
     this.phone = data.phone;
-    this.is_active = data.is_active;
   }
 
   get interface(): UserInterface {
@@ -24,7 +22,6 @@ export class UserModel extends ApiResourceModel implements UserInterface {
       last_name: this.last_name,
       email: this.email,
       phone: this.phone,
-      is_active: this.is_active,
     };
   }
 

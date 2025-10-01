@@ -1,4 +1,4 @@
-import { EmployeeInterface } from "@/interfaces";
+import type { ApiResourceInterface } from "../../../interfaces/ApiResourceInterface";
 
 export interface UserInterface extends ApiResourceInterface {
   /** Prénom de l'utilisateur */
@@ -9,8 +9,5 @@ export interface UserInterface extends ApiResourceInterface {
   email: string;
   /** Numéro de téléphone de l'utilisateur */
   phone: string;
-  /** Indique si le compte utilisateur est actif */
-  is_active?: boolean;
-  /**Employé */
-  permanent_function?: EmployeeInterface;
+
 }

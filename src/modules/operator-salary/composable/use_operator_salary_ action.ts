@@ -17,12 +17,12 @@ export const useOperatorSalaryActions = () => {
     operatorSalaryStore.value ? operatorSalaryStore.value.loading : true
   );
 
-     const autresPrelevements = (penalite || 0) + (remboursement || 0) + (dette || 0) + (ecart || 0) + (calculatedFraisMomo || 0);
-    console.log("autrePrelevement", penalite, dette, remboursement, ecart, autresPrelevements);
+    //  const autresPrelevements = (penalite || 0) + (remboursement || 0) + (dette || 0) + (ecart || 0) + (calculatedFraisMomo || 0);
+    // console.log("autrePrelevement", penalite, dette, remboursement, ecart, autresPrelevements);
     
-    const totalPrelevements = FEL + AIB + autresPrelevements;
+    // const totalPrelevements = FEL + AIB + autresPrelevements;
 
-    const salaireBrut = commissionBrute - totalPrelevements;
+    // const salaireBrut = commissionBrute - totalPrelevements;
 
   const getOperatorSalary = async () => {
     if (!operatorSalaryStore.value) {

@@ -2,6 +2,7 @@ import type { UserStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import type { ListApiArgsInterface } from "../../../../api/interfaces/list_api_args_interface";
 import { UserListRoute } from "../../apis/user_list_route";
+import type { UserModel } from "../../models/user_model";
 
 /**
  * getUsers action
@@ -10,12 +11,19 @@ import { UserListRoute } from "../../apis/user_list_route";
  * @param { args }: { args?: ListApiArgsInterface } = {} - Optional API parameters
  * @returns {Promise<UserModel[] | ApiError>}
  */
-export async function getUsers(store: UserStore, { args }: { args?: ListApiArgsInterface } = {}) {
-	const apiRoute = new UserListRoute(args);
-	const result = await apiRoute.request();
 
-	if (result instanceof ApiError) return result;
+export async function getUsers(
+  store: UserStore,
+  { args }: { args?: ListApiArgsInterface } = {}
+): Promise<UserModel[]> {
+  const apiRoute = new UserListRoute(args);
+  const result = await apiRoute.mock();
 
-	store.elements = result.map((model: { interface: any; }) => model.interface);
-	return result;
+  if (result instanceof ApiError) {
+    // logguer ici si tu veux
+    return [];
+  }
+
+  store.elements = result.map((model: { interface: any }) => model.interface);
+  return result;
 }

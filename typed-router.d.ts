@@ -22,7 +22,7 @@ declare module 'vue-router/auto-routes' {
     '/:all(.*)': RouteRecordInfo<'/:all(.*)', '/:all(.*)', { all: ParamValue<true> }, { all: ParamValue<false> }>,
     '/authentication/forgot/password': RouteRecordInfo<'/authentication/forgot/password', '/authentication/forgot/password', Record<never, never>, Record<never, never>>,
     'authentication-login': RouteRecordInfo<'authentication-login', '/authentication/login', Record<never, never>, Record<never, never>>,
-    '/dashboard': RouteRecordInfo<'/dashboard', '/dashboard', Record<never, never>, Record<never, never>>,
+    'dashboard': RouteRecordInfo<'dashboard', '/dashboard', Record<never, never>, Record<never, never>>,
     '/forbidden': RouteRecordInfo<'/forbidden', '/forbidden', Record<never, never>, Record<never, never>>,
     '/operators': RouteRecordInfo<'/operators', '/operators', Record<never, never>, Record<never, never>>,
     '/operators/add': RouteRecordInfo<'/operators/add', '/operators/add', Record<never, never>, Record<never, never>>,
@@ -64,7 +64,7 @@ declare module 'vue-router/auto-routes' {
       views: never
     }
     'src/pages/dashboard.vue': {
-      routes: '/dashboard'
+      routes: 'dashboard'
       views: never
     }
     'src/pages/forbidden.vue': {

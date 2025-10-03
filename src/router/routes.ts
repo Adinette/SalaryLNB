@@ -9,26 +9,22 @@ import userRoutes from "../modules/users/routes";
 interface Routes {
   dashboard: "dashboard";
   comingSoon: "$all";
-    authentication: typeof authenticationRoutes;
-
+  authentication: typeof authenticationRoutes;
   operators: typeof operatorRoutes;
-    operatorsSalary: typeof operatorSalaryRoutes;
-
-    machines: typeof machineRoutes;
-      users: typeof userRoutes;
+  operatorsSalary: typeof operatorSalaryRoutes;
+  machines: typeof machineRoutes;
+  users: typeof userRoutes;
 
 }
 
 export const appRoutes: Readonly<Routes> = Object.freeze({
   dashboard: "dashboard",
-    authentication: authenticationRoutes,
-
+  authentication: authenticationRoutes,
   comingSoon: "$all", 
-   operators: operatorRoutes,
-       operatorsSalary: operatorSalaryRoutes,
- 
-   machines: machineRoutes,
-      users: userRoutes,
+  operators: operatorRoutes,
+  operatorsSalary: operatorSalaryRoutes,
+  machines: machineRoutes,
+  users: userRoutes,
 
 });
 

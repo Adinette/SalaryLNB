@@ -15,7 +15,7 @@ export async function findUser(
 	{ elementId }: { elementId: UserInterface["id"] }
 ) {
 	const apiRoute = new UserFindRoute({ elementId });
-	const result = await apiRoute.request();
+	const result = await apiRoute.mock();
 	if (result instanceof ApiError) return result;
 	return result;
 }

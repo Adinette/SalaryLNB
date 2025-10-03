@@ -1,3 +1,7 @@
+<route lang="yaml">
+name: dashboard
+</route>
+
 <script setup lang="ts">
 	const pageTitle = "Tableau de bord";
 	const pageSubtitle = "Tableau de bord";

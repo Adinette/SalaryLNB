@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import vuetify from "vite-plugin-vuetify";
 import tailwindcss from "@tailwindcss/vite";
 import VueRouter from "unplugin-vue-router/vite";
 import vueDevTools from "vite-plugin-vue-devtools";
@@ -54,6 +55,11 @@ VueRouter({
     }),
 
     vue(),
+
+    vuetify({
+      autoImport: true,
+      styles: 'sass',
+    }),
 
     Components({
       dirs: ["./src/components", "./src/modules/**/components", "./src/modules/**/views"],

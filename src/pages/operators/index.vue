@@ -1,17 +1,15 @@
 <script setup lang="ts">
-	import { definePage } from "vue-router/auto";
 import OperatorListView from "../../modules/operator/views/OperatorListView.vue";
 
 	const pageTitle = "Opérateurs";
 	const pageSubtitle = "Gérez les pérateurs de l'entreprise efficacement.";
-
-	definePage({
-		meta: {
-			layout: "DashboardLayout",
-			public: false,
-		},
-	});
 </script>
+
+<route lang="yaml">
+meta:
+  layout: DashboardLayout
+  public: false
+</route>
 
 <template>
 	<BasePageHeading :title="pageTitle" :subtitle="pageSubtitle">

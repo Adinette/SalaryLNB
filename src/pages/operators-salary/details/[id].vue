@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import { definePage } from "vue-router/auto";
 import OperatorSalaryDetailsView from "../../../modules/operator-salary/views/OperatorSalaryDetailsView.vue";
 
 const pageTitle = "Détails du salaire d'un opérateur";
 const pageSubtitle =
   "Consulter les détails complets du salaire d'un opérateur.";
-
-definePage({
-  meta: {
-    layout: "DashboardLayout",
-    public: false,
-  },
-});
 </script>
+
+<route lang="yaml">
+meta:
+  layout: DashboardLayout
+  public: false
+</route>
 
 <template>
   <BasePageHeading :title="pageTitle" :subtitle="pageSubtitle">

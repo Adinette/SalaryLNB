@@ -8,22 +8,16 @@
 
 
 
-	definePage({
-				name: "authentication-login",
-		meta: {
-			layout: "blank",
-			public: true,
-		},
-	});
-
 	// Main store and Router
 	const store = useTemplateStore();
-
-
-function definePage(arg0: { name?: string; meta: { layout: string; public: boolean; }; }) {
-	throw new Error("Function not implemented.");
-}
 </script>
+
+<route lang="yaml">
+name: authentication-login
+meta:
+  layout: blank
+  public: true
+</route>
 
 <template>
 	<!-- Page Content -->

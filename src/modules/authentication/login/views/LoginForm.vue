@@ -112,26 +112,22 @@ const loginFormRef = ref<FormRef>();
 	});
 </script>
 <template>
-	<form ref="loginFormRef" @submit.prevent="onSubmit">
+	<v-form ref="loginFormRef" @submit.prevent="onSubmit">
 		<div class="py-3">
 			<div cols="12" v-if="alert">
-				<div
+				<v-alert
 					:type="alert.type"
 					:id="alert.id"
 					:title="alert.title"
-					:message="alert.message"
+					:text="alert.message"
 					:closable="true"
-					:onClose="
-						() => {
-							alert = null;
-						}
-					"
-				></div>
-					</div>
+					@click:close="alert = null"
+				></v-alert>
+			</div>
 			<div class="mb-4">
-				<label class="mb-2">Email</label>
-				<input
+				<v-text-field
 					v-model="form.credential"
+					label="Email"
 					variant="filled"
 					density="compact"
 					prepend-inner-icon="ri-user-3-line"
@@ -140,53 +136,31 @@ const loginFormRef = ref<FormRef>();
 				/>
 			</div>
 			<div class="mb-4">
-				<label class="mb-2">Mot de passe</label>
-
-				<input
+				<v-text-field
 					v-model="form.password"
+					label="Mot de passe"
 					variant="filled"
 					density="compact"
 					prepend-inner-icon="ri-lock-2-line"
 					:append-inner-icon="showPassword ? 'ri-eye-off-line' : 'ri-eye-line'"
-					persistent-placeholder
 					:type="showPassword ? 'text' : 'password'"
 					:error-messages="fieldsErrors.password"
 					@click:append-inner="togglePasswordVisibility"
 				/>
 			</div>
-			<!-- <div class="mb-4">
-        <div
-          class="d-md-flex align-items-md-center justify-content-md-between flex items-center justify-between"
-        >
-          <VCheckbox
-            false-icon="ri-checkbox-blank-line"
-            true-icon="ri-checkbox-fill"
-            v-model="form.remember_me"
-            :label="
-              t(appLocalesMapping.authentication.login.form.rememberMe.label)
-            "
-          />
-          <div class="py-2">
-            <RouterLink
-              :to="{ name: appRoutes.authentication.forgotPassword }"
-              class="fs-sm fw-medium"
-            >
-              {{ t(appLocalesMapping.authentication.login.forgotPassword) }}
-            </RouterLink>
-          </div>
-        </div>
-      </div> -->
 		</div>
 		<div class="row justify-content-center px-3">
-			<button
+			<v-btn
 				:loading="loading"
 				type="submit"
 				block
 				variant="flat"
+				color="primary"
 				class="flex justify-center items-center gap-8"
-			>Connexion
-				<!-- <VIcon icon="ri-login-box-fill" /> -->
-			</button>
+			>
+				Connexion
+				<v-icon end icon="ri-login-box-fill"></v-icon>
+			</v-btn>
 		</div>
-	</form>
+	</v-form>
 </template>

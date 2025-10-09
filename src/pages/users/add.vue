@@ -1,16 +1,13 @@
 <script setup lang="ts">
-	import { definePage } from "vue-router/auto";
-
 	const pageTitle = "Formulaire des utilisateurs";
 	const pageSubtitle = "Ajouter un utilisateur.";
-
-	definePage({
-		meta: {
-			layout: "DashboardLayout",
-			public: false,
-		},
-	});
 </script>
+
+<route lang="yaml">
+meta:
+  layout: DashboardLayout
+  public: false
+</route>
 
 <template>
 	<BasePageHeading :title="pageTitle" :subtitle="pageSubtitle">

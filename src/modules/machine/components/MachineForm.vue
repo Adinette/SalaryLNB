@@ -5,7 +5,6 @@ import {
 import { ref, watch, defineEmits, defineProps } from "vue";
 import type { MachineCreateInterface } from "../interfaces";
 import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
-import { Checkbox } from "ant-design-vue";
 
 const props = defineProps<{
   modelValue: MachineCreateInterface;
@@ -54,7 +53,7 @@ async function onSubmit() {
 </script>
 
 <template>
-  <form ref="formRef" @submit.prevent="onSubmit">
+  <v-form ref="formRef" @submit.prevent="onSubmit">
     <div>
       <div cols="12" class="text-left">
         <span class="text-subtitle-1"
@@ -65,10 +64,10 @@ async function onSubmit() {
         >
       </div>
       <div cols="12" md="6">
-        <label class="mb-3" for="machine-first-name">Code de la machine *</label>
-        <input
+        <v-text-field
           id="machine-code"
           v-model="localForm.code"
+          label="Code de la machine *"
           placeholder="Ex: 100285"
           :rules="[requiredValidator]"
           variant="filled"
@@ -80,10 +79,10 @@ async function onSubmit() {
         />
       </div>
       <div cols="12" md="6">
-        <label class="mb-3" for="machine-last-name">Emplacement de la machine *</label>
-        <input
+        <v-text-field
           id="machine-emplacement"
           v-model="localForm.emplacement"
+          label="Emplacement de la machine *"
           placeholder="Ex: Lokossa"
           :rules="[requiredValidator]"
           variant="filled"
@@ -95,17 +94,13 @@ async function onSubmit() {
         />
       </div>
       <div cols="12">
-        <label class="mb-3" for="machine-phone">Est-il en activité</label>
-        <Checkbox
-          id="machine-phone"
+        <v-checkbox
+          id="machine-is-active"
           v-model="localForm.is_active"
-          v-maska="'229 01 ## ## ## ##'"
-          placeholder="Ex: 229 01 66 66 66 66"
+          label="Est-il en activité"
           variant="filled"
           density="compact"
-          prepend-inner-icon="ri-phone-line"
           :disabled="props.isEditMode"
-          persistent-placeholder
           :error-messages="props.errors?.is_active"
           @update:model-value="(val:any) => updateField('is_active', val)"
         />
@@ -115,24 +110,24 @@ async function onSubmit() {
     <!-- Alert Section -->
     <div v-if="props.alert">
       <div cols="12">
-        <div
+        <v-alert
           :type="
             props.alert.type === 'danger'
               ? 'error'
               : (props.alert.type as 'error' | 'info' | 'success' | 'warning')
           "
           :title="props.alert.title"
+          :text="props.alert.message"
           class="mb-3"
         >
-          {{ props.alert.message }}
-			</div>
+        </v-alert>
       </div>
     </div>
 
     <!-- Submit Button -->
     <div>
       <div cols="12" class="text-right">
-        <button
+        <v-btn
           type="submit"
           color="primary"
           size="small"
@@ -141,8 +136,8 @@ async function onSubmit() {
           class="px-8"
         >
           {{ props.actionText || "Enregistrer" }}
-			</button>
+			</v-btn>
       </div>
     </div>
-  </form>
+  </v-form>
 </template>

@@ -1,18 +1,13 @@
 <route lang="yaml">
 name: dashboard
+meta:
+  layout: DashboardLayout
+  public: false
 </route>
 
 <script setup lang="ts">
 	const pageTitle = "Tableau de bord";
 	const pageSubtitle = "Tableau de bord";
-declare function definePage(arg: any): void;
-
-		definePage({
-		meta: {
-			layout: "DashboardLayout",
-			public: false,
-		},
-	});
 </script>
 
 <template>

@@ -1,17 +1,15 @@
 <script setup lang="ts">
-	import { definePage } from "vue-router/auto";
-import OperatorSalaryAddView from "../../modules/operator-salary/views/OperatorSalaryAddView.vue";
+import OperatorCalculateSalaryView from "../../modules/operator-salary/views/OperatorCalculateSalaryView.vue";
 
 	const pageTitle = "Formulaire de calcul de l'Opérateur";
 	const pageSubtitle = "Calculer le salaire d'un Opérateur.";
-
-	definePage({
-		meta: {
-			layout: "DashboardLayout",
-			public: false,
-		},
-	});
 </script>
+
+<route lang="yaml">
+meta:
+  layout: DashboardLayout
+  public: false
+</route>
 
 <template>
 	<BasePageHeading :title="pageTitle" :subtitle="pageSubtitle">
@@ -27,7 +25,7 @@ import OperatorSalaryAddView from "../../modules/operator-salary/views/OperatorS
 	</BasePageHeading>
 	<!-- Page Content -->
 	<div class="content">
-		<OperatorSalaryAddView />
+		<OperatorCalculateSalaryView />
 	</div>
 	<!-- END Page Content -->
 </template>

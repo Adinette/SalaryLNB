@@ -14,7 +14,6 @@
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
     "@vueuse/core": "^13.9.0",
-    "ant-design-vue": "^4.2.6",
     "axios": "^1.12.2",
     "consola": "^3.4.2",
     "idb": "^8.0.3",
@@ -49,6 +48,7 @@
     "vite-plugin-pages": "^0.33.1",
     "vite-plugin-vue-devtools": "^7.2.1",
     "vite-plugin-vue-layouts": "^0.11.0",
+    "vite-plugin-vuetify": "^2.1.2",
     "vue-tsc": "^3.0.5"
   }
 }

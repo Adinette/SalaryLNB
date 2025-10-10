@@ -5,9 +5,6 @@
 	// Vuelidate, for more info and examples you can check out https://github.com/vuelidate/vuelidate
 	import LoginForm from "@/modules/authentication/login/views/LoginForm.vue";
 	
-
-
-
 	// Main store and Router
 	const store = useTemplateStore();
 </script>

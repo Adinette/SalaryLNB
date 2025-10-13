@@ -1,0 +1,56 @@
+//
+// Custom Main
+//
+// Add your own styles or override existing ones
+//
+// This file is included last, so you have access
+// to all Bootstrap and OneUI functions/mixins/styles etc
+// --------------------------------------------------
+
+// If you have many custom styles, you can create and import additional files
+// For example you can create _component1.scss and include it as follows:
+// @import 'component1';
+
+@import "tailwindcss";
+@import "tables-custom";
+@import "table-modern-custom";
+
+body {
+	background: $body-bg;
+	color: $body-color;
+}
+
+.btn-primary {
+	background-color: $primary;
+	border-color: $primary;
+}
+
+.btn-info {
+	background-color: $info;
+	border-color: $info;
+}
+
+.btn-warning,
+.text-accent {
+	background-color: $warning;
+	border-color: $warning;
+	color: $color-white;
+}
+
+body {
+	font-family: $font-family-base;
+}
+
+.row-active {
+	background-color: rgba($primary, 0.075) !important;
+
+	td {
+		background-color: rgba($primary, 0.1) !important;
+	}
+}
+
+.v-btn__content {
+	display: flex;
+	justify-items: center;
+	align-items: center;
+}

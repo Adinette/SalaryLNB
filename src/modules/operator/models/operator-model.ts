@@ -5,20 +5,21 @@ export class OperatorModel extends ApiResourceModel implements OperatorInterface
   first_name: OperatorInterface["first_name"];
   last_name: OperatorInterface["last_name"];
   phone: OperatorInterface["phone"];
-    email: OperatorInterface["email"];
-
-  machine_id: OperatorInterface["machine_id"];
-  salary_history: OperatorInterface["salary_history"];
+  email: OperatorInterface["email"];
+  machine: OperatorInterface["machine"];
+  machine_id?: OperatorInterface["machine_id"];
+  is_active: OperatorInterface["is_active"];
 
   constructor(data: OperatorInterface) {
     super(data);
     this.first_name = data.first_name;
     this.last_name = data.last_name;
     this.phone = data.phone;
-        this.email = data.email;
+    this.email = data.email;
+    this.machine = data.machine;
+    this.machine_id = data.machine_id
+    this.is_active = data.is_active;
 
-    this.machine_id = data.machine_id;
-    this.salary_history = data.salary_history;
   }
 
   get interface(): OperatorInterface {
@@ -28,8 +29,10 @@ export class OperatorModel extends ApiResourceModel implements OperatorInterface
       last_name: this.last_name,
       phone: this.phone,
       email: this.email,
+      machine: this.machine,
       machine_id: this.machine_id,
-      salary_history: this.salary_history,
+      is_active: this.is_active,
+
     };
   }
 

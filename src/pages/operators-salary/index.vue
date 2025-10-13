@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import OperatorSalaryListView from "../../modules/operator-salary/views/OperatorSalaryListView.vue";
 
-	const pageTitle = "Salaire de l'opérateur";
-	const pageSubtitle = "Gérez les salaires des opérateurs de l'entreprise efficacement.";
+	const pageTitle = "Listes des salaires";
+	const pageSubtitle = "Gérez la listes des  salaires.";
 </script>
 
 <route lang="yaml">
@@ -16,8 +16,8 @@ meta:
 		<template #extra>
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb breadcrumb-alt">
-					<li class="breadcrumb-item" aria-current="page">Salaire d'un opérateur</li>
-					<li class="breadcrumb-item" aria-current="page">Liste des salaires de l'opérateur</li>
+										<li class="breadcrumb-item" aria-current="page">Salaires des opérateurs</li>
+					<li class="breadcrumb-item" aria-current="page">Listes des salaires</li>
 				</ol>
 			</nav>
 		</template>

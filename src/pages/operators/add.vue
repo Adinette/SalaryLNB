@@ -17,7 +17,10 @@ meta:
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb breadcrumb-alt">
 					<li class="breadcrumb-item" aria-current="page">Opérateurs</li>
-					<li class="breadcrumb-item" aria-current="page">Liste des Opérateurs</li>
+						<li class="breadcrumb-item" aria-current="page"> 
+						<RouterLink to="/operators">
+						Liste des Opérateurs</RouterLink>
+					</li>
 					<li class="breadcrumb-item active" aria-current="page">Formulaire des Opérateurs</li>
 				</ol>
 			</nav>

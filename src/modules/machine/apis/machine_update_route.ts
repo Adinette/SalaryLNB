@@ -28,7 +28,7 @@ export class MachineUpdateRoute extends MachineRoute {
 
 		if (!machineToUpdate) {
 			return new NotFoundApiError({
-				message: `Aucun utilisateur trouvé avec l'ID ${this.elementId}.`,
+				message: `Aucune machine trouvé avec l'ID ${this.elementId}.`,
 			});
 		}
 

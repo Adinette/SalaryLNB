@@ -4,7 +4,7 @@ import {  EnvEnum } from "./src/enums/index";
 
 export const appEnv = {
   [EnvEnum.PRODUCTION]: {
-    apiUrl: "https://api.example.com",
+    apiUrl: "TEA Services",
     // Ajoutez d'autres variables d'environnement si nécessaire
   },
   [EnvEnum.LOCAL]: {

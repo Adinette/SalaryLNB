@@ -7,10 +7,10 @@
       <thead
         style="
           background: linear-gradient(
-            135deg,
-            #005aa7 0%,
-            #009ddc 100%
-          ) !important;
+  135deg,
+  #0b6623 0%,   /* vert foncé naturel */
+  #2ecc71 100%  /* vert clair et vif */
+) !important;
         "
       >
         <tr>
@@ -30,7 +30,7 @@
               @update:model-value="$emit('toggle-select-all')"
               hide-details
               density="compact"
-              color="primary"
+              color="success"
               :disabled="items.length === 0"
             />
           </th>
@@ -168,7 +168,7 @@ defineEmits<{
 
 :deep(.info-column-customTable .info-detail .fa) {
   margin-right: 0.5rem;
-  color: #009ddc;
+  color: #0b6623;
   opacity: 0.7;
   width: 12px;
 }

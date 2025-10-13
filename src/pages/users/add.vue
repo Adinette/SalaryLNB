@@ -15,7 +15,10 @@ meta:
 			<nav aria-label="breadcrumb">
 				<ol class="breadcrumb breadcrumb-alt">
 					<li class="breadcrumb-item" aria-current="page">Utilisateurs</li>
-					<li class="breadcrumb-item" aria-current="page">Liste des utilisateurs</li>
+					<li class="breadcrumb-item" aria-current="page"> 
+						<RouterLink to="/users">
+						Liste des utilisateurs</RouterLink>
+					</li>
 					<li class="breadcrumb-item active" aria-current="page">Formulaire des utilisateurs</li>
 				</ol>
 			</nav>

@@ -26,9 +26,9 @@ const fieldsErrors = ref<{ [key in keyof MachineCreateInterface]: string[] }>({
 
 const alert = ref<AppAlertInterface | null>(null);
 
-const actionDescription = "Ajouter un utilisateur";
+const actionDescription = "Ajouter une machine";
 const actionText = "Ajouter";
-const actionIcon = "ri-add-fill";
+const actionIcon = "fa fa-plus-circle";
 
 const { processing: loading, createMachine: create } = useMachineActions();
 
@@ -41,14 +41,14 @@ const setUnprocessableEntityApiErrors = (
 };
 
 const createMachine = async (machine: MachineCreateInterface) => {
-  logger.info("Création de l'utilisateur", machine);
+  logger.info("Création de la machine", machine);
   const result = await create(machine);
   if (result instanceof ApiError) {
     if (result instanceof UnprocessableEntityApiError) {
       setUnprocessableEntityApiErrors(result);
     } else {
       toast.error(result.message);
-      logger.error("Erreur lors de la création de l'utilisateur", result);
+      logger.error("Erreur lors de la création de la machine", result);
     }
     alert.value = {
       type: "danger",
@@ -58,7 +58,7 @@ const createMachine = async (machine: MachineCreateInterface) => {
     };
     return false;
   }
-  logger.info("Utilisateur créé avec succès", result);
+  logger.info("Machine créée avec succès", result);
   return true;
 };
 
@@ -73,7 +73,7 @@ const resetForm = () => {
 
 const onSubmit = async () => {
   resetForm();
-  logger.info("Soumission du formulaire d'utilisateur", form.value);
+  logger.info("Soumission du formulaire de machine", form.value);
   const result = await createMachine({
     ...form.value,
   });

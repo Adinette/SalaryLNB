@@ -454,6 +454,9 @@ declare global {
   export type { OperatorSalaryStoreInterface } from './src/modules/operator-salary/interfaces/operator_salary_store_interface'
   import('./src/modules/operator-salary/interfaces/operator_salary_store_interface')
   // @ts-ignore
+  export type { OperatorSalaryListFilterInterface } from './src/modules/operator-salary/interfaces/operator_salary_list_filter_interface'
+  import('./src/modules/operator-salary/interfaces/operator_salary_list_filter_interface')
+  // @ts-ignore
   export type { OperatorInterface } from './src/modules/operator/interfaces/operator_interface'
   import('./src/modules/operator/interfaces/operator_interface')
   // @ts-ignore

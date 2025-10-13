@@ -5,13 +5,11 @@ import { OperatorSalaryModel } from "../models/operator-salary-model";
 import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
 import type { OperatorSalaryStore } from "../store";
 import type { ListApiArgsInterface } from "../../../api/interfaces/list_api_args_interface";
-import type { OperatorInterface } from "../../../interfaces";
+import type { OperatorSalaryListFilterInterface } from "../interfaces/operator_salary_list_filter_interface";
 
 export class OperatorSalaryListRoute extends OperatorSalaryRoute {
-	id: OperatorInterface["id"];
-	constructor(args: ListApiArgsInterface = {}, id: OperatorInterface["id"]) {
-		super(`/${OperatorSalaryRoute.name}/${id}`, ApiHttpMethod.GET, args);
-		this.id = id;
+	constructor(args: ListApiArgsInterface = {}) {
+		super(`/${OperatorSalaryRoute.name}`, ApiHttpMethod.GET, args);
 	}
 
 	async request() {
@@ -21,21 +19,31 @@ export class OperatorSalaryListRoute extends OperatorSalaryRoute {
 	}
 
 	async mock() {
-		const store: OperatorSalaryStore = await this.store;
-		let results = store.elements.map((e:any) => new OperatorSalaryModel(e));
+	const store: OperatorSalaryStore = await this.store;
+	let results = store.elements.map((e: any) => new OperatorSalaryModel(e));
 
-		// Appliquer la recherche si elle est fournie
-		if (this.data && (this.data as ListApiArgsInterface).search) {
-			const searchTerm = (this.data as ListApiArgsInterface).search!.toLowerCase();
-			results = results.filter(
-				(operator: any) =>
-					operator.first_name.toLowerCase().includes(searchTerm) ||
-					operator.last_name.toLowerCase().includes(searchTerm) ||
-					operator.email.toLowerCase().includes(searchTerm) ||
-					(operator.phone && operator.phone.toLowerCase().includes(searchTerm))
-			);
-		}
+	// 🟢 Vérifie si operator_id est présent dans les paramètres (this.data)
+	const operatorIdParam = (this.data as OperatorSalaryListFilterInterface)?.operator_id;
 
-		return results;
+	if (operatorIdParam) {
+		results = results.filter(
+			(operatorSalary: any) => String(operatorSalary.operator_id) === String(operatorIdParam)
+		);
 	}
+
+	// 🔎 Appliquer la recherche si fournie
+	const searchTerm = (this.data as ListApiArgsInterface)?.search?.toLowerCase();
+	if (searchTerm) {
+		results = results.filter(
+			(operatorSalary: any) =>
+				operatorSalary.first_name.toLowerCase().includes(searchTerm) ||
+				operatorSalary.last_name.toLowerCase().includes(searchTerm) ||
+				operatorSalary.email.toLowerCase().includes(searchTerm) ||
+				(operatorSalary.phone && operatorSalary.phone.toLowerCase().includes(searchTerm))
+		);
+	}
+
+	return results;
+}
+
 }

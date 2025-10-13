@@ -2,7 +2,7 @@
 import OperatorListView from "../../modules/operator/views/OperatorListView.vue";
 
 	const pageTitle = "Opérateurs";
-	const pageSubtitle = "Gérez les pérateurs de l'entreprise efficacement.";
+	const pageSubtitle = "Gérez les opérateurs de l'entreprise efficacement.";
 </script>
 
 <route lang="yaml">

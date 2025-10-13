@@ -5,6 +5,7 @@ import { OperatorModel } from "../models/operator-model";
 import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
 import type { OperatorStore } from "../store";
 import type { ListApiArgsInterface } from "../../../api/interfaces/list_api_args_interface";
+import operators from "../data/operators";
 
 export class OperatorListRoute extends OperatorRoute {
 	constructor(args: ListApiArgsInterface = {}) {
@@ -19,6 +20,11 @@ export class OperatorListRoute extends OperatorRoute {
 
 	async mock() {
 		const store: OperatorStore = await this.store;
+		// Initialiser le store avec les données mockées seulement s'il est vide
+				if (store.elements.length === 0) {			
+					store.elements = [...operators];
+				}
+
 		let results = store.elements.map((e:any) => new OperatorModel(e));
 
 		// Appliquer la recherche si elle est fournie

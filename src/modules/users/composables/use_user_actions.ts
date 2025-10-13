@@ -24,7 +24,6 @@ export const useUserActions = () => {
     if (!userStore.value) {
       userStore.value = await useInitializedUserStore();
     }
-
     const result = await userStore.value.getUsers(args);
 
     if (result instanceof ApiError) {
@@ -33,6 +32,7 @@ export const useUserActions = () => {
 
       return [];
     }
+
 
     users.value = [...result];
   };
@@ -129,7 +129,6 @@ export const useUserActions = () => {
 
   onMounted(async () => {
     userStore.value = await useInitializedUserStore();
-    users.value = userStore.value.elements.map((user: UserInterface) => new UserModel(user));
   });
 
   return {

@@ -1,6 +1,6 @@
 import type { ThemeDefinition } from "vuetify";
 
-// SanlamAllianz colors
+// custom colors
 export const staticPrimaryColor = "#f59e0b";
 export const staticPrimaryDarkenColor = "#003972";
 export const staticSecondaryColor = "#0091DA";

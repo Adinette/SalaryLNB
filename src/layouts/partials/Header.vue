@@ -1,18 +1,20 @@
 <script setup lang="ts">
 	import { ref, onMounted, onUnmounted, computed } from "vue";
 	import { useRouter } from "vue-router";
-import { useTemplateStore } from "../../stores/template";
-import { useCurrentSession } from "../../composables/useCurrentSession";
+	import { useTemplateStore } from "../../stores/template";
+
+	const { formatInitials } = useFormatting();
+
+	// Grab example data
+	import { UserModel } from "../../modules/users/models/user_model";
+	import { useFormatting } from "../../composables/useFormatting";
+	import { useCurrentSession } from "../../composables/useCurrentSession";
 import { useInitializedGlobalStore, type GlobalStore } from "../../stores";
-import { UserModel } from "../../modules/users/models/user_model";
-import { useFormatting } from "../../composables/useFormatting";
 
 	// Main store and Router
 	const store = useTemplateStore();
 	const router = useRouter();
 	const { handleLogout } = useCurrentSession();
-		const { formatInitials } = useFormatting();
-
 
 	const globalStore = ref<GlobalStore | null>(null);
 
@@ -27,6 +29,8 @@ import { useFormatting } from "../../composables/useFormatting";
 	const currentUser = computed(() => {
 		return currentSession.value?.user ? new UserModel(currentSession.value.user) : null;
 	});
+
+	const defaultAvatar = "/assets/media/avatars/avatar10.jpg";
 
 	// Reactive variables
 	const baseSearchTerm = ref("");
@@ -61,7 +65,7 @@ import { useFormatting } from "../../composables/useFormatting";
 	<header id="page-header">
 		<slot>
 			<!-- Header Content -->
-			<div class="content-header">
+			<div class="content-header bg-white">
 				<slot name="content">
 					<!-- Left Section -->
 					<div class="d-flex align-items-center">
@@ -110,11 +114,8 @@ import { useFormatting } from "../../composables/useFormatting";
 					<!-- Right Section -->
 					<div class="d-flex align-items-center">
 						<slot name="content-right">
-							<span
-								class="fs-xs fw-semibold d-inline-block py-1 px-3 bg-success-light text-success rounded-md"
-							>
-								{{ currentEmployee?.role.name }}</span
-							>
+						<span class="fs-xs fw-semibold d-inline-block py-1 px-3 bg-success-light text-success rounded-md">Administration</span>
+
 							<!-- User Dropdown -->
 							<div class="dropdown d-inline-block ms-2">
 								<button
@@ -125,30 +126,31 @@ import { useFormatting } from "../../composables/useFormatting";
 									aria-haspopup="true"
 									aria-expanded="false"
 								>
-									<VAvatar size="x-small" color="primary">
-										{{ formatInitials(currentUser?.fullName) }}
-									</VAvatar>
-									<span class="d-none d-sm-inline-block ms-2">{{
+								<img src="/assets/media/avatars/avatar10.jpg" alt="avatar" class="rounded-circle" style="width: 24px; height: 24px;">
+									<!-- <VAvatar
+									size="x-small"
+									color="primary"
+									:image="defaultAvatar"
+								>
+										{{ formatInitials(currentUser?.fullName || 'XX') }}
+								</VAvatar> -->
+
+									<!-- <span class="d-none d-sm-inline-block ms-2">{{
 										currentUser?.first_name || "..."
 									}}</span>
 									<i
 										class="fa fa-fw fa-angle-down d-none d-sm-inline-block opacity-50 ms-1 mt-1"
-									></i>
+									></i> -->
 								</button>
 								<div
 									class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0"
 									aria-labelledby="page-header-user-dropdown"
 								>
 									<div class="p-3 text-center bg-body-light border-bottom rounded-top">
-										<VAvatar color="primary">
-											{{ formatInitials(currentUser?.first_name, currentUser?.last_name) }}
-										</VAvatar>
-										<p class="mt-2 mb-0 fw-medium">
+										<img src="/assets/media/avatars/avatar10.jpg" alt="avatar" class="rounded-circle" style="width: 24px; height: 24px;">
+										<!-- <p class="mt-2 mb-0 fw-medium">
 											{{ currentUser?.fullName || "..." }}
-										</p>
-										<p class="mb-0 text-muted fs-sm fw-medium">
-											{{ currentSession?.user.permanent_function?.position.name }}
-										</p>
+										</p> -->
 									</div>
 									<!-- div class="p-2">
 										<a
@@ -314,3 +316,4 @@ import { useFormatting } from "../../composables/useFormatting";
 	</header>
 	<!-- END Header -->
 </template>
+

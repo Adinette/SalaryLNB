@@ -38,9 +38,9 @@ const fieldsErrors = ref<{ [key in keyof OperatorCreateInterface]: string[] }>({
 
 const alert = ref<AppAlertInterface | null>(null);
 
-const actionDescription = "Modifier l'utilisateur";
+const actionDescription = "Modifier l'opérateur";
 const actionText = "Enregistrer";
-const actionIcon = "ri-save-line";
+const actionIcon = "fa fa-floppy-o";
 
 const { processing: loading } = useOperatorActions();
 
@@ -78,16 +78,16 @@ const fetchOperator = async () => {
     phone: currentOperator.phone
       ? AppUtils.formatPhoneWithSpaces(currentOperator.phone)
       : "",
-    machine_id: currentOperator.machine_id,
+    machine_id: currentOperator.machine_id || "",
   };
 };
 
 const updateOperator = async (operator: OperatorCreateInterface) => {
   if (!operatorStore.value) {
-    logger.error("Le store utilisateur n'est pas initialisé.");
+    logger.error("Le store opérateur n'est pas initialisé.");
     return false;
   }
-  logger.info("Mise à jour de l'utilisateur", operator);
+  logger.info("Mise à jour de l'opérateur", operator);
   const result = await operatorStore.value.updateOperator(
     (route.params as any).id as string,
     operator
@@ -97,7 +97,7 @@ const updateOperator = async (operator: OperatorCreateInterface) => {
       setUnprocessableEntityApiErrors(result);
     } else {
       toast.error(result.message);
-      logger.error("Erreur lors de la mise à jour de l'utilisateur", result);
+      logger.error("Erreur lors de la mise à jour de l'opérateur", result);
     }
     alert.value = {
       type: "danger",
@@ -107,8 +107,8 @@ const updateOperator = async (operator: OperatorCreateInterface) => {
     };
     return false;
   }
-  logger.info("Utilisateur mis à jour avec succès", result);
-  toast.success("Utilisateur modifié avec succès !");
+  logger.info("Opérateur mis à jour avec succès", result);
+  toast.success("Opérateur modifié avec succès !");
   return true;
 };
 

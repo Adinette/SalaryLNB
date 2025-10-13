@@ -99,6 +99,26 @@ export function useCustomTable() {
       createHeaders.status(),
       createHeaders.actions(),
     ],
+
+    //Pour les salaires d'un operateurs donné
+      operatorSalary: (): TableHeader[] => [
+      createHeaders.info("Informations"),
+      createHeaders.actions(),
+    ],
+
+      //Pour un operateurs
+      operator: (): TableHeader[] => [
+      createHeaders.info("Informations"),
+            createHeaders.status(),
+      createHeaders.actions(),
+    ],
+
+       //Pour une machines
+      machine: (): TableHeader[] => [
+      createHeaders.info("Informations"),
+            createHeaders.status(),
+      createHeaders.actions(),
+    ],
   };
 
   return {

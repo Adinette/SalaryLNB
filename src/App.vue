@@ -1,21 +1,20 @@
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <template>
 	<RouterView />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
+<style lang="scss">
+	// Main Stylesheet
+	@import "../src/assets/scss/main";
+
+	// All color themes are included and available by default
+	// Feel free to comment out any of them if you won't use them in your project
+	@import "../src/assets/scss/oneui/themes/amethyst";
+	@import "../src/assets/scss/oneui/themes/city";
+	@import "../src/assets/scss/oneui/themes/flat";
+	@import "../src/assets/scss/oneui/themes/modern";
+	@import "../src/assets/scss/oneui/themes/smooth";
+	@import "../src/assets/scss/oneui/themes/custom";
 </style>
+

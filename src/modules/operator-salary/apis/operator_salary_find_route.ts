@@ -5,17 +5,14 @@ import { ApiError, NotFoundApiError } from "../../../api/errors";
 import { OperatorSalaryModel } from "../models/operator-salary-model";
 import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
 import type { OperatorSalaryStore } from "../store";
-import type { OperatorInterface } from "../../operator/interfaces";
 
 
 export class OperatorSalaryFindRoute extends OperatorSalaryRoute {
 	elementId: OperatorSalaryInterface["id"];
-	id: OperatorInterface["id"];
 
-	constructor({ elementId, id }: { elementId: OperatorSalaryInterface["id"]; id: OperatorInterface["id"] }) {
-		super(`/${OperatorSalaryRoute.name}/${id}/${elementId}`, ApiHttpMethod.GET, { id: elementId });
+	constructor({ elementId }: { elementId: OperatorSalaryInterface["id"] }) {
+		super(`/${OperatorSalaryRoute.name}/${elementId}`, ApiHttpMethod.GET, { id: elementId });
 		this.elementId = elementId;
-		this.id = id;
 	}
 
 	async request() {

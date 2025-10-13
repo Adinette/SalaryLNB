@@ -1,7 +1,6 @@
 <script setup lang="ts">
 	import { onBeforeRouteLeave } from "vue-router";
 	import { useTemplateStore } from "../stores/template";
-	import { config } from "../config";
 
 	import BaseNavigation from "../components/BaseNavigation.vue";
 

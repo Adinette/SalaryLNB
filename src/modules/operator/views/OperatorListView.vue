@@ -1,30 +1,34 @@
 <script setup lang="ts">
-import Table from "@/components/Table.vue";
-import { computed, onMounted, ref } from "vue";
-import type { ListApiArgsInterface } from "../../../api/interfaces/list_api_args_interface";
+import {  onMounted } from "vue";
 import { toast } from "../../../utils/toast";
 import { useOperatorActions } from "../composable/use_operator_actions";
 import type { OperatorModel } from "../models/operator-model";
 import { useSelectableList } from "../../../composables/useSelectableList";
 import { useCustomTable } from "../../../composables/useCustomTable";
-import appRoutes from "../../../router/routes";
-import router from "../../../router";
+import { useRouter } from 'vue-router';
 import CustomTable from "../../../components/CustomTable.vue";
+import { useMachineActions } from "../../machine/composable/use_machine_actions";
 
 const {
   processing: loading,
   operators,
   getOperators,
+updateOperatorActivateOrDeactivate,
   deleteOperator,
 } = useOperatorActions();
 
-// État pour la recherche
-const searchQuery = ref<string>("");
+const {
+  machines,
+} = useMachineActions();
 
-const searchArgs = computed<ListApiArgsInterface>(() => ({
-  search: searchQuery.value || undefined,
-}));
+const router = useRouter();
 
+function goToAddSalary(operatorId: number) {
+  router.push({
+    path: '/operators-salary/add',
+    query: { operatorId } // 🔥 on passe l'id dans la query
+  });
+}
 
 const {
   selected,
@@ -41,7 +45,7 @@ const {
 // Configuration de la table 
 const { tableClasses, getStatusBadge, getStatusText, commonHeaders } =
   useCustomTable();
-const tableHeaders = commonHeaders.user();
+const tableHeaders = commonHeaders.operator();
 
 const deleteSelected = async () => {
   if (selected.value.length === 0) return;
@@ -67,6 +71,11 @@ const deleteSelected = async () => {
   await getOperators();
 };
 
+// machines est ta liste de toutes les machines
+const getMachineById = (id: string) => {
+  return machines.value.find(machine => machine.id === id) || null;
+};
+
 const refreshOperators = async () => {
   await getOperators();
 };
@@ -86,13 +95,13 @@ onMounted(async () => {
     <template #title>
       <div class="flex items-center gap-2">
         <VBtn
-          icon="ri-refresh-line"
+          icon="fa fa-refresh"
           :loading="loading"
           :disabled="loading"
+					color="success"
           type="button"
           @click="refreshOperators"
           class="btn-block-option"
-          size="x-small"
           variant="tonal"
         />
       </div>
@@ -101,7 +110,7 @@ onMounted(async () => {
       <div class="flex justify-end items-center gap-2">
    
         <!-- Champ de recherche -->
-        <VTextField
+        <!-- <VTextField
           v-model="searchQuery"
           placeholder="Rechercher des utilisateurs..."
           density="compact"
@@ -111,7 +120,7 @@ onMounted(async () => {
           :disabled="loading"
           @keyup.enter="() => getOperators()"
           @click:append-inner="() => getOperators()"
-        />
+        /> -->
 
         <div v-if="selectedCount > 0" class="mr-2 flex items-center">
           <VChip color="primary" size="small" class="mr-2"
@@ -121,23 +130,22 @@ onMounted(async () => {
             type="button"
             variant="flat"
             color="error"
-            size="x-small"
             class="mr-1"
             :loading="loading"
             :disabled="loading"
             @click="deleteSelected"
           >
-            <VIcon icon="ri-delete-bin-line" size="small" />
+            <VIcon icon="fa fa-delete" size="small" />
             <span class="ml-1">Supprimer</span>
           </VBtn>
         </div>
         <VBtn
           type="button"
           variant="flat"
-          color="primary"
+          color="success"
           @click="router.push('/operators/add')"
         >
-          <VIcon icon="ri-add-line" size="small" />
+          <VIcon icon="fa fa-plus" size="small" />
           <span class="ml-1">Ajouter</span>
         </VBtn>
       </div>
@@ -154,54 +162,84 @@ onMounted(async () => {
       <template #body="{ items }">
         <tr v-if="items.length === 0">
           <td colspan="4" class="text-center text-muted py-4">
-            Aucun utilisateur trouvé
+            Aucun opérateur trouvé
           </td>
         </tr>
         <tr
-          v-for="user in items"
-          :key="user.id"
-          :class="{ 'table-active': isSelected(user) }"
+          v-for="operators in items"
+          :key="operators.id"
+          :class="{ 'table-active': isSelected(operators) }"
         >
           <td>
             <VCheckbox
-              :model-value="isSelected(user)"
+              :model-value="isSelected(operators)"
               hide-details
-              @update:model-value="() => toggleSelect(user)"
+              @update:model-value="() => toggleSelect(operators)"
             />
           </td>
           <td class="info-column-">
-            <div class="info-name">{{ user.fullName }}</div>
+            <div class="info-name">{{ operators.fullName }}</div>
             <div class="info-detail">
-              <i class="fa fa-envelope me-1"></i>{{ user.email }}
+              <i class="fa fa-envelope me-1"></i>{{ operators.email }}
             </div>
-            <div v-if="user.phone" class="info-detail">
-              <i class="fa fa-phone me-1"></i>{{ user.phone }}
+            <div v-if="operators.phone" class="info-detail">
+              <i class="fa fa-phone me-1"></i>{{ operators.phone }}
             </div>
+						<div v-if="operators.machine_id" class="info-detail">
+  						<i class="fa fa-mobile me-1"></i>
+							[{{ getMachineById(operators.machine_id)?.code }}] - {{ getMachineById(operators.machine_id)?.emplacement }}
+						</div>
+						<div v-else class="info-detail">
+  						<i class="fa fa-mobile me-1"></i>
+							[{{ operators.machine.code }}] - {{ operators.machine.emplacement}}
+
+						</div>
           </td>
           <td>
-            <span :class="getStatusBadge(user.is_active)">
-              {{ getStatusText(user.is_active) }}
+            <span :class="getStatusBadge(operators.is_active)">
+              {{ getStatusText(operators.is_active) }}
             </span>
           </td>
           <td class="text-center">
-            <div class="btn-group btn-group-">
+            <div class="btn-group btn-group">
+							<button
+								type="button"
+								class="btn btn-sm btn-alt-secondary"
+								@click="
+									updateOperatorActivateOrDeactivate(operators.id, operators.is_active, {
+										first_name: operators.first_name,
+										last_name: operators.last_name,
+									})
+								"
+							>
+								<i :class="`${operators.is_active ? 'fa-ban' : 'fa-check-double'} fa fa-fw mr-0`"></i>
+								<VTooltip activator="parent" location="top">{{
+									operators.is_active ? "Désactiver" : "Activer"
+								}}</VTooltip>
+							</button>
+							<button
+                type="button"
+                :class="tableClasses.button.action"
+                @click="goToAddSalary(operators.id)"
+
+              >
+                <i class="fa fa-calculator mr-0"></i>
+                <VTooltip activator="parent" location="top">Calculer le salaire</VTooltip>
+              </button>
               <button
                 type="button"
                 :class="tableClasses.button.action"
-                @click="
-                  router.push({
-                    name: appRoutes.operators.edit,
-                    params: { id: user.id },
-                  })
+                @click=" router.push(`/operators/edit/${operators.id}`);
                 "
               >
                 <i class="fa fa-fw fa-pencil-alt mr-0"></i>
                 <VTooltip activator="parent" location="top">Modifier</VTooltip>
               </button>
+							
               <button
                 type="button"
                 :class="tableClasses.button.danger"
-                @click="deleteOperator(user.interface)"
+                @click="deleteOperator(operators.interface)"
               >
                 <i class="fa fa-fw fa-times mr-0"></i>
                 <VTooltip activator="parent" location="top">Supprimer</VTooltip>

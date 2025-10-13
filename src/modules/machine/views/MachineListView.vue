@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
-import type { ListApiArgsInterface } from "../../../api/interfaces/list_api_args_interface";
+import { onMounted, ref } from "vue";
 import { toast } from "../../../utils/toast";
 import { useMachineActions } from "../composable/use_machine_actions";
 import { useSelectableList } from "../../../composables/useSelectableList";
@@ -15,12 +14,9 @@ const {
   processing: loading,
   machines,
   getMachines,
+  updateMachineActivateOrDeactivate,
   deleteMachine,
 } = useMachineActions();
-
-// État pour la recherche
-const searchQuery = ref<string>("");
-
 
 
 const {
@@ -38,7 +34,7 @@ const {
 // Configuration de la table 
 const { tableClasses, getStatusBadge, getStatusText, commonHeaders } =
   useCustomTable();
-const tableHeaders = commonHeaders.user();
+const tableHeaders = commonHeaders.machine();
 
 const deleteSelected = async () => {
   if (selected.value.length === 0) return;
@@ -83,13 +79,13 @@ onMounted(async () => {
     <template #title>
       <div class="flex items-center gap-2">
         <VBtn
-          icon="ri-refresh-line"
+          icon="fa fa-refresh"
           :loading="loading"
           :disabled="loading"
+					color="success"
           type="button"
           @click="refreshMachines"
           class="btn-block-option"
-          size="x-small"
           variant="tonal"
         />
       </div>
@@ -98,7 +94,7 @@ onMounted(async () => {
       <div class="flex justify-end items-center gap-2">
    
         <!-- Champ de recherche -->
-        <VTextField
+        <!-- <VTextField
           v-model="searchQuery"
           placeholder="Rechercher des utilisateurs..."
           density="compact"
@@ -108,7 +104,7 @@ onMounted(async () => {
           :disabled="loading"
           @keyup.enter="() => getMachines()"
           @click:append-inner="() => getMachines()"
-        />
+        /> -->
 
         <div v-if="selectedCount > 0" class="mr-2 flex items-center">
           <VChip color="primary" size="small" class="mr-2"
@@ -118,23 +114,22 @@ onMounted(async () => {
             type="button"
             variant="flat"
             color="error"
-            size="x-small"
             class="mr-1"
             :loading="loading"
             :disabled="loading"
             @click="deleteSelected"
           >
-            <VIcon icon="ri-delete-bin-line" size="small" />
+            <VIcon icon="fa fa-delete" size="small" />
             <span class="ml-1">Supprimer</span>
           </VBtn>
         </div>
         <VBtn
           type="button"
           variant="flat"
-          color="primary"
+          color="success"
           @click="router.push('/machines/add')"
         >
-          <VIcon icon="ri-add-line" size="small" />
+          <VIcon icon="fa fa-plus" size="small" />
           <span class="ml-1">Ajouter</span>
         </VBtn>
       </div>
@@ -155,41 +150,51 @@ onMounted(async () => {
           </td>
         </tr>
         <tr
-          v-for="user in items"
-          :key="user.id"
-          :class="{ 'table-active': isSelected(user) }"
+          v-for="machines in items"
+          :key="machines.id"
+          :class="{ 'table-active': isSelected(machines) }"
         >
           <td>
             <VCheckbox
-              :model-value="isSelected(user)"
+              :model-value="isSelected(machines)"
               hide-details
-              @update:model-value="() => toggleSelect(user)"
+              @update:model-value="() => toggleSelect(machines)"
             />
           </td>
           <td class="info-column-">
-            <div class="info-name">{{ user.fullName }}</div>
             <div class="info-detail">
-              <i class="fa fa-envelope me-1"></i>{{ user.email }}
+              <i class="fa fa-code me-1"></i>[{{ machines.code }}]
             </div>
-            <div v-if="user.phone" class="info-detail">
-              <i class="fa fa-phone me-1"></i>{{ user.phone }}
+            <div class="info-detail">
+              <i class="fa fa-map-marker me-1"></i>{{ machines.emplacement }}
             </div>
           </td>
           <td>
-            <span :class="getStatusBadge(user.is_active)">
-              {{ getStatusText(user.is_active) }}
+            <span :class="getStatusBadge(machines.is_active)">
+              {{ getStatusText(machines.is_active) }}
             </span>
           </td>
           <td class="text-center">
-            <div class="btn-group btn-group-">
+            <div class="btn-group btn-group">
+								<button
+								type="button"
+								class="btn btn-sm btn-alt-secondary"
+								@click="
+									updateMachineActivateOrDeactivate(machines.id, machines.is_active, {
+										code: machines.code,
+										emplacement: machines.emplacement,
+									})
+								"
+							>
+								<i :class="`${machines.is_active ? 'fa-ban' : 'fa-check-double'} fa fa-fw mr-0`"></i>
+								<VTooltip activator="parent" location="top">{{
+									machines.is_active ? "Désactiver" : "Activer"
+								}}</VTooltip>
+							</button>
               <button
                 type="button"
                 :class="tableClasses.button.action"
-                @click="
-                  router.push({
-                    name: appRoutes.machines.edit,
-                    params: { id: user.id },
-                  })
+                @click="router.push(`/machines/edit/${machines.id}`);
                 "
               >
                 <i class="fa fa-fw fa-pencil-alt mr-0"></i>
@@ -198,7 +203,7 @@ onMounted(async () => {
               <button
                 type="button"
                 :class="tableClasses.button.danger"
-                @click="deleteMachine(user.interface)"
+                @click="deleteMachine(machines.interface)"
               >
                 <i class="fa fa-fw fa-times mr-0"></i>
                 <VTooltip activator="parent" location="top">Supprimer</VTooltip>

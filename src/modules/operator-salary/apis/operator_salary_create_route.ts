@@ -5,16 +5,13 @@ import { ApiError } from "../../../api/errors";
 import { OperatorSalaryModel } from "../models/operator-salary-model";
 import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
 import type { OperatorSalaryStore } from "../store";
-import type { OperatorInterface } from "../../../interfaces";
 
 export class OperatorSalaryCreateRoute extends OperatorSalaryRoute {
 	data: OperatorSalaryCreateInterface;
-id: OperatorInterface["id"];
 
-	constructor(data: OperatorSalaryCreateInterface, id: OperatorInterface["id"]) {
-		super(`/${OperatorSalaryRoute.name}/${id}`, ApiHttpMethod.POST, data);
+	constructor(data: OperatorSalaryCreateInterface) {
+		super(`/${OperatorSalaryRoute.name}`, ApiHttpMethod.POST, data);
 		this.data = data;
-				this.id = id;
 
 	}
 

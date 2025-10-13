@@ -23,21 +23,21 @@ export default {
       name: "Machine",
       icon: "ri-search-eye-fill",
       subActivePaths: "/machines",
-      permissions: [AppPermissions.sprints.VIEW_Machines],
+      permissions: [AppPermissions.Operator.VIEW_MACHINES],
       sub: [
         {
           name: "Liste",
           icon: "ri-list-check-2",
           to: "machines",
-          permissions: [AppPermissions.sprints.VIEW_Machines],
+          permissions: [AppPermissions.Operator.VIEW_MACHINES],
         },
          {
           name: "Ajouter",
           icon: "ri-function-add-fill",
           to: "machines-add",
           permissions: [
-            AppPermissions.sprints.ADD_Machines,
-            AppPermissions.sprints.ADD_Machines,
+            AppPermissions.Operator.ADD_MACHINES,
+            AppPermissions.Operator.ADD_MACHINES,
           ],
         },
         {
@@ -45,8 +45,8 @@ export default {
           icon: "ri-export-fill",
           to: "machines-exportation",
           permissions: [
-            AppPermissions.sprints.VIEW_Machines,
-            AppPermissions.sprints.EXPORT_Machines,
+            AppPermissions.Operator.EXPORT_MACHINES,
+            AppPermissions.Operator.EXPORT_MACHINES,
           ],
         },
       ],
@@ -55,21 +55,21 @@ export default {
       name: "Operators",
       icon: "ri-file-user-fill",
       subActivePaths: "/operators",
-      permissions: [AppPermissions.sprints.VIEW_Operators],
+      permissions: [AppPermissions.Operator.VIEW_OPERATORS],
       sub: [
         {
           name: "Liste",
           icon: "ri-list-check-2",
           to: "operators",
-          permissions: [AppPermissions.sprints.VIEW_Machines],
+          permissions: [AppPermissions.Operator.VIEW_MACHINES],
         },
         {
           name: "Ajouter",
           icon: "ri-function-add-fill",
           to: "operators-add",
           permissions: [
-            AppPermissions.sprints.ADD_Operators,
-            AppPermissions.sprints.ADD_Operators,
+            AppPermissions.Operator.ADD_OPERATORS,
+            AppPermissions.Operator.ADD_OPERATORS,
           ],
         },
         {
@@ -77,8 +77,40 @@ export default {
           icon: "ri-export-fill",
           to: "operators-exportation",
           permissions: [
-            AppPermissions.sprints.VIEW_Machines,
-            AppPermissions.sprints.EXPORT_Operators,
+            AppPermissions.Operator.VIEW_MACHINES,
+            AppPermissions.Operator.EXPORT_OPERATORS,
+          ],
+        },
+      ],
+    },
+    {
+      name: "Operator Salaires",
+      icon: "ri-file-user-fill",
+      subActivePaths: "/operators-salary",
+      permissions: [AppPermissions.Operator.VIEW_OPERATORS_SALARY],
+      sub: [
+        {
+          name: "Liste",
+          icon: "ri-list-check-2",
+          to: "operators-salary",
+          permissions: [AppPermissions.Operator.VIEW_OPERATORS_SALARY],
+        },
+        {
+          name: "Ajouter",
+          icon: "ri-function-add-fill",
+          to: "operators-salary-add",
+          permissions: [
+            AppPermissions.Operator.ADD_OPERATORS_SALARY,
+            AppPermissions.Operator.ADD_OPERATORS_SALARY,
+          ],
+        },
+        {
+          name: "Exportation",
+          icon: "ri-export-fill",
+          to: "operators-salary-exportation",
+          permissions: [
+            AppPermissions.Operator.VIEW_OPERATORS_SALARY,
+            AppPermissions.Operator.EXPORT_OPERATORS_SALARY,
           ],
         },
       ],

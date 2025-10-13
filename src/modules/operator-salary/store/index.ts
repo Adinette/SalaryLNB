@@ -22,8 +22,8 @@ const useOperatorSalaryStore = defineStore(operatorSalaryStoreDefinition.key, {
     remove(id: OperatorSalaryInterface["id"]) {
       return operatorSalaryStoreActions.remove(this, { id });
     },
-    getOperatorSalarys(args?: ListApiArgsInterface) {
-      return operatorSalaryStoreActions.getOperatorSalary(this, { args });
+    getOperatorSalarys(args?: ListApiArgsInterface ) {
+      return operatorSalaryStoreActions.getOperatorSalary(this, { args,  });
     },
     findOperatorSalary(id: OperatorSalaryInterface["id"]) {
       return operatorSalaryStoreActions.findOperatorSalary(this, { elementId: id });

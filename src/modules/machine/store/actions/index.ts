@@ -10,6 +10,8 @@ import { deleteMachine } from "./deleteMachine";
 import { setMachines } from "./setMachine";
 import { createBaseStoreActions } from "../../../../stores/utils/create_base_store_actions";
 import { machineStoreDefinition } from "../definition";
+import { updateMachineActivate } from "./updateMachineActivate";
+import { updateMachineDeactivate } from "./updateMachineDeactivate";
 
 export const machineStoreActions = {
   setMachines,
@@ -22,6 +24,8 @@ export const machineStoreActions = {
   findMachine,
   createMachine,
   updateMachine,
+  updateMachineActivate,
+  updateMachineDeactivate,
   deleteMachine,
   // Add any other specific actions for the Machine store here
   // For example, you might have actions like:

@@ -14,7 +14,7 @@ export async function updateOperatorSalary(
 	{ elementId, data }: { elementId: OperatorSalaryInterface["id"]; data: OperatorSalaryUpdateInterface }
 ) {
 	const apiRoute = new OperatorSalaryUpdateRoute(elementId, data);
-	const result = await apiRoute.request();
+	const result = await apiRoute.mock();
 	if (result instanceof ApiError) return result;
 	return result;
 }

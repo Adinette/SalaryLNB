@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { useOperatorSalaryActions } from "../composables/use_sprint_operatorSalary_actions";
-import { OperatorSalaryModel } from "../models/operator-salary_model";
-import { useBootstrapToast } from "@/composables/useBootstrapToast";
 import { DateTime } from "luxon";
-import { SprintObjectiveModel } from "@/modules/sprint-objectives/models/sprint-objective_model";
-import { useModernTableStyles } from "@/composables/useModernTableStyles";
-import LogoSanlamAllianz from "@/assets/images/sanlam-allianz-logo.svg";
-import qrcode from "qrcode-generator";
-import { useSprintObjectiveActions } from "@/modules/sprint-objectives";
+import { extractMonthAndYear } from '../../../utils/formatDate'
 import appRoutes from "../../../router/routes";
-import { computed, onMounted, ref } from "vue";
+import { useOperatorActions } from "../../operator/composable/use_operator_actions";
+import { useModernTableStyles } from "../../../composables/useModernTableStyles";
+import { useOperatorSalaryActions } from "../composable/use_operator_salary_ action";
+import { onMounted, ref } from "vue";
+import { OperatorSalaryModel } from "../models/operator-salary-model";
+import { useBootstrapToast } from "../../../composables/useBootstrapToast";
 
 const route = useRoute(appRoutes.operatorsSalary.details);
 const router = useRouter();
@@ -18,12 +16,37 @@ const toast = useBootstrapToast();
 
 const operatorSalaryId = route.params.id as string;
 
-const { processing, findOperatorSalary, deleteOperatorSalary } =
+const { processing } =
   useOperatorSalaryActions();
 
-const { sprintObjectives, getSprintObjectives } = useSprintObjectiveActions();
+	const operatorSalary = ref<OperatorSalaryModel | null>(null);
 
-const { badgeClasses, icons } = useModernTableStyles();
+const { findOperatorSalary } = useOperatorSalaryActions();
+const {
+  operators,
+} = useOperatorActions();
+
+// operators est ta liste de tous les opérateurs
+const getOperatorById = (id: string) => {
+  return operators.value.find(operator => operator.id === id) || null;
+};
+
+const loadoperatorSalary = async () => {
+  const result = await findOperatorSalary(operatorSalaryId);
+  if (result) {
+    operatorSalary.value = new OperatorSalaryModel(result.interface);
+  } else {
+    toast.show({
+      title: "Erreur",
+      message: "Bulletin de salaire non trouvé",
+      icon: "error",
+    });
+    router.push({ name: appRoutes.operatorsSalary.list });
+  }
+};
+
+
+const { icons } = useModernTableStyles();
 
 // Icônes supplémentaires pour cette vue
 const detailIcons = {
@@ -42,41 +65,6 @@ const detailIcons = {
 // Fusion des icônes
 const allIcons = { ...icons, ...detailIcons };
 
-const operatorSalary = ref<OperatorSalaryModel | null>(null);
-const deleteDialog = ref(false);
-const deleting = ref(false);
-const qrCodeDataUrl = ref<string>("");
-
-
-const isEditable = computed(() => {
-  return operatorSalary.value?.isEditable ?? false;
-});
-
-const operatorSalaryStatusBadge = computed(() => {
-  if (!operatorSalary.value)
-    return { class: badgeClasses.primary, text: "Inconnu" };
-
-  const status = operatorSalary.value.operatorSalary_status;
-  switch (status) {
-    case "completed":
-      return { class: badgeClasses.success, text: "Terminé" };
-    case "in_progress":
-      return { class: badgeClasses.warning, text: "En cours" };
-    case "pending":
-      return { class: badgeClasses.primary, text: "En attente" };
-    default:
-      return { class: badgeClasses.primary, text: status };
-  }
-});
-
-const trackingStatusBadge = computed(() => {
-  if (!operatorSalary.value)
-    return { class: badgeClasses.primary, text: "Inconnu" };
-
-  return operatorSalary.value.isTrackingActive
-    ? { class: badgeClasses.success, text: "Actif" }
-    : { class: badgeClasses.danger, text: "Terminé" };
-});
 
 // Fonctions utilitaires
 const formatDate = (dateString: string) => {
@@ -87,170 +75,36 @@ const formatDateTime = (dateString: string) => {
   return DateTime.fromISO(dateString).toLocaleString(DateTime.DATETIME_SHORT);
 };
 
-const getStatusColor = (status: string) => {
-  switch (status) {
-    case "completed":
-      return "success";
-    case "in_progress":
-      return "warning";
-    case "pending":
-      return "info";
-    default:
-      return "grey";
-  }
-};
+const currencyFormatter = new Intl.NumberFormat('fr-FR', {
+  style: 'currency',
+  currency: 'XOF',
+  minimumFractionDigits: 0,
+});
+
+function formatFCFA(value: number) {
+  return currencyFormatter.format(value).replace('XOF', 'FCFA');
+}
 
 const handleBack = () => {
   router.push({ name: appRoutes.operatorsSalary.list });
-};
-
-const handleEdit = () => {
-  if (operatorSalary.value) {
-    router.push({
-      name: appRoutes.operatorsSalary.edit,
-      params: { id: operatorSalary.value.id },
-    });
-  }
 };
 
 const printDocument = () => {
   window.print();
 };
 
-// Génération du QR code
-const generateQrCode = () => {
-  if (!operatorSalary.value) return;
-
-  // Données à encoder dans le QR code
-  const qrData = {
-    operatorSalaryId: operatorSalary.value.id,
-    operator: operatorSalary.value.employeeFullName,
-    operatorSalaryDate: operatorSalary.value.evaluated_at || new Date().toISOString(),
-    url: `https://eval.sahges.com/operatorSalary/${operatorSalary.value.id}`,
-  };
-
-  // Créer le QR code
-  const qr = qrcode(0, "M"); // Type 0 (auto), niveau de correction d'erreur M
-  qr.addData(JSON.stringify(qrData));
-  qr.make();
-
-  // Générer l'image du QR code
-  const cellSize = 3;
-  const margin = 0;
-  const size = qr.getModuleCount() * cellSize + margin * 2;
-
-  const canvas = document.createElement("canvas");
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext("2d");
-
-  if (ctx) {
-    // Fond blanc
-    ctx.fillStyle = "#FFFFFF";
-    ctx.fillRect(0, 0, size, size);
-
-    // Dessiner le QR code
-    ctx.fillStyle = "#000000";
-    for (let row = 0; row < qr.getModuleCount(); row++) {
-      for (let col = 0; col < qr.getModuleCount(); col++) {
-        if (qr.isDark(row, col)) {
-          ctx.fillRect(
-            col * cellSize + margin,
-            row * cellSize + margin,
-            cellSize,
-            cellSize
-          );
-        }
-      }
-    }
-
-    // Convertir en data URL
-    qrCodeDataUrl.value = canvas.toDataURL("image/png");
-  }
-};
-
-// Handlers d'événements
-const loadEvaluation = async () => {
-  const result = await findOperatorSalary(operatorSalaryId);
-  if (result) {
-    operatorSalary.value = new OperatorSalaryModel(result.interface);
-    await loadRelatedObjectives();
-    generateQrCode(); // Générer le QR code après le chargement
-  } else {
-    toast.show({
-      title: "Erreur",
-      message: "Évaluation non trouvée",
-      icon: "error",
-    });
-    router.push({ name: appRoutes.operatorsSalary.list });
-  }
-};
-
-const loadRelatedObjectives = async () => {
-  if (!operatorSalary.value) return;
-
-  // Charger tous les objectifs
-  await getSprintObjectives();
-
-  // Filtrer les objectifs par tracking et employé
-  relatedObjectives.value = sprintObjectives.value
-    .filter((objective: any) => {
-      const sameTracking =
-        objective.standup_meeting_trackings?.id ===
-        operatorSalary.value?.tracking.id;
-
-      const isOtherOwner =
-        objective.other_owner?.user?.id === operatorSalary.value?.function.user.id;
-
-      const isOwner =
-        objective.owner?.user?.id === operatorSalary.value?.function.user.id;
-
-      return sameTracking && (isOtherOwner || isOwner);
-    })
-    .map((obj: any) => new SprintObjectiveModel(obj));
-};
-
-const handleDelete = () => {
-  deleteDialog.value = true;
-};
-
-const confirmDelete = async () => {
-  if (!operatorSalary.value) return;
-
-  deleting.value = true;
-  try {
-    await deleteOperatorSalary(operatorSalary.value);
-    toast.show({
-      title: "Succès",
-      message: "Évaluation supprimée avec succès",
-      icon: "success",
-    });
-    router.push({ name: appRoutes.operatorsSalary.list });
-  } catch (error) {
-    toast.show({
-      title: "Erreur",
-      message: "Erreur lors de la suppression de l'évaluation",
-      icon: "error",
-    });
-  } finally {
-    deleting.value = false;
-    deleteDialog.value = false;
-  }
-};
-
 // Lifecycle
 onMounted(() => {
-  loadEvaluation();
-  console.log("relatedObjectives", relatedObjectives);
+  loadoperatorSalary();
 });
 </script>
+
 <template>
   <!-- Actions flottantes pour l'écran (cachées à l'impression) -->
   <div class="btn-print print:hidden fixed top-64 z-50 flex gap-2">
     <VBtn
       type="button"
       variant="outlined"
-      size="small"
       @click="handleBack"
       :disabled="processing"
     >
@@ -258,38 +112,13 @@ onMounted(() => {
       <span class="ml-1">Retour</span>
     </VBtn>
     <VBtn
-      v-if="operatorSalary && isEditable"
-      type="button"
-      variant="outlined"
-      color="primary"
-      size="small"
-      @click="handleEdit"
-      :disabled="processing"
-    >
-      <i :class="allIcons.edit" />
-      <span class="ml-1">Modifier</span>
-    </VBtn>
-    <VBtn
       type="button"
       variant="flat"
       color="primary"
-      size="small"
       @click="printDocument"
     >
       <i class="ri-printer-line" />
       <span class="ml-1">Imprimer</span>
-    </VBtn>
-    <VBtn
-      v-if="operatorSalary && isEditable"
-      type="button"
-      variant="flat"
-      color="error"
-      size="small"
-      @click="handleDelete"
-      :disabled="processing || deleting"
-    >
-      <i :class="allIcons.delete" />
-      <span class="ml-1">Supprimer</span>
     </VBtn>
   </div>
 
@@ -301,149 +130,112 @@ onMounted(() => {
     <!-- Page 1: Informations générales et résultats -->
     <div class="pdf-page bg-white mx-auto shadow-lg print:shadow-none">
       <!-- Header de la page -->
-      <div class="pdf-header border-b-2 border-gray-200 pb-6 mb-8">
-        <div class="flex justify-between items-start">
+      <div class="pdf-header border-b-2 border-gray-200 mb-5">
+        <div class="">
           <div>
-            <img :src="LogoSanlamAllianz" class="h-16 mb-8" />
-            <h1 class="text-2xl font-bold text-gray-900 mb-8">
-              Objectifs Sprint - Rapport d'Évaluation
+            <h1 class="text-4xl text-center font-bold text-gray-900 mb-5">
+              Bulletin de salaire
             </h1>
-            <div class="flex items-center gap-4 mb-4 justify-between">
-              <div>
-                <p class="text-lg text-gray-600 mb-0">
-                  {{ operatorSalary.employeeFullName }}
-                </p>
-                <p class="text-base text-gray-500">
-                  {{ operatorSalary.tracking.libelle }}
-                </p>
-              </div>
-              <div class="qrcode">
-                <img
-                  v-if="qrCodeDataUrl"
-                  :src="qrCodeDataUrl"
-                  alt="QR Code de l'évaluation"
-                  class="w-32 h-32 border border-gray-300 rounded"
-                  title="QR Code contenant les informations de l'évaluation"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="text-right">
-            <div class="mb-2">
-              <span
-                :class="
-                  operatorSalaryStatusBadge.class +
-                  ' text-sm font-medium px-3 py-1 rounded-full'
-                "
-              >
-                {{ operatorSalaryStatusBadge.text }}
-              </span>
-            </div>
-            <p class="text-sm text-gray-500">
-              {{ formatDate(operatorSalary.tracking.start_at) }} -
-              {{ formatDate(operatorSalary.tracking.end_at) }}
-            </p>
-          </div>
-        </div>
-      </div>
 
-      <!-- Informations de l'employé -->
-      <section class="mb-8">
-        <h2
-          class="text-xl font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2"
-        >
-          Informations de l'employé
-        </h2>
-        <div class="grid grid-cols-2 gap-6">
-          <div>
-            <div class="flex items-center mb-4">
-              <div
-                class="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center text-xl font-semibold text-gray-700 mr-4"
-              >
-                {{ operatorSalary.function.user.first_name.charAt(0)
-                }}{{ operatorSalary.function.user.last_name.charAt(0) }}
-              </div>
-              <div>
-                <h3 class="font-medium text-lg m-0">
-                  {{ operatorSalary.employeeFullName }}
-                </h3>
-                <p class="text-gray-600 m-0">
-                  {{ operatorSalary.function.position?.name || "Non défini" }}
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="space-y-3">
-            <div class="flex justify-between">
-              <span class="font-medium text-gray-700">Statut du suivi:</span>
-              <span
-                :class="
-                  trackingStatusBadge.class + ' text-xs px-2 py-1 rounded'
-                "
-              >
-                {{ trackingStatusBadge.text }}
-              </span>
-            </div>
-            <div v-if="operatorSalary.evaluated_at" class="flex justify-between">
-              <span class="font-medium text-gray-700">Évalué le:</span>
-              <span class="text-gray-600">{{
-                formatDateTime(operatorSalary.evaluated_at)
-              }}</span>
-            </div>
-            <div v-if="operatorSalary.evaluated_by" class="flex justify-between">
-              <span class="font-medium text-gray-700">Évaluateur:</span>
-              <span class="text-gray-600">{{
-                operatorSalary.evaluatorFullName
-              }}</span>
-            </div>
-          </div>
-        </div>
-      </section>
+						<!-- Information sur l'entreprise -->
+						<section class="border-b pb-3">
+							<div class="flex items-center gap-4 mb-4 justify-between">
+								<div>
+									<h2 class="text-2xl mb-0 font-extrabold text-green-700 font-[Quicksand, sans-serif]">TEA</h2>
+									<p class="text-xs font-extrabold text-green-700 font-[Quicksand, sans-serif]">Services</p>
+								</div>
+								<div class="text-right text-xl font-bold text-gray-950">
+									<p class="mb-2"> <span class="text-lg font-bold">Date d’émission :</span> <span class="text-base font-bold">{{ formatDate(new Date().toISOString()) }}</span></p>
+									<p><span class="text-lg font-bold">Salaire du mois :</span> <span class="text-base font-bold">{{ extractMonthAndYear(operatorSalary.date).month }} {{ extractMonthAndYear(operatorSalary.date).year }}</span> </p>
+								</div>
+							</div>
+							<div>
+								<p class="mb-2"> <span class="text-lg font-bold">IFU :</span> <span class="text-base font-bold text-gray-950">0202112432071</span></p>
+								<p class="mb-2"> <span class="text-lg font-bold">RCCM :</span> <span class="text-base font-bold text-gray-950">COTONOU N° RB/ABC/24 A 116906</span></p>
+							</div>
+						</section>
 
-      <!-- Résultats de l'évaluation -->
-      <section v-if="operatorSalary.isCompleted" class="mb-8">
-        <h2
-          class="text-xl font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2"
-        >
-          Résultats de l'évaluation
-        </h2>
-        <div class="bg-gray-50 rounded-lg p-6">
-          <div v-if="operatorSalary.hasGlobalScore" class="text-center mb-6">
-            <div class="text-3xl font-bold text-gray-800 mb-2">
-              {{ operatorSalary.formattedGlobalScore }}
-            </div>
-            <div class="flex justify-center mb-2">
-              <VRating
-                v-if="operatorSalary?.global_score! > 0"
-                :model-value="Number(operatorSalary?.global_score! / 2)"
-                readonly
-                density="comfortable"
-                color="amber"
-                size="large"
-              />
-            </div>
-            <p class="text-gray-600">Score global</p>
-          </div>
+						 <!-- Infos opérateur -->
+            <section class="mb-5 pt-3">
+							<h2 class="text-2xl font-bold text-green-700 mb-2 text-center">Informations de l’opérateur</h2>
+							<div class="">
+									<p v-if="operatorSalary.operator_id" class="mb-2">
+										<span class="text-lg font-bold">Nom et Prénoms:</span> {{ getOperatorById(operatorSalary.operator_id)?.first_name }} {{ getOperatorById(operatorSalary.operator_id)?.last_name }}
+									</p>
+									<p v-if="operatorSalary.operator_id"><span class="text-lg font-bold">Téléphone :</span> <span class="text-base font-medium">{{ getOperatorById(operatorSalary.operator_id)?.phone }}</span> </p>
+							</div>
+						</section>
 
-          <div v-if="operatorSalary.general_comments" class="mt-6">
-            <h3 class="font-medium text-gray-800 mb-3">
-              Commentaires généraux
-            </h3>
-            <div
-              class="bg-white border border-gray-200 rounded p-4 text-gray-700 leading-relaxed"
-            >
-              {{ operatorSalary.general_comments }}
-            </div>
-          </div>
-        </div>
-      </section>
+            <!-- Tableau de rémunération -->
+						<section class="border-t pt-3">
+							<h2 class="text-2xl font-bold text-green-700 mb-3 text-center">Détails du calcul</h2>
+							<table class="w-full border-collapse text-lg text-gray-900 font-bold">
+								<tbody>
+									<tr class="border-b">
+										<td class="pb-4 font-bold">Chiffre d’affaire TTC</td>
+										<td class="pb-4 text-right">{{ formatFCFA(operatorSalary.chiffreAffaireMensuelttc) }}</td>
+									</tr>
+									<tr class="border-b">
+										<td class="py-4 font-bold">Chiffre d’affaire HT</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.chiffreAffaireHorsTaxe) }}</td>
+									</tr>
+									<tr class="border-b">
+										<td class="py-4 font-bold">Commission brute ({{ operatorSalary.percentCommissionBrute }}%)</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.commissionBrute) }}</td>
+									</tr>
+									<tr v-if="operatorSalary.aib" class="border-b">
+										<td class="py-4 font-bold">AIB</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.aib) }}</td>
+									</tr>
+										<tr v-if="operatorSalary.fel" class="border-b">
+										<td class="py-4 font-bold">Frais d'entretien LNB</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.fel) }}</td>
+									</tr>
+									<tr v-if="operatorSalary.dette" class="border-b">
+										<td class="py-4 font-bold">Dette</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.dette) }}</td>
+									</tr>
+									<tr v-if="operatorSalary.penalite" class="border-b">
+										<td class="py-4 font-bold">Pénalité</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.penalite) }}</td>
+									</tr>
+									<tr v-if="operatorSalary.remboursement" class="border-b">
+										<td class="py-4 font-bold">Remboursement</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.remboursement) }}</td>
+									</tr>
+									<tr v-if="operatorSalary.ecart" class="border-b">
+										<td class="py-4 font-bold">Écart</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.ecart) }}</td>
+									</tr>
+									<tr v-if="operatorSalary.calculatedFraisMomo" class="border-b">
+										<td class="py-4 font-bold">Frais MoMo</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.calculatedFraisMomo) }}</td>
+									</tr>
+									<tr class="border-t-2 border-gray-700 font-bold">
+										<td class="py-4">Total des prélèvements</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.totalPrelevements) }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</section>
+
+						   <!-- Salaire Net -->
+						<section class="mt-5 text-right">
+							<h2 class="text-2xl font-extrabold text-green-700">
+								Salaire : {{ formatFCFA(operatorSalary.salaireBrut) }}
+							</h2>
+						</section>
+					</div>
+				</div>
+			</div>
+
 
       <!-- Footer de la page 1 -->
       <div
-        class="pdf-footer text-center text-gray-500 text-sm border-t border-gray-200 pt-4"
+        class="pdf-footer text-center text-gray-500 text-sm pt-4"
       >
         <p>
-          Page 1/2 - Rapport généré le
+          Page 1/1 - Bulletin de salaire généré le
           {{ formatDateTime(new Date().toISOString()) }}
         </p>
       </div>
@@ -452,208 +244,8 @@ onMounted(() => {
     <!-- Saut de page -->
     <div class="print:break-before-page"></div>
 
-    <!-- Page 2: Détail des objectifs -->
-    <div class="pdf-page bg-white mx-auto shadow-lg print:shadow-none">
-      <!-- Résumé des objectifs -->
-      <section class="mb-8">
-        <h2
-          class="text-xl font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2"
-        >
-          Résumé des objectifs
-        </h2>
-        <div class="grid grid-cols-3 gap-6 text-center">
-          <div class="bg-blue-50 rounded-lg p-4">
-            <div class="text-2xl font-bold text-blue-600">
-              {{ relatedObjectives.length }}
-            </div>
-            <div class="text-sm text-blue-700">Total objectifs</div>
-          </div>
-          <div class="bg-green-50 rounded-lg p-4">
-            <div class="text-2xl font-bold text-green-600">
-              {{ relatedObjectives.filter((obj) => obj.is_achieved).length }}
-            </div>
-            <div class="text-sm text-green-700">Objectifs atteints</div>
-          </div>
-          <div class="bg-orange-50 rounded-lg p-4">
-            <div class="text-2xl font-bold text-orange-600">
-              {{ relatedObjectives.filter((obj) => !obj.isEvaluated).length }}
-            </div>
-            <div class="text-sm text-orange-700">Non évalués</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Header de la page 2 -->
-      <div class="pdf-header border-b-2 border-gray-200 pb-2 mb-1">
-        <div class="flex justify-between items-center">
-          <div>
-            <span class="text-md font-bold text-gray-900 mb-2"
-              >Détail des Objectifs</span
-            >
-            <p class="text-lg text-gray-600 m-0">
-              {{ operatorSalary.employeeFullName }}
-            </p>
-          </div>
-          <div class="text-right">
-            <p class="text-sm text-gray-500 m-0">
-              {{ relatedObjectives.length }} objectif(s) au total
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Liste des objectifs -->
-      <section>
-        <div v-if="relatedObjectives.length === 0" class="text-center py-12">
-          <div class="text-6xl text-gray-300 mb-4">📋</div>
-          <h3 class="text-xl font-medium text-gray-500 mb-2">
-            Aucun objectif trouvé
-          </h3>
-          <p class="text-gray-400">
-            Aucun objectif n'est associé à cette évaluation.
-          </p>
-        </div>
-
-        <div v-else class="space-y-2">
-          <div
-            v-for="(objective, index) in relatedObjectives"
-            :key="objective.id"
-            class="border border-gray-200 rounded-lg px-6 py-2 bg-white"
-          >
-            <!-- Header de l'objectif -->
-            <div class="flex justify-between items-start mb-0">
-              <div class="flex-1">
-                <div class="flex items-center gap-3 mb-2">
-                  <span
-                    class="bg-gray-100 text-gray-700 text-sm font-medium px-3 py-1 rounded-full"
-                  >
-                    Objectif {{ index + 1 }}
-                  </span>
-                  <span
-                    v-if="objective.isEvaluated"
-                    :class="
-                      (objective.is_achieved
-                        ? 'bg-green-100 text-green-800'
-                        : 'bg-red-100 text-red-800') +
-                      ' text-xs font-medium px-2 py-1 rounded-full'
-                    "
-                  >
-                    {{ objective.is_achieved ? "✓ Atteint" : "✗ Non atteint" }}
-                  </span>
-                  <span
-                    v-else
-                    class="bg-yellow-100 text-yellow-800 text-xs font-medium px-2 py-1 rounded-full"
-                  >
-                    ⏳ Non évalué
-                  </span>
-                </div>
-                <h5 class="text-md font-semibold text-gray-900 mb-2">
-                  {{ objective.libelle }}
-                </h5>
-              </div>
-            </div>
-
-            <!-- Détails de l'objectif -->
-            <div class="grid grid-cols-2 gap-6 mb-4">
-              <div>
-                <div
-                  class="space-y-2 text-sm flex gap-2 items-center justify-between"
-                >
-                  <div class="flex justify-between items-center">
-                    <span class="text-gray-600">Score:</span>
-                    <span class="font-medium">{{
-                      objective.formattedScore
-                    }}</span>
-                  </div>
-                  <div
-                    v-if="objective.evaluated_at"
-                    class="flex justify-between items-center"
-                  >
-                    <span class="text-gray-600">Évalué le:</span>
-                    <span class="font-medium">{{
-                      formatDateTime(objective.evaluated_at)
-                    }}</span>
-                  </div>
-                </div>
-              </div>
-              <div v-if="objective.evaluator_comments">
-                <h4 class="font-medium text-gray-700 mb-2">
-                  Commentaires de l'évaluateur
-                </h4>
-                <div
-                  class="bg-gray-50 border border-gray-200 rounded p-3 text-sm text-gray-700 leading-relaxed"
-                >
-                  {{ objective.evaluator_comments }}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer de la page 2 -->
-      <div
-        class="pdf-footer text-center text-gray-500 text-sm border-t border-gray-200 pt-4 mt-8"
-      >
-        <p>
-          Page 2/2 - Rapport généré le
-          {{ formatDateTime(new Date().toISOString()) }}
-        </p>
-      </div>
-    </div>
   </div>
 
-  <!-- État de chargement -->
-  <div
-    v-else-if="processing"
-    class="min-h-screen flex items-center justify-center bg-gray-100 print:hidden"
-  >
-    <div class="text-center">
-      <i
-        :class="allIcons.loading"
-        class="text-4xl text-primary mb-4 animate-spin"
-      />
-      <div class="text-lg font-medium">Chargement de l'évaluation...</div>
-    </div>
-  </div>
-
-  <!-- Évaluation non trouvée -->
-  <div
-    v-else
-    class="min-h-screen flex items-center justify-center bg-gray-100 print:hidden"
-  >
-    <div class="text-center bg-white p-12 rounded-lg shadow-lg max-w-md">
-      <i :class="allIcons.error" class="text-6xl text-red-300 mb-4" />
-      <div class="text-xl font-medium text-gray-900 mb-2">
-        Évaluation non trouvée
-      </div>
-      <div class="text-gray-500 mb-6">
-        L'évaluation demandée n'existe pas ou n'est plus disponible.
-      </div>
-      <VBtn color="primary" @click="handleBack">Retour à la liste</VBtn>
-    </div>
-  </div>
-
-  <!-- Dialog de confirmation de suppression -->
-  <VDialog v-model="deleteDialog" max-width="400" class="print:hidden">
-    <VCard>
-      <VCardTitle class="flex items-center gap-2">
-        <i :class="allIcons.warning" class="text-warning" />
-        Confirmer la suppression
-      </VCardTitle>
-      <VCardText>
-        Êtes-vous sûr de vouloir supprimer cette évaluation ? Cette action est
-        irréversible.
-      </VCardText>
-      <VCardActions>
-        <VSpacer />
-        <VBtn @click="deleteDialog = false">Annuler</VBtn>
-        <VBtn color="error" @click="confirmDelete" :loading="deleting"
-          >Supprimer</VBtn
-        >
-      </VCardActions>
-    </VCard>
-  </VDialog>
 </template>
 
 <style scoped>
@@ -675,6 +267,13 @@ onMounted(() => {
 
 .pdf-header {
   margin-bottom: 30px;
+}
+
+.pdf-header h1,
+.pdf-header h2 {
+	color: #0aa77b; /* Vert foncé */
+	font-family: 'Quicksand', sans-serif;
+	font-weight: 700;
 }
 
 .pdf-footer {

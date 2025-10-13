@@ -7,6 +7,7 @@ import { useInitializedOperatorSalaryStore } from "../store";
 import { toast } from "../../../utils/toast";
 import { AppUtils } from "../../../utils";
 import { ApiError } from "../../../api/errors";
+import type { OperatorSalaryListFilterInterface } from "../interfaces/operator_salary_list_filter_interface";
 
 const logger = createLogger("use_operator_actions");
 
@@ -17,19 +18,12 @@ export const useOperatorSalaryActions = () => {
     operatorSalaryStore.value ? operatorSalaryStore.value.loading : true
   );
 
-    //  const autresPrelevements = (penalite || 0) + (remboursement || 0) + (dette || 0) + (ecart || 0) + (calculatedFraisMomo || 0);
-    // console.log("autrePrelevement", penalite, dette, remboursement, ecart, autresPrelevements);
-    
-    // const totalPrelevements = FEL + AIB + autresPrelevements;
-
-    // const salaireBrut = commissionBrute - totalPrelevements;
-
-  const getOperatorSalary = async () => {
+  const getOperatorSalary = async (args?: OperatorSalaryListFilterInterface) => {
     if (!operatorSalaryStore.value) {
       operatorSalaryStore.value = await useInitializedOperatorSalaryStore();
     }
 
-    const result = await operatorSalaryStore.value.getOperatorSalarys();
+    const result = await operatorSalaryStore.value.getOperatorSalarys(args);
 
     if (result instanceof ApiError) {
       logger.error("Error fetching operatorSalary:", { result });
@@ -50,12 +44,12 @@ export const useOperatorSalaryActions = () => {
     if (result instanceof ApiError) {
       logger.error("Error finding operatorSalary:", result);
       toast.error(
-        `Erreur lors de la recherche de l'opérateur avec l'ID ${id}`
+        `Erreur lors de la recherche du calcul du salaire de l'opérateur avec l'ID ${id}`
       );
       return null;
     }
 
-    toast.success(`Opérateur avec l'ID ${id} trouvé avec succès.`);
+    toast.success(`Calcul du salaire de l'opérateur avec l'ID ${id} trouvé avec succès.`);
     return new OperatorSalaryModel(result.interface);
   };
 
@@ -69,12 +63,12 @@ export const useOperatorSalaryActions = () => {
       logger.error("Error creating operatorSalary:", result);
 
       toast.error(
-        `Erreur lors de la création de l'opérateur: ${result.message}`
+        `Erreur lors du calcul du salaire de l'opérateur: ${result.message}`
       );
       return result;
     }
 
-    toast.success(`Opérateur créé avec succès.`);
+    toast.success(`Calcul du salaire de l'opérateur créé avec succès.`);
 
     return new OperatorSalaryModel(result.interface);
   };
@@ -91,12 +85,12 @@ export const useOperatorSalaryActions = () => {
     if (result instanceof ApiError) {
       logger.error("Error updating operatorSalary:", result);
       toast.error(
-        `Erreur lors de la mise à jour de l'opérateur: ${result.message}`
+        `Erreur lors de la mise à jour du calcul du salaire de l'opérateur: ${result.message}`
       );
       return result;
     }
 
-    toast.success(`Opérateur mis à jour avec succès.`);
+    toast.success(`Calcul du salaire de l'opérateur mis à jour avec succès.`);
 
     return new OperatorSalaryModel(result.interface);
   };
@@ -104,7 +98,7 @@ export const useOperatorSalaryActions = () => {
   const deleteOperatorSalary = async (element: OperatorSalaryInterface) => {
     AppUtils.showAlert({
       title: "Êtes-vous sûr?",
-      html: `Vous êtes sur le point de supprimer l'opérateur <b class="font-mono">${element.first_name} ${element.last_name}</b>. Cette action est <b class="text-pink-950">irréversible</b>`,
+      html: `Vous êtes sur le point de supprimer le calcul du salaire de l'opérateur à la date <b class="font-mono">${element.date}</b>. Cette action est <b class="text-pink-950">irréversible</b>`,
       confirmButtonText: "Oui, supprimer",
       onConfirm: async () => {
         if (!operatorSalaryStore.value) {
@@ -116,13 +110,13 @@ export const useOperatorSalaryActions = () => {
           logger.error("Error deleting operatorSalary:", result);
 
           toast.error(
-            `Erreur lors de la suppression de l'opérateur: ${result.message}`
+            `Erreur lors de la suppression du  l'opérateur: ${result.message}`
           );
           return false;
         }
 
         toast.success(
-          `Opérateur ${element.first_name} ${element.last_name} supprimé avec succès.`
+          `Calcul du salaire de l'opérateur à la date ${element.date} supprimé avec succès.`
         );
         getOperatorSalary();
 

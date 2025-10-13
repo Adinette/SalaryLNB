@@ -12,7 +12,7 @@ import type { OperatorStore } from "..";
  */
 export async function getOperators(store: OperatorStore, { args }: { args?: ListApiArgsInterface } = {}) {
 	const apiRoute = new OperatorListRoute(args);
-	const result = await apiRoute.request();
+	const result = await apiRoute.mock();
 
 	if (result instanceof ApiError) return result;
 

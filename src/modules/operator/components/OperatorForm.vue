@@ -4,9 +4,10 @@ import {
   emailValidator,
   phoneValidator,
 } from "../../../utils/validators";
-import { ref, watch, defineEmits, defineProps } from "vue";
+import { ref, watch, defineEmits, defineProps, onMounted, computed } from "vue";
 import type { OperatorCreateInterface } from "../interfaces";
 import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
+import { useMachineActions } from "../../machine/composable/use_machine_actions";
 
 const props = defineProps<{
   modelValue: OperatorCreateInterface;
@@ -20,6 +21,8 @@ const props = defineProps<{
 }>();
 const emit = defineEmits(["update:modelValue", "submit"]);
 
+	const { machines, getMachines } = useMachineActions();
+
 interface FormRef {
   validate: () => Promise<{ valid: boolean }>;
   reset?: () => void;
@@ -28,6 +31,10 @@ interface FormRef {
 const formRef = ref<FormRef>();
 const localForm = ref<OperatorCreateInterface>({ ...props.modelValue });
 
+// Charger les machines au montage du composant
+	onMounted(async () => {
+		await Promise.all([ getMachines()]);
+	});
 watch(
   () => props.modelValue,
   (val) => {
@@ -47,25 +54,35 @@ async function onSubmit() {
   // Validation locale avec le composant VForm
   const valid = await formRef.value?.validate();
   if (valid && valid.valid) {
+		console.log(localForm.value, "localForm.value");
+
     emit("submit");
   }
 }
+
+const formattedMachine = computed(() => {
+		return machines.value.filter((m) => m.is_active).map((machine) => ({
+			...machine,
+			label: `${machine.code} - ${machine.emplacement}`,
+			id: machine.id,
+		}));
+	});
 </script>
 
 <template>
-  <form ref="formRef" @submit.prevent="onSubmit">
-    <div>
-      <div cols="12" class="text-left">
+  <VForm ref="formRef" @submit.prevent="onSubmit">
+    <VRow>
+      <VCol cols="12" class="text-left">
         <span class="text-subtitle-1"
-          >Remplissez les informations de l'utilisateur</span
+          >Remplissez les informations de l'opérateur</span
         ><br />
         <span class="text-subtitle-2 text-muted"
           >Les champs marqués d'un * sont obligatoires</span
         >
-      </div>
-      <div cols="12" md="6">
-        <label class="mb-3" for="operator-first-name">Prénom *</label>
-        <input
+      </VCol>
+      <VCol cols="12" md="6">
+        <VLabel class="mb-3" for="operator-first-name">Prénom *</VLabel>
+        <VTextField
           id="operator-first-name"
           v-model="localForm.first_name"
           placeholder="Ex: Jean"
@@ -77,10 +94,10 @@ async function onSubmit() {
           :error-messages="props.errors?.first_name"
           @update:model-value="(val:any) => updateField('first_name', val)"
         />
-      </div>
-      <div cols="12" md="6">
-        <label class="mb-3" for="operator-last-name">Nom *</label>
-        <input
+      </VCol>
+      <VCol cols="12" md="6">
+        <VLabel class="mb-3" for="operator-last-name">Nom *</VLabel>
+        <VTextField
           id="operator-last-name"
           v-model="localForm.last_name"
           placeholder="Ex: Dupont"
@@ -92,10 +109,10 @@ async function onSubmit() {
           :error-messages="props.errors?.last_name"
           @update:model-value="(val:any) => updateField('last_name', val)"
         />
-      </div>
-      <div cols="12">
-        <label class="mb-3" for="operator-email">Email *</label>
-        <input
+      </VCol>
+      <VCol cols="12" md="6">
+        <VLabel class="mb-3" for="operator-email">Email *</VLabel>
+        <VTextField
           id="operator-email"
           v-model="localForm.email"
           placeholder="Ex: jean.dupont@example.com"
@@ -108,10 +125,10 @@ async function onSubmit() {
           :error-messages="props.errors?.email"
           @update:model-value="(val:any) => updateField('email', val)"
         />
-      </div>
-      <div cols="12">
-        <label class="mb-3" for="operator-phone">Téléphone</label>
-        <input
+      </VCol>
+      <VCol cols="12" md="6">
+        <VLabel class="mb-3" for="operator-phone">Téléphone</VLabel>
+        <VTextField
           id="operator-phone"
           v-model="localForm.phone"
           v-maska="'229 01 ## ## ## ##'"
@@ -125,13 +142,39 @@ async function onSubmit() {
           :error-messages="props.errors?.phone"
           @update:model-value="(val:any) => updateField('phone', val)"
         />
-      </div>
-    </div>
+      </VCol>
+					<!-- Sélection de la machine attribué -->
+			<VCol cols="12" md="6">
+				<VLabel class="mb-3" for="operator-machine">Machine attribuée *</VLabel>
+				<VAutocomplete
+					id="operator-machine"
+					v-model="localForm.machine_id"
+					:items="formattedMachine"
+					item-title="code"
+					item-value="id"
+					placeholder="Sélectionnez une position"
+					variant="filled"
+					density="compact"
+					prepend-inner-icon="ri-briefcase-line"
+					:rules="[requiredValidator]"
+					:error-messages="props.errors?.machine_id"
+					@update:model-value="(val) => updateField('machine_id', val)"
+				>
+					<template #item="{ props: itemProps, item }">
+						<VListItem
+							v-bind="itemProps"
+							:title="item.raw.code + ' - ' + item.raw.emplacement"
+							:subtitle="item.raw.code"
+						/>
+					</template>
+				</VAutocomplete>
+			</VCol>
+    </VRow>
 
     <!-- Alert Section -->
-    <div v-if="props.alert">
-      <div cols="12">
-        <div
+    <VRow v-if="props.alert">
+      <VCol cols="12">
+        <VAlert
           :type="
             props.alert.type === 'danger'
               ? 'error'
@@ -141,24 +184,23 @@ async function onSubmit() {
           class="mb-3"
         >
           {{ props.alert.message }}
-			</div>
-      </div>
-    </div>
+        </VAlert>
+      </VCol>
+    </VRow>
 
     <!-- Submit Button -->
-    <div>
-      <div cols="12" class="text-right">
-        <button
+    <VRow>
+      <VCol cols="12" class="text-right">
+        <VBtn
           type="submit"
-          color="primary"
-          size="small"
+          color="success"
           :loading="props.loading"
           :prepend-icon="props.actionIcon"
           class="px-8"
         >
           {{ props.actionText || "Enregistrer" }}
-			</button>
-      </div>
-    </div>
-  </form>
+        </VBtn>
+      </VCol>
+    </VRow>
+  </VForm>
 </template>

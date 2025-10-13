@@ -31,9 +31,9 @@ const fieldsErrors = ref<{ [key in keyof OperatorCreateInterface]: string[] }>({
 
 const alert = ref<AppAlertInterface | null>(null);
 
-const actionDescription = "Ajouter un utilisateur";
+const actionDescription = "Ajouter un opérateur";
 const actionText = "Ajouter";
-const actionIcon = "ri-add-fill";
+const actionIcon = "fa fa-plus-circle";
 
 const { processing: loading, createOperator: create } = useOperatorActions();
 
@@ -48,14 +48,14 @@ const setUnprocessableEntityApiErrors = (
 };
 
 const createOperator = async (operator: OperatorCreateInterface) => {
-  logger.info("Création de l'utilisateur", operator);
+  logger.info("Création de l'opérateur", operator);
   const result = await create(operator);
   if (result instanceof ApiError) {
     if (result instanceof UnprocessableEntityApiError) {
       setUnprocessableEntityApiErrors(result);
     } else {
       toast.error(result.message);
-      logger.error("Erreur lors de la création de l'utilisateur", result);
+      logger.error("Erreur lors de la création de l'opérateur", result);
     }
     alert.value = {
       type: "danger",
@@ -65,7 +65,7 @@ const createOperator = async (operator: OperatorCreateInterface) => {
     };
     return false;
   }
-  logger.info("Utilisateur créé avec succès", result);
+  logger.info("Opérateur créé avec succès", result);
   return true;
 };
 
@@ -82,7 +82,7 @@ const resetForm = () => {
 
 const onSubmit = async () => {
   resetForm();
-  logger.info("Soumission du formulaire d'utilisateur", form.value);
+  logger.info("Soumission du formulaire d'opérateur", form.value);
   const result = await createOperator({
     ...form.value,
     phone: AppUtils.removeWhitespace(form.value.phone),

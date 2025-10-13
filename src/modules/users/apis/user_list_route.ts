@@ -4,8 +4,9 @@ import ApiError from "../../../api/errors/ApiError";
 import type { ListApiArgsInterface } from "../../../api/interfaces/list_api_args_interface";
 import type { UserInterface } from "../interfaces/user_interface";
 import { UserModel } from "../models/user_model";
-import type { UserStore } from "../store";
 import { UserRoute } from "./_user_route";
+import users from "../data/users";
+import type { UserStore } from "../store";
 
 export class UserListRoute extends UserRoute {
 	constructor(args: ListApiArgsInterface = {}) {
@@ -18,9 +19,17 @@ export class UserListRoute extends UserRoute {
 		return (response as UserInterface[]).map((data) => new UserModel(data));
 	}
 
-	async mock() {
+    async mock() {
 		const store: UserStore = await this.store;
-		let results = store.elements.map((e:any) => new UserModel(e));
+
+		// Initialiser le store avec les données mockées seulement s'il est vide
+		if (store.elements.length === 0) {			
+			store.elements = [...users];
+		}
+
+		// Convertir les éléments du store en modèles
+		let results = store.elements.map((e: any) => new UserModel(e));
+		console.log(results);
 
 		// Appliquer la recherche si elle est fournie
 		if (this.data && (this.data as ListApiArgsInterface).search) {

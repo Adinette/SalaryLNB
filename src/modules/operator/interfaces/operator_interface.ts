@@ -1,5 +1,5 @@
 import type { ApiResourceInterface } from "../../../interfaces/ApiResourceInterface";
-import type { OperatorSalaryInterface } from "./operator_salary_interface";
+import type { MachineInterface } from "../../machine/interfaces";
 
 export interface OperatorInterface extends ApiResourceInterface {
   id: string;
@@ -7,6 +7,7 @@ export interface OperatorInterface extends ApiResourceInterface {
   first_name: string;
   email: string;
   phone: string;
-  machine_id: string;
-  salary_history?: OperatorSalaryInterface[];
+  is_active?: boolean;
+  machine: MachineInterface;
+  machine_id?: MachineInterface["id"]
 }

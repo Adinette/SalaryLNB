@@ -3,8 +3,9 @@ import type { OperatorSalaryInterface } from "./operator_salary_interface";
 
 export type OperatorSalaryCreateInterface = Omit<
   OperatorSalaryInterface,
-  keyof ApiResourceInterface
+  keyof ApiResourceInterface | "operator"
 > & {
+  operator_id: string;
   chiffreAffaireHorsTaxe?: number;
   commissionBrute?: number;
   aib?: number;

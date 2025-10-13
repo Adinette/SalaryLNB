@@ -5,6 +5,7 @@ import { MachineModel } from "../models/machine-model";
 import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
 import type { MachineStore } from "../store";
 import type { ListApiArgsInterface } from "../../../api/interfaces/list_api_args_interface";
+import machines from "../data/machines";
 
 export class MachineListRoute extends MachineRoute {
 	constructor(args: ListApiArgsInterface = {}) {
@@ -19,6 +20,10 @@ export class MachineListRoute extends MachineRoute {
 
 	async mock() {
 		const store: MachineStore = await this.store;
+					if (store.elements.length === 0) {			
+							store.elements = [...machines];
+						}
+		
 		let results = store.elements.map((e:any) => new MachineModel(e));
 
 		// Appliquer la recherche si elle est fournie

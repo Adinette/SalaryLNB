@@ -2,7 +2,6 @@
 import { useSelectableList } from "../../../composables/useSelectableList";
 import { UserModel } from "../models/user_model";
 import { useUserActions } from "../composables/use_user_actions";
-import { useBootstrapToast } from "../../../composables/useBootstrapToast";
 import { computed, onMounted, ref } from "vue";
 import type { ListApiArgsInterface } from "../../../api/interfaces/list_api_args_interface";
 import { toast } from "../../../utils/toast";
@@ -99,13 +98,13 @@ onMounted(async () => {
     <template #title>
       <div class="flex items-center gap-2">
         <VBtn
-          icon="ri-refresh-line"
+          icon="fa fa-refresh"
           :loading="loading"
           :disabled="loading"
+					color="success"
           type="button"
           @click="refreshUsers"
           class="btn-block-option"
-          size="x-small"
           variant="tonal"
         />
       </div>
@@ -135,7 +134,7 @@ onMounted(async () => {
           Filtrer
         </VBtn> -->
         <!-- Champ de recherche -->
-        <VTextField
+        <!-- <VTextField
           v-model="searchQuery"
           placeholder="Rechercher des utilisateurs..."
           density="compact"
@@ -145,7 +144,7 @@ onMounted(async () => {
           :disabled="loading"
           @keyup.enter="() => getUsers({ search: searchQuery })"
           @click:append-inner="() => getUsers({ search: searchQuery })"
-        />
+        /> -->
 
         <div v-if="selectedCount > 0" class="mr-2 flex items-center">
           <VChip color="primary" size="small" class="mr-2"
@@ -155,23 +154,22 @@ onMounted(async () => {
             type="button"
             variant="flat"
             color="error"
-            size="x-small"
             class="mr-1"
             :loading="loading"
             :disabled="loading"
             @click="deleteSelected"
           >
-            <VIcon icon="ri-delete-bin-line" size="small" />
+            <VIcon icon="fa fa-delete" size="small" />
             <span class="ml-1">Supprimer</span>
           </VBtn>
         </div>
         <VBtn
           type="button"
           variant="flat"
-          color="primary"
+          color="success"
           @click="router.push('/users/add')"
         >
-          <VIcon icon="ri-add-line" size="small" />
+          <VIcon icon="fa fa-plus" size="small" />
           <span class="ml-1">Ajouter</span>
         </VBtn>
       </div>
@@ -238,11 +236,7 @@ onMounted(async () => {
               <button
                 type="button"
                 :class="tableClasses.button.action"
-                @click="
-                  router.push({
-                    name: appRoutes.users.edit,
-                    params: { id: user.id },
-                  })
+                @click="router.push(`/users/edit/${user.id}`);
                 "
               >
                 <i class="fa fa-fw fa-pencil-alt mr-0"></i>

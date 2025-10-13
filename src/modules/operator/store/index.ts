@@ -34,6 +34,16 @@ const useOperatorStore = defineStore(operatorStoreDefinition.key, {
     updateOperator(elementId: OperatorInterface["id"], data: OperatorUpdateInterface) {
       return operatorStoreActions.updateOperator(this, { elementId, data });
     },
+       updateOperatorActivate(id: OperatorInterface["id"]) {
+          return operatorStoreActions.updateOperatorActivate(this, {
+            elementId: id, mock: true
+          });
+        },
+        updateOperatorDeactivate(id: OperatorInterface["id"]) {
+          return operatorStoreActions.updateOperatorDeactivate(this, {
+            elementId: id, mock: true
+          });
+        },
     deleteOperator(elementId: OperatorInterface["id"]) {
       return operatorStoreActions.deleteOperator(this, { elementId });
     },

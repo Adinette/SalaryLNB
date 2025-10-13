@@ -93,7 +93,7 @@ async function onSubmit() {
           @update:model-value="(val:any) => updateField('last_name', val)"
         />
       </VCol>
-      <VCol cols="12">
+      <VCol cols="12" md="6">
         <VLabel class="mb-3" for="user-email">Email *</VLabel>
         <VTextField
           id="user-email"
@@ -109,7 +109,7 @@ async function onSubmit() {
           @update:model-value="(val:any) => updateField('email', val)"
         />
       </VCol>
-      <VCol cols="12">
+      <VCol cols="12" md="6">
         <VLabel class="mb-3" for="user-phone">Téléphone</VLabel>
         <VTextField
           id="user-phone"
@@ -150,8 +150,7 @@ async function onSubmit() {
       <VCol cols="12" class="text-right">
         <VBtn
           type="submit"
-          color="primary"
-          size="small"
+          color="success"
           :loading="props.loading"
           :prepend-icon="props.actionIcon"
           class="px-8"

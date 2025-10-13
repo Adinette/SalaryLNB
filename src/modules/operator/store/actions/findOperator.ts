@@ -15,7 +15,7 @@ export async function findOperator(
 	{ elementId }: { elementId: OperatorInterface["id"] }
 ) {
 	const apiRoute = new OperatorFindRoute({ elementId });
-	const result = await apiRoute.request();
+	const result = await apiRoute.mock();
 	if (result instanceof ApiError) return result;
 	return result;
 }

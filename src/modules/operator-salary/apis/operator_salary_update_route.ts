@@ -4,17 +4,14 @@ import { ApiError, NotFoundApiError } from "../../../api/errors";
 import { OperatorSalaryModel } from "../models/operator-salary-model";
 import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
 import type { OperatorSalaryStore } from "../store";
-import type { OperatorInterface } from "../../operator/interfaces";
 
 export class OperatorSalaryUpdateRoute extends OperatorSalaryRoute {
 	elementId: OperatorSalaryInterface["id"];
-	id: OperatorInterface["id"];
-	constructor(elementId: OperatorSalaryInterface["id"], id: OperatorInterface["id"], data: OperatorSalaryUpdateInterface
+	constructor(elementId: OperatorSalaryInterface["id"], data: OperatorSalaryUpdateInterface
 	) {
-		super(`/${OperatorSalaryRoute.name}/${id}/${elementId}`, ApiHttpMethod.PUT, data);
+		super(`/${OperatorSalaryRoute.name}/${elementId}`, ApiHttpMethod.PUT, data);
 		this.data = data;
 		this.elementId = elementId;
-		this.id = id;
 	}
 
 	async request() {

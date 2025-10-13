@@ -24,6 +24,9 @@ declare module 'vue-router/auto-routes' {
     'authentication-login': RouteRecordInfo<'authentication-login', '/authentication/login', Record<never, never>, Record<never, never>>,
     'dashboard': RouteRecordInfo<'dashboard', '/dashboard', Record<never, never>, Record<never, never>>,
     '/forbidden': RouteRecordInfo<'/forbidden', '/forbidden', Record<never, never>, Record<never, never>>,
+    '/machines': RouteRecordInfo<'/machines', '/machines', Record<never, never>, Record<never, never>>,
+    '/machines/add': RouteRecordInfo<'/machines/add', '/machines/add', Record<never, never>, Record<never, never>>,
+    '/machines/edit/:id': RouteRecordInfo<'/machines/edit/:id', '/machines/edit/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/operators': RouteRecordInfo<'/operators', '/operators', Record<never, never>, Record<never, never>>,
     '/operators/add': RouteRecordInfo<'/operators/add', '/operators/add', Record<never, never>, Record<never, never>>,
     '/operators/edit/:id': RouteRecordInfo<'/operators/edit/:id', '/operators/edit/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
@@ -69,6 +72,18 @@ declare module 'vue-router/auto-routes' {
     }
     'src/pages/forbidden.vue': {
       routes: '/forbidden'
+      views: never
+    }
+    'src/pages/machines/index.vue': {
+      routes: '/machines'
+      views: never
+    }
+    'src/pages/machines/add.vue': {
+      routes: '/machines/add'
+      views: never
+    }
+    'src/pages/machines/edit/[id].vue': {
+      routes: '/machines/edit/:id'
       views: never
     }
     'src/pages/operators/index.vue': {

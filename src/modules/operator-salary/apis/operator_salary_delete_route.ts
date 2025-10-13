@@ -5,15 +5,12 @@ import { ApiError, NotFoundApiError } from "../../../api/errors";
 import { OperatorSalaryModel } from "../models/operator-salary-model";
 import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
 import type { OperatorSalaryStore } from "../store";
-import type { OperatorInterface } from "../../operator/interfaces";
 
 export class OperatorSalaryDeleteRoute extends OperatorSalaryRoute {
 	private elementId: OperatorSalaryInterface["id"];
-	id: OperatorInterface["id"];
-	constructor(elementId: OperatorSalaryInterface["id"], id: OperatorInterface["id"]) {
-		super(`/${OperatorSalaryRoute.name}/${id}/${elementId}`, ApiHttpMethod.DELETE, { elementId });
+	constructor(elementId: OperatorSalaryInterface["id"]) {
+		super(`/${OperatorSalaryRoute.name}/${elementId}`, ApiHttpMethod.DELETE, { elementId });
 		this.elementId = elementId;
-		this.id = id;
 	}
 
 	async request() {

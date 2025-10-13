@@ -15,7 +15,7 @@ export async function findMachine(
 	{ elementId }: { elementId: MachineInterface["id"] }
 ) {
 	const apiRoute = new MachineFindRoute({ elementId });
-	const result = await apiRoute.request();
+	const result = await apiRoute.mock();
 	if (result instanceof ApiError) return result;
 	return result;
 }

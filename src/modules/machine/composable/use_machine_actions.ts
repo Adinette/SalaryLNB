@@ -94,6 +94,51 @@ export const useMachineActions = () => {
     return new MachineModel(result.interface);
   };
 
+    const updateMachineActivateOrDeactivate = async (
+    id: string | undefined,
+    shouldActivate: boolean | undefined,
+    data: {
+      code: string;
+      emplacement: string;
+    }
+  ) => {
+    const action = shouldActivate ? "de désactiver" : "de activer";
+
+    AppUtils.showAlert({
+      title: "Êtes-vous sûr ?",
+      html: `Vous êtes sur le point ${action} la machine <b class="font-mono">${data.code} déployer à ${data.emplacement}</b> .
+        Êtes-vous sûr de vouloir continuer ?<br><br> Cette action est <b class="text-pink-950">irréversible</b>`,
+      confirmButtonText: `Oui, ${shouldActivate ? "Désactiver" : "Activer"}`,
+      onConfirm: async () => {
+        let result;
+
+        if (shouldActivate) {
+          result = await machineStore.value?.updateMachineDeactivate(id!);
+        } else {
+          result = await machineStore.value?.updateMachineActivate(id!);
+        }
+
+        if (result instanceof ApiError) {
+          logger.error(
+            `Error ${shouldActivate ? "la desactivation" : "l'activation"} de la machine:`,
+            result
+          );
+
+          toast.error(
+            `Erreur lors de  ${shouldActivate ? "la desactivation" : "l'activation"} de la machine: ${result.message}`
+          );
+          return result;
+        }
+
+        toast.success(
+          `${shouldActivate ? "Désactivation" : "Activation"} de la machine réussie!`
+        );
+
+        await getMachines();
+      },
+    });
+  };
+
   const deleteMachine = async (element: MachineInterface) => {
     AppUtils.showAlert({
       title: "Êtes-vous sûr?",
@@ -136,6 +181,7 @@ export const useMachineActions = () => {
     findMachine,
     createMachine,
     updateMachine,
+    updateMachineActivateOrDeactivate,
     deleteMachine,
   };
 };

@@ -33,9 +33,9 @@ const fieldsErrors = ref<{ [key in keyof MachineCreateInterface]: string[] }>({
 
 const alert = ref<AppAlertInterface | null>(null);
 
-const actionDescription = "Modifier l'utilisateur";
+const actionDescription = "Modifier la machine";
 const actionText = "Enregistrer";
-const actionIcon = "ri-save-line";
+const actionIcon = "fa fa-floppy-o";
 
 const { processing: loading } = useMachineActions();
 
@@ -72,10 +72,10 @@ const fetchMachine = async () => {
 
 const updateMachine = async (machine: MachineCreateInterface) => {
   if (!machineStore.value) {
-    logger.error("Le store utilisateur n'est pas initialisé.");
+    logger.error("Le store machine n'est pas initialisé.");
     return false;
   }
-  logger.info("Mise à jour de l'utilisateur", machine);
+  logger.info("Mise à jour de la machine", machine);
   const result = await machineStore.value.updateMachine(
     (route.params as any).id as string,
     machine
@@ -85,7 +85,7 @@ const updateMachine = async (machine: MachineCreateInterface) => {
       setUnprocessableEntityApiErrors(result);
     } else {
       toast.error(result.message);
-      logger.error("Erreur lors de la mise à jour de l'utilisateur", result);
+      logger.error("Erreur lors de la mise à jour de la machine", result);
     }
     alert.value = {
       type: "danger",
@@ -95,8 +95,8 @@ const updateMachine = async (machine: MachineCreateInterface) => {
     };
     return false;
   }
-  logger.info("Utilisateur mis à jour avec succès", result);
-  toast.success("Utilisateur modifié avec succès !");
+  logger.info("Machine mise à jour avec succès", result);
+  toast.success("Machine modifiée avec succès !");
   return true;
 };
 
@@ -112,10 +112,10 @@ const resetForm = () => {
 const onSubmit = async () => {
   resetForm();
   if (!machineStore.value) {
-    logger.error("Le store utilisateur n'est pas initialisé.");
+    logger.error("Le store machine n'est pas initialisé.");
     return;
   }
-  logger.info("Soumission du formulaire d'utilisateur", form.value);
+  logger.info("Soumission du formulaire de machine", form.value);
   const result = await updateMachine({
     ...form.value,
   });

@@ -10,6 +10,8 @@ import { deleteOperator } from "./deleteOperator";
 import { setOperators } from "./setOperator";
 import { operatorStoreDefinition } from "../definition";
 import { createBaseStoreActions } from "../../../../stores/utils/create_base_store_actions";
+import { updateOperatorActivate } from "./updateOperatorActivate";
+import { updateOperatorDeactivate } from "./updateOperatorDeactivate";
 
 export const operatorStoreActions = {
   setOperators,
@@ -22,6 +24,8 @@ export const operatorStoreActions = {
   findOperator,
   createOperator,
   updateOperator,
+  updateOperatorActivate,
+  updateOperatorDeactivate,
   deleteOperator,
   // Add any other specific actions for the Operator store here
   // For example, you might have actions like:

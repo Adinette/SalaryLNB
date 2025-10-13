@@ -8,7 +8,7 @@
 	import BaseSideOverlay from "../layouts/partials/SideOverlay.vue";
 	import BaseFooter from "../layouts/partials/Footer.vue";
 	import { DarkModeEnum } from "../enums";
-import { useTemplateStore } from "../stores/template";
+    import { useTemplateStore } from "../stores/template";
 
 	// Component properties
 	defineProps({
@@ -95,7 +95,7 @@ import { useTemplateStore } from "../stores/template";
 </script>
 
 <template>
-	<div id="page-container" :class="classContainer">
+<div id="page-container" :class="['antialiased text-gray-800', classContainer]">
 		<AppI18n />
 		<!-- Page Loader -->
 		<div id="page-loader" :class="{ show: store.settings.pageLoader }"></div>

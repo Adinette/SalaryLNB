@@ -23,12 +23,9 @@ import { useTemplateStore } from '../../stores/template';
 							<slot name="content-left">
 								<div class="text-muted flex items-center gap-2 flex-col sm:flex-row">
 									<div>
-										<strong>{{ store.app.name + " " + store.app.version }}</strong> &copy;
+										<!-- <strong>{{ store.app.name + " " + store.app.version }}</strong>  -->
+										&copy;
 										{{ store.app.copyright }}
-									</div>
-									<div class="flex items-center gap-2">
-										&bullet;
-										<span class="text-primary"></span>
 									</div>
 								</div>
 							</slot>

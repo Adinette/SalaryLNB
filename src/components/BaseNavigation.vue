@@ -1,8 +1,9 @@
 <script setup lang="ts">
-	import { computed } from "vue";
+	import { computed, onMounted, watch } from "vue";
 	import { useRoute } from "vue-router";
 	import { useTemplateStore } from "../stores/template";
-import type { RouteNamedMap } from "vue-router/auto";
+    import type { RouteNamedMap } from "vue-router/auto";
+
 
 	// Define the navigation node type
 	interface NavigationNode {
@@ -104,6 +105,10 @@ import type { RouteNamedMap } from "vue-router/auto";
 			}
 		}
 	}
+
+			onMounted(() => {
+			console.log(props.nodes, "Navigation to BaseNavigation");
+		});
 </script>
 
 <template>

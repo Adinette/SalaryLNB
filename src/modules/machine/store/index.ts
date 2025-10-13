@@ -34,6 +34,16 @@ const useMachineStore = defineStore(machineStoreDefinition.key, {
     updateMachine(elementId: MachineInterface["id"], data: MachineUpdateInterface) {
       return machineStoreActions.updateMachine(this, { elementId, data });
     },
+    updateMachineActivate(id: MachineInterface["id"]) {
+      return machineStoreActions.updateMachineActivate(this, {
+        elementId: id, mock: true
+      });
+    },
+    updateMachineDeactivate(id: MachineInterface["id"]) {
+      return machineStoreActions.updateMachineDeactivate(this, {
+        elementId: id, mock: true
+      });
+    },
     deleteMachine(elementId: MachineInterface["id"]) {
       return machineStoreActions.deleteMachine(this, { elementId });
     },

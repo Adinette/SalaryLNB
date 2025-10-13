@@ -18,6 +18,7 @@ const logger = createLogger("userEditView");
 
 const route = useRoute();
 const isEditMode = computed(() => !!(route.params as { id?: string }).id);
+console.log("isEditMode", isEditMode.value, route.params);
 
 const userStore = ref<UserStore | null>(null);
 const form = ref<UserCreateInterface>({

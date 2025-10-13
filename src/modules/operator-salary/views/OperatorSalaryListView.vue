@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { toast } from "../../../utils/toast";
 import { OperatorSalaryModel } from "../models/operator-salary-model";
 import { useSelectableList } from "../../../composables/useSelectableList";
 import { useCustomTable } from "../../../composables/useCustomTable";
-import appRoutes from "../../../router/routes";
-import router from "../../../router";
 import CustomTable from "../../../components/CustomTable.vue";
 import { useOperatorSalaryActions } from "../composable/use_operator_salary_ action";
+import { useOperatorActions } from "../../operator/composable/use_operator_actions";
+import { useDebounceFn } from "@vueuse/core";
+import router from "../../../router";
+import type { OperatorSalaryListFilterInterface } from "../interfaces/operator_salary_list_filter_interface";
 
 const {
   processing: loading,
@@ -16,8 +18,10 @@ const {
   deleteOperatorSalary,
 } = useOperatorSalaryActions();
 
-// État pour la recherche
-const searchQuery = ref<string>("");
+const {
+  operators,
+getOperators,
+} = useOperatorActions();
 
 const {
   selected,
@@ -32,9 +36,18 @@ const {
 
 
 // Configuration de la table 
-const { tableClasses, getStatusBadge, getStatusText, commonHeaders } =
+const { tableClasses, commonHeaders } =
   useCustomTable();
-const tableHeaders = commonHeaders.user();
+const tableHeaders = commonHeaders.operatorSalary();
+	const operatorIdQuery = ref<string | null>(null);
+	const statusArgs = computed<OperatorSalaryListFilterInterface>(() => ({
+		operator_id: operatorIdQuery.value !== null ? operatorIdQuery.value : undefined,
+	}));
+
+const debouncedOperator = useDebounceFn(async () => {
+		await getOperatorSalary(statusArgs.value);
+		clearSelection(); // Nettoie la sélection après le filtre
+	}, 300);
 
 const deleteSelected = async () => {
   if (selected.value.length === 0) return;
@@ -60,12 +73,34 @@ const deleteSelected = async () => {
   await getOperatorSalary();
 };
 
+// operators est ta liste de tous les opérateurs
+const getOperatorById = (id: string) => {
+  return operators.value.find(operator => operator.id === id) || null;
+};
+
+const formatMonth = (dateString: string) => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  // options pour afficher uniquement le mois et l'année
+  return date.toLocaleString("fr-FR", { month: "long", year: "numeric" });
+};
+
+const formatNumber = (value: number | string) => {
+  if (!value && value !== 0) return "";
+  return Number(value).toLocaleString("fr-FR", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+};
+
+
 const refreshOperatorSalary = async () => {
   await getOperatorSalary();
 };
 
 onMounted(async () => {
   await getOperatorSalary();
+	await getOperators();
 });
 </script>
 
@@ -79,22 +114,43 @@ onMounted(async () => {
     <template #title>
       <div class="flex items-center gap-2">
         <VBtn
-          icon="ri-refresh-line"
+          icon="fa fa-refresh"
           :loading="loading"
           :disabled="loading"
+					color="success"
           type="button"
           @click="refreshOperatorSalary"
           class="btn-block-option"
-          size="x-small"
           variant="tonal"
         />
       </div>
     </template>
     <template #options>
       <div class="flex justify-end items-center gap-2">
-   
+				<!--Champ de filtre des operateurs-->
+				<VCol cols="4">
+					<VSelect
+						v-model="operatorIdQuery"
+						:items="operators"
+						item-title="fullName"
+						item-value="id"
+						placeholder="Filtrer par opérateurs"
+						density="compact"
+						:disabled="loading"
+					/>
+				</VCol>
+				<VBtn
+					variant="flat"
+					color="success"
+					prepend-icon="fa fa-filter"
+					:disabled="loading"
+					:loading="loading"
+					@click="debouncedOperator"
+				>
+					Filtrer
+				</VBtn>
         <!-- Champ de recherche -->
-        <VTextField
+        <!-- <VTextField
           v-model="searchQuery"
           placeholder="Rechercher des utilisateurs..."
           density="compact"
@@ -104,7 +160,7 @@ onMounted(async () => {
           :disabled="loading"
           @keyup.enter="() => getOperatorSalary()"
           @click:append-inner="() => getOperatorSalary()"
-        />
+        /> -->
 
         <div v-if="selectedCount > 0" class="mr-2 flex items-center">
           <VChip color="primary" size="small" class="mr-2"
@@ -114,23 +170,22 @@ onMounted(async () => {
             type="button"
             variant="flat"
             color="error"
-            size="x-small"
             class="mr-1"
             :loading="loading"
             :disabled="loading"
             @click="deleteSelected"
           >
-            <VIcon icon="ri-delete-bin-line" size="small" />
+            <VIcon icon="fa fa-delete" size="small" />
             <span class="ml-1">Supprimer</span>
           </VBtn>
         </div>
         <VBtn
           type="button"
           variant="flat"
-          color="primary"
-          @click="router.push('/operators/add')"
+          color="success"
+          @click="router.push('/operators-salary/add')"
         >
-          <VIcon icon="ri-add-line" size="small" />
+          <VIcon icon="fa fa-plus" size="small" />
           <span class="ml-1">Ajouter</span>
         </VBtn>
       </div>
@@ -147,54 +202,79 @@ onMounted(async () => {
       <template #body="{ items }">
         <tr v-if="items.length === 0">
           <td colspan="4" class="text-center text-muted py-4">
-            Aucun utilisateur trouvé
+            Aucun salaire calculé trouvé
           </td>
         </tr>
         <tr
-          v-for="user in items"
-          :key="user.id"
-          :class="{ 'table-active': isSelected(user) }"
+          v-for="operatorSalary in items"
+          :key="operatorSalary.id"
+          :class="{ 'table-active': isSelected(operatorSalary) }"
         >
           <td>
             <VCheckbox
-              :model-value="isSelected(user)"
+              :model-value="isSelected(operatorSalary)"
               hide-details
-              @update:model-value="() => toggleSelect(user)"
+              @update:model-value="() => toggleSelect(operatorSalary)"
             />
           </td>
-          <td class="info-column-">
-            <div class="info-name">{{ user.fullName }}</div>
-            <div class="info-detail">
-              <i class="fa fa-envelope me-1"></i>{{ user.email }}
-            </div>
-            <div v-if="user.phone" class="info-detail">
-              <i class="fa fa-phone me-1"></i>{{ user.phone }}
-            </div>
-          </td>
-          <td>
-            <span :class="getStatusBadge(user.is_active)">
-              {{ getStatusText(user.is_active) }}
-            </span>
-          </td>
+          <td class="info-column">
+						<div v-if="operatorSalary.operator_id" class="info-detail">
+  						<i class="fa fa-mobile me-1"></i>
+							Nom et prénom de l'operateur: {{ getOperatorById(operatorSalary.operator_id)?.first_name }} {{ getOperatorById(operatorSalary.operator_id)?.last_name }}
+											</div>
+						<!-- Chiffre d'affaire mensuel TTC -->
+						<div class="info-detail" v-if="operatorSalary.chiffreAffaireMensuelttc">
+						<i class="fa fa-money-bill-wave me-1"></i>
+						Chiffre d'affaire mensuel TTC: {{ formatNumber(operatorSalary.chiffreAffaireMensuelttc) }}
+					</div>
+
+					<div class="info-detail" v-if="operatorSalary.chiffreAffaireHorsTaxe">
+						<i class="fa fa-coins me-1"></i>
+						Chiffre d'affaire hors taxe: {{ formatNumber(operatorSalary.chiffreAffaireHorsTaxe) }}
+					</div>
+
+					<div v-if="operatorSalary.commissionBrute" class="info-detail">
+						<i class="fa fa-chart-line me-1"></i>
+						Commission brute: {{ formatNumber(operatorSalary.commissionBrute) }}
+					</div>
+
+					<div v-if="operatorSalary.salaireBrut" class="info-detail">
+						<i class="fa fa-wallet me-1"></i>
+						Salaire: {{ formatNumber(operatorSalary.salaireBrut) }} du mois de 
+						{{ formatMonth(operatorSalary.date) }}
+					</div>
+
+					</td>
+
           <td class="text-center">
             <div class="btn-group btn-group-">
               <button
                 type="button"
                 :class="tableClasses.button.action"
                 @click="
-                  router.push({
-                    name: appRoutes.operators.edit,
-                    params: { id: user.id },
-                  })
+                  router.push(`/operators-salary/edit/${operatorSalary.id}`);
+
                 "
               >
                 <i class="fa fa-fw fa-pencil-alt mr-0"></i>
                 <VTooltip activator="parent" location="top">Modifier</VTooltip>
               </button>
+							<button
+                type="button"
+                :class="tableClasses.button.action"
+                @click="
+                  router.push(`/operators-salary/details/${operatorSalary.id}`);
+
+                "
+              >
+                <i class="fa fa-eye mr-0"></i>
+                <VTooltip activator="parent" location="top">Details et Impression</VTooltip>
+              </button>
+							
               <button
                 type="button"
                 :class="tableClasses.button.danger"
-                @click="deleteOperatorSalary(user.interface)"
+                @click="deleteOperatorSalary(operatorSalary.interface)"
               >
                 <i class="fa fa-fw fa-times mr-0"></i>
                 <VTooltip activator="parent" location="top">Supprimer</VTooltip>

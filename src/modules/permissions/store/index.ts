@@ -1,6 +1,11 @@
 import { permissionStoreDefinition } from "./definition";
 import { permissionStoreGetters } from "./getters";
 import { permissionStoreActions } from "./actions";
+import type { PermissionStoreInterface } from "../interfaces/permission_store_interface";
+import type { PermissionInterface } from "../interfaces/permission_interface";
+import { defineStore } from "pinia";
+import type { PermissionCreateInterface } from "../interfaces/permission_create_interface";
+import type { PermissionUpdateInterface } from "../interfaces/permission_update_interface";
 
 const usePermissionStore = defineStore(permissionStoreDefinition.key, {
 	state: (): PermissionStoreInterface => structuredClone(permissionStoreDefinition.service.defaults),

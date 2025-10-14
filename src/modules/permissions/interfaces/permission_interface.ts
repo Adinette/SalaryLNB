@@ -1,3 +1,5 @@
+import type { ApiResourceInterface } from "../../../interfaces/ApiResourceInterface";
+
 export interface PermissionInterface extends ApiResourceInterface {
   /** Code unique de la permission */
   code: string;

@@ -1,4 +1,4 @@
-import type { RouteNamedMap } from "vue-router/auto-routes";
+import type { RouteNamedMap } from "vue-router/auto";
 
 /**
  * Utilitaire pour créer des déclarations de routes typées

@@ -1,11 +1,10 @@
-import ApiHttpMethod from "@/api/enums/api_http_method_enum";
-import ApiError from "@/api/errors/ApiError";
-import { PermissionInterface } from "../interfaces/permission_interface";
-import { PermissionUpdateInterface } from "../interfaces/permission_update_interface";
-import { PermissionModel } from "../models/permission_model";
 import { PermissionRoute } from "./_permission_route";
-import { faker } from "@faker-js/faker";
-import { PermissionStore } from "../store";
+import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
+import { ApiError } from "../../../api/errors";
+import type { PermissionInterface } from "../interfaces/permission_interface";
+import { PermissionModel } from "../models/permission_model";
+import type { PermissionStore } from "../store";
+import type { PermissionUpdateInterface } from "../interfaces/permission_update_interface";
 
 export class PermissionUpdateRoute extends PermissionRoute {
 	

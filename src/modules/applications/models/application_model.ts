@@ -1,3 +1,4 @@
+import type { ApplicationInterface } from "../interfaces/application_interface";
 
 export class ApplicationModel implements ApplicationInterface {
 	id: ApplicationInterface["id"];

@@ -1,4 +1,4 @@
-import { appLocalesMapping } from "@/locales/appLocalesMapping";
+import { appLocalesMapping } from "../../locales/appLocalesMapping";
 
 appLocalesMapping;
 

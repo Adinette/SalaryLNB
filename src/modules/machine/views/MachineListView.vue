@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { onMounted } from "vue";
 import { toast } from "../../../utils/toast";
 import { useMachineActions } from "../composable/use_machine_actions";
 import { useSelectableList } from "../../../composables/useSelectableList";
 import type { MachineModel } from "../models/machine-model";
-import appRoutes from "../../../router/routes";
 import router from "../../../router";
 import { useCustomTable } from "../../../composables/useCustomTable";
 import CustomTable from "../../../components/CustomTable.vue";

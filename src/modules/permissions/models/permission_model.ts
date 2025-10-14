@@ -1,4 +1,6 @@
-import { AppPermissions } from "@/permissions/AppPermissions";
+import { ApiResourceModel } from "../../../models/ApiResourceModel";
+import { AppPermissions } from "../enums/permission_enum";
+import type { PermissionInterface } from "../interfaces/permission_interface";
 
 export class PermissionModel extends ApiResourceModel implements PermissionInterface {
 	code: PermissionInterface["code"];

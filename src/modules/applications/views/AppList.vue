@@ -1,5 +1,7 @@
 <script setup lang="ts">
-	import { applicationsMock } from "@/data/applications";
+import { computed, ref } from "vue";
+import { ApplicationModel } from "../models/application_model";
+import { applicationsMock } from "../../../data/applications";
 
 	const search = ref("");
 	const filteredApplications = ref<ApplicationModel[]>([]);

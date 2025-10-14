@@ -1,5 +1,7 @@
-import { PermissionStore } from "../index";
-import ApiError from "@/api/errors/ApiError";
+
+import type { PermissionStore } from "..";
+import { ApiError } from "../../../../api/errors";
+import type { ListApiArgsInterface } from "../../../../api/interfaces/list_api_args_interface";
 import { PermissionListRoute } from "../../apis/permission_list_route";
 /**
  * getPermissions action

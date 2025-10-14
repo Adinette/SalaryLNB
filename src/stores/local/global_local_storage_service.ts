@@ -5,6 +5,8 @@ import type { GlobalStoreInterface } from "../interfaces/global_store_interface"
 
 export class GlobalLocalStorageService extends AppLocalStorageService {
 	static storeName = "global_store";
+	load: any;
+	save: any;
 
 	constructor() {
 		super(GlobalLocalStorageService.storeName);

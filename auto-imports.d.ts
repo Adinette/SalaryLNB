@@ -22,6 +22,7 @@ declare global {
   const OperatorModel: typeof import('./src/modules/operator/models/operator-model')['OperatorModel']
   const OperatorSalaryModel: typeof import('./src/modules/operator-salary/models/operator-salary-model')['OperatorSalaryModel']
   const PermissionModel: typeof import('./src/modules/permissions/models/permission_model')['PermissionModel']
+  const RoleModel: typeof import('./src/modules/roles/models/role_model')['RoleModel']
   const SessionModel: typeof import('./src/modules/authentication/models/session_model')['SessionModel']
   const UserModel: typeof import('./src/modules/users/models/user_model')['UserModel']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
@@ -139,6 +140,7 @@ declare global {
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
+  const roleStoreDefinition: typeof import('./src/modules/roles/store/definition')['roleStoreDefinition']
   const router: typeof import('./src/router/index')['default']
   const routes: typeof import('./src/router/routes')['default']
   const sessionInterface: typeof import('./src/modules/authentication/login/interfaces/session_interface')['default']
@@ -255,6 +257,7 @@ declare global {
   const useInitializedOperatorSalaryStore: typeof import('./src/modules/operator-salary/store/index')['useInitializedOperatorSalaryStore']
   const useInitializedOperatorStore: typeof import('./src/modules/operator/store/index')['useInitializedOperatorStore']
   const useInitializedPermissionStore: typeof import('./src/modules/permissions/store/index')['useInitializedPermissionStore']
+  const useInitializedRoleStore: typeof import('./src/modules/roles/store/index')['useInitializedRoleStore']
   const useInitializedUserStore: typeof import('./src/modules/users/store/index')['useInitializedUserStore']
   const useIntersectionObserver: typeof import('@vueuse/core')['useIntersectionObserver']
   const useInterval: typeof import('@vueuse/core')['useInterval']
@@ -409,6 +412,9 @@ declare global {
   export type { PermissionStore } from './src/modules/permissions/store/index'
   import('./src/modules/permissions/store/index')
   // @ts-ignore
+  export type { RoleStore } from './src/modules/roles/store/index'
+  import('./src/modules/roles/store/index')
+  // @ts-ignore
   export type { UserStore } from './src/modules/users/store/index'
   import('./src/modules/users/store/index')
   // @ts-ignore
@@ -481,6 +487,18 @@ declare global {
   export type { PermissionUpdateInterface } from './src/modules/permissions/interfaces/permission_update_interface'
   import('./src/modules/permissions/interfaces/permission_update_interface')
   // @ts-ignore
+  export type { RoleInterface } from './src/modules/roles/interfaces/role_interface'
+  import('./src/modules/roles/interfaces/role_interface')
+  // @ts-ignore
+  export type { RoleCreateInterface } from './src/modules/roles/interfaces/role_create_interface'
+  import('./src/modules/roles/interfaces/role_create_interface')
+  // @ts-ignore
+  export type { RoleUpdateInterface } from './src/modules/roles/interfaces/role_update_interface'
+  import('./src/modules/roles/interfaces/role_update_interface')
+  // @ts-ignore
+  export type { RoleStoreInterface } from './src/modules/roles/interfaces/role_store_interface'
+  import('./src/modules/roles/interfaces/role_store_interface')
+  // @ts-ignore
   export type { UserInterface } from './src/modules/users/interfaces/user_interface'
   import('./src/modules/users/interfaces/user_interface')
   // @ts-ignore
@@ -516,6 +534,9 @@ declare global {
   // @ts-ignore
   export type { PermissionModel } from './src/modules/permissions/models/permission_model'
   import('./src/modules/permissions/models/permission_model')
+  // @ts-ignore
+  export type { RoleModel } from './src/modules/roles/models/role_model'
+  import('./src/modules/roles/models/role_model')
   // @ts-ignore
   export type { UserModel } from './src/modules/users/models/user_model'
   import('./src/modules/users/models/user_model')
@@ -587,6 +608,7 @@ declare module 'vue' {
     readonly OperatorModel: UnwrapRef<typeof import('./src/modules/operator/models/operator-model')['OperatorModel']>
     readonly OperatorSalaryModel: UnwrapRef<typeof import('./src/modules/operator-salary/models/operator-salary-model')['OperatorSalaryModel']>
     readonly PermissionModel: UnwrapRef<typeof import('./src/modules/permissions/models/permission_model')['PermissionModel']>
+    readonly RoleModel: UnwrapRef<typeof import('./src/modules/roles/models/role_model')['RoleModel']>
     readonly SessionModel: UnwrapRef<typeof import('./src/modules/authentication/models/session_model')['SessionModel']>
     readonly UserModel: UnwrapRef<typeof import('./src/modules/users/models/user_model')['UserModel']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
@@ -704,6 +726,7 @@ declare module 'vue' {
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
+    readonly roleStoreDefinition: UnwrapRef<typeof import('./src/modules/roles/store/definition')['roleStoreDefinition']>
     readonly router: UnwrapRef<typeof import('./src/router/index')['default']>
     readonly routes: UnwrapRef<typeof import('./src/router/routes')['default']>
     readonly sessionInterface: UnwrapRef<typeof import('./src/modules/authentication/login/interfaces/session_interface')['default']>
@@ -820,6 +843,7 @@ declare module 'vue' {
     readonly useInitializedOperatorSalaryStore: UnwrapRef<typeof import('./src/modules/operator-salary/store/index')['useInitializedOperatorSalaryStore']>
     readonly useInitializedOperatorStore: UnwrapRef<typeof import('./src/modules/operator/store/index')['useInitializedOperatorStore']>
     readonly useInitializedPermissionStore: UnwrapRef<typeof import('./src/modules/permissions/store/index')['useInitializedPermissionStore']>
+    readonly useInitializedRoleStore: UnwrapRef<typeof import('./src/modules/roles/store/index')['useInitializedRoleStore']>
     readonly useInitializedUserStore: UnwrapRef<typeof import('./src/modules/users/store/index')['useInitializedUserStore']>
     readonly useIntersectionObserver: UnwrapRef<typeof import('@vueuse/core')['useIntersectionObserver']>
     readonly useInterval: UnwrapRef<typeof import('@vueuse/core')['useInterval']>

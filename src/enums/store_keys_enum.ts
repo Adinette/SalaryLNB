@@ -4,6 +4,8 @@ export const StoreKeysEnum = {
     Machine: "Machine",
   User: "User",
     Global: "Global",
+    Role: "Role",
+    Permission:"Permission",
 
 } as const;
 

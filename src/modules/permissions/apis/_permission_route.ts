@@ -1,6 +1,5 @@
-import { ApiRoute } from "@/api/routes/api_route";
-import { useInitializedPermissionStore } from "../store";
-import { PermissionStore } from "../store";
+import { ApiRoute } from "../../../api/routes/api_route";
+import { useInitializedPermissionStore, type PermissionStore } from "../store";
 
 export class PermissionRoute extends ApiRoute {
   static name = "permission";

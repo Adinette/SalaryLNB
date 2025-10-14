@@ -1,4 +1,6 @@
-import { PermissionStore } from "../index";
+import type { PermissionStore } from "..";
+import type { PermissionInterface } from "../../interfaces/permission_interface";
+
 /**
  * add action
  *

@@ -1,8 +1,7 @@
-import { PermissionStore } from "../index";
-import { PermissionModel } from "../../models/permission_model";
-import ApiError from "@/api/errors/ApiError";
+import type { PermissionStore } from "..";
+import { ApiError } from "../../../../api/errors";
 import { PermissionFindRoute } from "../../apis/permission_find_route";
-import { PermissionInterface } from "../../interfaces/permission_interface";
+import {type PermissionInterface } from "../../interfaces/permission_interface";
 /**
  * findPermission action
  *

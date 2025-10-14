@@ -1,9 +1,8 @@
-import { PermissionStore } from "../index";
-import { PermissionModel } from "../../models/permission_model";
-import ApiError from "@/api/errors/ApiError";
+import type { PermissionStore } from "..";
+import { ApiError } from "../../../../api/errors";
 import { PermissionUpdateRoute } from "../../apis/permission_update_route";
-import { PermissionUpdateInterface } from "../../interfaces/permission_update_interface";
-import { PermissionInterface } from "../../interfaces/permission_interface";
+import type { PermissionInterface } from "../../interfaces/permission_interface";
+import type { PermissionUpdateInterface } from "../../interfaces/permission_update_interface";
 /**
  * updatePermission action
  *

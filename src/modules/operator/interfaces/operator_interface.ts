@@ -8,6 +8,6 @@ export interface OperatorInterface extends ApiResourceInterface {
   email: string;
   phone: string;
   is_active?: boolean;
-  machine: MachineInterface;
+  machine?: MachineInterface;
   machine_id?: MachineInterface["id"]
 }

@@ -1,5 +1,4 @@
 import { permissionStoreDefinition } from "../definition";
-import { createBaseStoreActions } from "@/stores/utils/create_base_store_actions";
 import { add } from "./add";
 import { find } from "./find";
 import { update } from "./update";
@@ -9,6 +8,7 @@ import { findPermission } from "./findPermission";
 import { createPermission } from "./createPermission";
 import { updatePermission } from "./updatePermission";
 import { deletePermission } from "./deletePermission";
+import { createBaseStoreActions } from "../../../../stores/utils/create_base_store_actions";
 
 export const permissionStoreActions = {
   ...createBaseStoreActions(permissionStoreDefinition.service),

@@ -1,8 +1,8 @@
-import { PermissionStore } from "../index";
-import { PermissionModel } from "../../models/permission_model";
-import ApiError from "@/api/errors/ApiError";
+
+import type { PermissionStore } from "..";
+import { ApiError } from "../../../../api/errors";
 import { PermissionDeleteRoute } from "../../apis/permission_delete_route";
-import { PermissionInterface } from "../../interfaces/permission_interface";
+import type { PermissionInterface } from "../../interfaces/permission_interface";
 /**
  * deletePermission action
  *

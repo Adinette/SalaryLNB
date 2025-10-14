@@ -21,7 +21,7 @@ export class AppLogger {
 	 */
 	constructor({ scope = "APP" } = {}) {
 		this.logger = createConsola({ level: LogLevels.verbose });
-		this.isEnabled = config.env.name !== EnvEnum.PRODUCTION;
+		this.isEnabled = config.env.apiUrl !== EnvEnum.PRODUCTION;
 		this.isEnabled = true;
 		this.scope = scope;
 	}
@@ -78,7 +78,7 @@ export class AppLogger {
  * Logger global de l'application prêt à être utilisé.
  * Désactivé automatiquement en production.
  */
-export const appLogger = new AppLogger({ scope: config.env.app_name });
+export const appLogger = new AppLogger({ scope: config.env.apiUrl });
 
 /**
  * Crée un nouveau logger avec un scope personnalisé.

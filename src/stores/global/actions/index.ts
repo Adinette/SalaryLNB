@@ -5,7 +5,6 @@ import { createBaseStoreActions } from "../../utils/create_base_store_actions";
 import type { GlobalStore } from "../..";
 import type { LoginInterface } from "../../../modules/authentication/interfaces/login_interface";
 import type { ForgotPasswordInterface } from "../../../modules/authentication/interfaces/forgot_password_interface";
-import type { ResetPasswordInterface } from "../../../modules/authentication/interfaces/reset_password_interface";
 import type { GlobalStoreInterface } from "../../interfaces/global_store_interface";
 import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 
@@ -19,7 +18,7 @@ export const globalStoreActions = {
 		store.locale = locale;
 	},
 
-	async loginAction(store: GlobalStore, { credential, password }: LoginInterface) {
+	async loginAction(store: GlobalStore, { credential }: LoginInterface) {
 		logger.info(`[🔐][${store.$id}]: Logging in with ${credential}`);
 		// login logic here
 	},
@@ -45,7 +44,6 @@ export const globalStoreActions = {
 
 	async resetPassword(
 		store: GlobalStore,
-		data: ResetPasswordInterface,
 		token: string
 	): Promise<object | "error"> {
 		logger.info(`[🔐][${store.$id}]: Reset password with token ${token}`);

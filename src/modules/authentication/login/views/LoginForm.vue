@@ -1,16 +1,15 @@
 <script setup lang="ts">
 	import { faker } from "@faker-js/faker";
-	import LoginRoute from "../../apis/login_route";
 import { onMounted, ref } from "vue";
 import type { AppAlertInterface } from "../../../../interfaces/AppAlertInterface";
 import { useInitializedGlobalStore, type GlobalStore } from "../../../../stores";
 import type { LoginInterface } from "../../interfaces/login_interface";
 import { AppUtils } from "../../../../utils";
-import SessionModel from "../models/session_model";
 import { toast } from "../../../../utils/toast";
 import router from "../../../../router";
-import appRoutes from "../../../../router/routes";
-import { ApiError, UnauthorizedApiError, UnprocessableEntityApiError } from "../../../../api/errors";
+import {
+  requiredValidator,
+} from "../../../../utils/validators";
 
 
 interface FormRef {
@@ -75,7 +74,7 @@ const loginFormRef = ref<FormRef>();
       // globalStore.value?.setSession(result);
       toast.success("Connexion réussie !");
       setTimeout(() => {
-        router.replace({ name: "/users" });
+        router.push({ name: "/operators" });
       }, 2000);
       return;
     // }
@@ -128,32 +127,36 @@ const loginFormRef = ref<FormRef>();
 					"
 				></div>
 					</div>
-			<div class="mb-4">
-				<label class="mb-2">Email</label>
-				<input
-					v-model="form.credential"
-					variant="filled"
-					density="compact"
-					prepend-inner-icon="ri-user-3-line"
-					:error-messages="fieldsErrors.credential"
-					persistent-placeholder
-				/>
-			</div>
-			<div class="mb-4">
-				<label class="mb-2">Mot de passe</label>
-
-				<input
-					v-model="form.password"
-					variant="filled"
-					density="compact"
-					prepend-inner-icon="ri-lock-2-line"
-					:append-inner-icon="showPassword ? 'ri-eye-off-line' : 'ri-eye-line'"
-					persistent-placeholder
+			<VCol cols="12">
+						<VLabel class="mb-2" for="email">Email</VLabel>
+						<VTextField
+						id="email"
+						v-model="form.credential"
+						placeholder="Example@gmail.com"
+						:rules="[requiredValidator]"
+						variant="filled"
+						density="compact"
+						prepend-inner-icon="fa fa-envelope"
+						persistent-placeholder
+						:error-messages="fieldsErrors.credential"
+					/>
+			</VCol>
+			<VCol cols="12">
+				  <VLabel class="mb-2" for="password">Mot de passe</VLabel>
+					<VTextField
+          id="password"
+          v-model="form.password"
+          placeholder="********"
+          :rules="[requiredValidator]"
+          variant="filled"
+          density="compact"
+					:append-inner-icon="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"
+          persistent-placeholder
 					:type="showPassword ? 'text' : 'password'"
-					:error-messages="fieldsErrors.password"
 					@click:append-inner="togglePasswordVisibility"
-				/>
-			</div>
+					:error-messages="fieldsErrors.password"
+        />
+			</VCol>
 			<!-- <div class="mb-4">
         <div
           class="d-md-flex align-items-md-center justify-content-md-between flex items-center justify-between"
@@ -178,15 +181,14 @@ const loginFormRef = ref<FormRef>();
       </div> -->
 		</div>
 		<div class="row justify-content-center px-3">
-			<button
-				:loading="loading"
-				type="submit"
-				block
-				variant="flat"
-				class="flex justify-center items-center gap-8"
-			>Connexion
-				<!-- <VIcon icon="ri-login-box-fill" /> -->
-			</button>
+			<VBtn
+          type="submit"
+          color="success"
+				  :loading="loading"
+          class="flex justify-center items-center gap-8"
+        >
+          Connexion
+        </VBtn>
 		</div>
 	</form>
 </template>

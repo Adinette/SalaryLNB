@@ -9,7 +9,7 @@ import BaseNavigation from '../../components/BaseNavigation.vue';
 // SimpleBar, for more info and examples you can check out https://github.com/Grsmto/simplebar/tree/master/packages/simplebar-vue
 import SimpleBar from "simplebar";
 
-const navigation = computed(() => menu.main);
+const navigation = menu.main;
 
 	// Component properties
 	defineProps({
@@ -29,7 +29,6 @@ const navigation = computed(() => menu.main);
 		if (sidebarElement) {
 			new SimpleBar(sidebarElement);
 		}
-  console.log("Menu imported Navigation to sidebar:", navigation.value);
 
 	});
 </script>
@@ -46,10 +45,13 @@ const navigation = computed(() => menu.main);
     Adding 'smini-hidden' to an element will hide it when the sidebar is in mini mode
     Adding 'smini-visible' to an element will show it (display: inline-block) only when the sidebar is in mini mode
     Adding 'smini-visible-block' to an element will show it (display: block) only when the sidebar is in mini mode
-  -->
+  -->					
+	<div>{{ navigation }}</div>
 
 	<nav id="sidebar" :class="{ 'with-mini-nav': withMiniNav }" aria-label="Main Navigation">
+		<div>{{ navigation }} 1</div>
 		<slot>
+			<div>{{ navigation }} 2</div>
 			<!-- Side Header -->
 			<div class="content-header">
 				<slot name="header">
@@ -247,15 +249,13 @@ const navigation = computed(() => menu.main);
 				<!-- END Extra -->
 			</div>
 			<!-- END Side Header -->
-			
+		
+
 			<!-- Sidebar Scrolling -->
-			<div>{{ navigation }}</div>
 			<div id="simplebar-sidebar" class="js-sidebar-scroll">
 				<slot name="content">
 					<!-- Side Navigation -->
 					<div class="content-side">
-						
-
 						<BaseNavigation :nodes="navigation" />
 					</div>
 					<!-- END Side Navigation -->

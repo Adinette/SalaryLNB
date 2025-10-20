@@ -1,7 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-	<RouterView />
+  <v-app>
+    <v-main>
+      <RouterView />
+    </v-main>
+  </v-app>
 </template>
 
 <style lang="scss">
@@ -17,4 +21,3 @@
 	@import "../src/assets/scss/oneui/themes/smooth";
 	@import "../src/assets/scss/oneui/themes/custom";
 </style>
-

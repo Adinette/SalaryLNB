@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue';
-import menu from '../../data/menu';
+import { onMounted } from 'vue';
 import { useTemplateStore } from '../../stores/template';
 import { ColorThemeEnum } from '../../enums';
 import { appRoutes } from '../../router/routes';
 import BaseNavigation from '../../components/BaseNavigation.vue';
+import { useNavigation } from '../../composables/useNavigation';
 
 // SimpleBar, for more info and examples you can check out https://github.com/Grsmto/simplebar/tree/master/packages/simplebar-vue
 import SimpleBar from "simplebar";
 
-const navigation = computed(() => menu.main);
+const { navigation } = useNavigation();
 
 	// Component properties
 	defineProps({

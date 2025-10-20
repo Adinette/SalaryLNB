@@ -7,6 +7,7 @@
 	import { Italic } from "@tiptap/extension-italic";
 
 	import { Editor, EditorContent } from "../tiptap/vue-3";
+import { ref, watchEffect } from "vue";
 
 	const props = defineProps<{
 		label?: string;

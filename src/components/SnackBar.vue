@@ -10,7 +10,7 @@
 	}
 
 	const props = defineProps<Props>();
-	const { variant, title, message, duration = 3000 } = props;
+	const { variant, duration = 3000 } = props;
 	const snackbar = ref(false);
 	const snackbarMessage = ref("");
 	const snackbarTitle = ref("");

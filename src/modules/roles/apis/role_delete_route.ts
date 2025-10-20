@@ -1,17 +1,17 @@
 
 
 import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
-import { ApiError } from "../../../api/errors";
+import { ApiError, NotFoundApiError } from "../../../api/errors";
 import type { RoleInterface } from "../interfaces";
 import { RoleModel } from "../models/role_model";
 import type { RoleStore } from "../store";
 import { RoleRoute } from "./_role_route";
 
 export class RoleDeleteRoute extends RoleRoute {
-	
+	id: RoleInterface["id"];
   constructor(id: RoleInterface["id"]) {
     super(`/${RoleRoute.name}`, ApiHttpMethod.DELETE, { id });
-    
+    this.id = id;
   }
 
   async request() {
@@ -22,8 +22,15 @@ export class RoleDeleteRoute extends RoleRoute {
 
   async mock() {
     const store: RoleStore = await this.store;
-    store.remove({ id });
-    return new RoleModel({ id, deleted_at: new Date().toISOString() });
+      const roleToDelete = store.find(this.id);
+    
+        if (!roleToDelete) {
+          return new NotFoundApiError({
+            message: `Aucun role trouvée avec l'ID ${this.id}.`,
+          });
+        }
+    store.remove(this.id);
+    return new RoleModel(roleToDelete);
   }
 
 }

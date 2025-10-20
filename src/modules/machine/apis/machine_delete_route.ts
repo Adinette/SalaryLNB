@@ -26,7 +26,7 @@ export class MachineDeleteRoute extends MachineRoute {
 
 		if (!machineToDelete) {
 			return new NotFoundApiError({
-				message: `Aucun utilisateur trouvé avec l'ID ${this.elementId}.`,
+				message: `Aucune machine trouvée avec l'ID ${this.elementId}.`,
 			});
 		}
 

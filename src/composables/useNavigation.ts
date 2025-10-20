@@ -18,14 +18,14 @@ export const useNavigation = () => {
 		const currentEmployee = currentSession.value.user;
 		const currentRole = currentEmployee.role;
 
-		const userPermissions = currentRole.permissions;
+		const userPermissions = currentRole?.permissions;
 		logger.debug(`Vérification permissions pour ${routeName}`, {
 			userId: currentEmployee.id,
 			userRole: currentRole,
 			userPermissions: userPermissions,
 		});
 		return permissions.some((permission) =>
-			userPermissions.some((userPermission: any) => String(userPermission) === String(permission))
+			userPermissions?.some((userPermission: any) => String(userPermission) === String(permission))
 		);
 	};
 
@@ -41,10 +41,10 @@ export const useNavigation = () => {
 		const currentEmployee = currentSession.value.user;
 		const currentRole = currentEmployee.role;
 
-		const userPermissions = currentRole.permissions;
+		const userPermissions = currentRole?.permissions;
 
 		return permissions.every((permission) =>
-			userPermissions.some((userPermission: any) => String(userPermission) === String(permission))
+			userPermissions?.some((userPermission: any) => String(userPermission) === String(permission))
 		);
 	};
 

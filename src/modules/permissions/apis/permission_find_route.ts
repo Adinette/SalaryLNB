@@ -1,7 +1,7 @@
 
 
 import ApiHttpMethod from "../../../api/enums/api_http_method_enum";
-import { ApiError } from "../../../api/errors";
+import { ApiError, NotFoundApiError } from "../../../api/errors";
 import type { PermissionInterface } from "../interfaces/permission_interface";
 import { PermissionModel } from "../models/permission_model";
 import type { PermissionStore } from "../store";
@@ -23,7 +23,12 @@ export class PermissionFindRoute extends PermissionRoute {
   async mock() {
     const store: PermissionStore = await this.store;
     const found = store.find(this.elementId);
-    return found ? new PermissionModel(found) : new ApiError("Not found");
+      if (!found) {
+          return new NotFoundApiError({
+            message: `Permission avec l'ID ${this.elementId} non trouvé`,
+          });
+        }
+    return new PermissionModel(found);
   }
 
 }

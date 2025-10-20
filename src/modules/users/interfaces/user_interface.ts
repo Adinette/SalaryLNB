@@ -1,4 +1,5 @@
 import type { ApiResourceInterface } from "../../../interfaces/ApiResourceInterface";
+import type { RoleInterface } from "../../roles/interfaces";
 
 export interface UserInterface extends ApiResourceInterface {
   /** Prénom de l'utilisateur */
@@ -9,5 +10,5 @@ export interface UserInterface extends ApiResourceInterface {
   email: string;
   /** Numéro de téléphone de l'utilisateur */
   phone: string;
-
+  role?:RoleInterface;  
 }

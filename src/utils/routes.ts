@@ -12,9 +12,10 @@ import type { RouteNamedMap } from "vue-router/auto";
  * });
  * ```
  */
-export function createRoutes<T extends Record<string, keyof RouteNamedMap>>(routes: T): T {
+export function createRoutes<T extends Record<string, keyof RouteNamedMap | string>>(routes: T): T {
 	return routes;
 }
+
 
 /**
  * Type helper pour extraire les routes par préfixe

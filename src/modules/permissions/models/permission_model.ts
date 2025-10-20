@@ -30,11 +30,12 @@ export class PermissionModel extends ApiResourceModel implements PermissionInter
 		return JSON.stringify(this.interface);
 	}
 
-	static toEnum(code: string): AppPermissions | undefined {
-		return Object.values(AppPermissions).find((v) => v === code);
-	}
+	static toEnum(code: string): typeof AppPermissions[keyof typeof AppPermissions] | undefined {
+	return Object.values(AppPermissions).find((v) => v === code);
+}
 
-	get enum(): AppPermissions | undefined {
+
+	get enum(): typeof AppPermissions[keyof typeof AppPermissions] | undefined {
 		return PermissionModel.toEnum(this.code);
 	}
 }

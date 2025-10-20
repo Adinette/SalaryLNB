@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useInitializedGlobalStore, type GlobalStore } from "../stores";
-import { computed, onMounted, ref } from "vue";
+import { onMounted, ref } from "vue";
 import { createLogger } from "../utils/logger";
 
 	// Component properties
@@ -19,13 +19,13 @@ import { createLogger } from "../utils/logger";
 
 	const logger = createLogger("AppAlerts");
 
-	const alerts = computed(() => {
-		if (!globalStore.value) {
-			return [];
-		}
+	// const alerts = computed(() => {
+	// 	if (!globalStore.value) {
+	// 		return [];
+	// 	}
 
-		return globalStore.value.alerts;
-	});
+	// 	return globalStore.value.alerts;
+	// });
 
 	onMounted(async () => {
 		logger.info("Initializing global store...");

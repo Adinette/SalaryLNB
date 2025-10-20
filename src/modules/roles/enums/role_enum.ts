@@ -1,10 +1,13 @@
 import { AppPermissions } from "../../permissions/enums/permission_enum";
 
-export enum AppRole {
-	EMPLOYEE = "EMPLOYEE",
-	MANAGER = "MANAGER",
-	ADMIN = "ADMIN",
-}
+export const AppRole = {
+	EMPLOYEE: "EMPLOYEE",
+	MANAGER: "MANAGER",
+	ADMIN: "ADMIN",
+} as const;
+
+export type AppRole = typeof AppRole[keyof typeof AppRole];
+
 
 export namespace AppRoles {
 	export abstract class Employee {

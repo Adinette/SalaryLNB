@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
 import VueRouter from "unplugin-vue-router/vite";
-import vueDevTools from "vite-plugin-vue-devtools";
+// import vueDevTools from "vite-plugin-vue-devtools";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { VueUseComponentsResolver } from "unplugin-vue-components/resolvers";
@@ -24,7 +24,7 @@ VueRouter({
 }),
 
 
-    vueDevTools(),
+    // vueDevTools(),
 
     AutoImport({
       imports: [

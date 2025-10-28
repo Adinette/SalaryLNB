@@ -1,9 +1,8 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import vuetify from "vite-plugin-vuetify";
 import tailwindcss from "@tailwindcss/vite";
 import VueRouter from "unplugin-vue-router/vite";
-import vueDevTools from "vite-plugin-vue-devtools";
+// import vueDevTools from "vite-plugin-vue-devtools";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { VueUseComponentsResolver } from "unplugin-vue-components/resolvers";
@@ -18,20 +17,14 @@ VueRouter({
   routesFolder: "./src/pages",
   dts: "typed-router.d.ts",
   getRouteName: (routeNode) => {
-    const fileName = routeNode.fullPath.replace(/\.[tj]sx?$/, "").replace(/^\//, "");
-    const name = fileName
-      .split("/")
-      .filter(Boolean)
-      .map(part => part.replace(/^index$/i, ""))
-      .filter(Boolean)
-      .join("-")
-      .toLowerCase();
-    return name || "root";
+    const fileName = routeNode.fullPath.replace(/\.[tj]sx?$/, "");
+    return fileName.charAt(0).toUpperCase() + fileName.slice(1);
   },
   routeBlockLang: "yaml",
 }),
 
-    vueDevTools(),
+
+    // vueDevTools(),
 
     AutoImport({
       imports: [
@@ -61,11 +54,6 @@ VueRouter({
     }),
 
     vue(),
-
-    vuetify({
-      autoImport: true,
-      styles: 'sass',
-    }),
 
     Components({
       dirs: ["./src/components", "./src/modules/**/components", "./src/modules/**/views"],

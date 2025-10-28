@@ -80,16 +80,16 @@ const autresPrelevements = computed(() =>
   (calculatedFraisMomo.value || 0)
 );
 
+
 // ✅ totalPrelevements dépend de valeurs réactives => computed aussi
 const totalPrelevements = computed(() =>
-  fel + aib.value + autresPrelevements.value
+fel + aib.value + autresPrelevements.value
 );
 
 // ✅ Même chose pour le salaireBrut
 const salaireBrut = computed(() =>
   commissionBrute.value - totalPrelevements.value
 );
-
 
 // --- Sync computed values into localForm ---
 watch(chiffreAffaireHorsTaxe, (val) => {
@@ -217,6 +217,7 @@ onMounted(() => {
           :rules="[requiredValidator]"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-operator-line"
           persistent-placeholder
           :error-messages="props.errors?.chiffreAffaireMensuelttc"
@@ -232,8 +233,8 @@ onMounted(() => {
           :rules="[requiredValidator]"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-mail-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :error-messages="props.errors?.chiffreAffaireHorsTaxe"
           @update:model-value="(val:any) => updateField('chiffreAffaireHorsTaxe', val)"
@@ -247,8 +248,8 @@ onMounted(() => {
           placeholder="Ex: 15%"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :rules="[requiredValidator]"
           :error-messages="props.errors?.percentCommissionBrute"
@@ -263,8 +264,8 @@ onMounted(() => {
           placeholder="Ex: 150000"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :rules="[requiredValidator]"
           :error-messages="props.errors?.commissionBrute"
@@ -279,8 +280,8 @@ onMounted(() => {
           placeholder="Ex: 150000"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :error-messages="props.errors?.payement"
           @update:model-value="(val:any) => updateField('payement', val)"
@@ -294,8 +295,8 @@ onMounted(() => {
           placeholder="Ex: 15%"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :error-messages="props.errors?.percentFraisMomo"
           @update:model-value="(val:any) => updateField('percentFraisMomo', val)"
@@ -314,8 +315,8 @@ onMounted(() => {
           placeholder="Ex: 1500"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :rules="[requiredValidator]"
           :error-messages="props.errors?.fel"
@@ -332,8 +333,8 @@ onMounted(() => {
           placeholder="Ex: 2500"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :rules="[requiredValidator]"
           :error-messages="props.errors?.aib"
@@ -349,11 +350,27 @@ onMounted(() => {
           placeholder="Ex: 1500"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :error-messages="props.errors?.ecart"
           @update:model-value="(val:any) => updateField('ecart', val)"
+        />
+      </VCol>
+
+				<VCol cols="12" md="6">
+        <VLabel class="mb-3" for="operator-salary-dette">Dette</VLabel>
+        <VTextField
+          id="operator-salary-dette"
+          v-model="localForm.dette"
+          placeholder="Ex: 1500"
+          variant="filled"
+          density="compact"
+					type="number"
+          prepend-inner-icon="ri-phone-line"
+          persistent-placeholder
+          :error-messages="props.errors?.date"
+          @update:model-value="(val:any) => updateField('dette', val)"
         />
       </VCol>
 
@@ -365,8 +382,8 @@ onMounted(() => {
           placeholder="Ex: 1500"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :error-messages="props.errors?.remboursement"
           @update:model-value="(val:any) => updateField('remboursement', val)"
@@ -381,8 +398,8 @@ onMounted(() => {
           placeholder="Ex: 1500"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :error-messages="props.errors?.penalite"
           @update:model-value="(val:any) => updateField('penalite', val)"
@@ -397,8 +414,8 @@ onMounted(() => {
           placeholder="Ex: 1500"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :error-messages="props.errors?.calculatedFraisMomo"
           @update:model-value="(val:any) => updateField('calculatedFraisMomo', val)"
@@ -413,8 +430,8 @@ onMounted(() => {
           placeholder="Ex: 1500"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :error-messages="props.errors?.salaireBrut"
           @update:model-value="(val:any) => updateField('salaireBrut', val)"
@@ -429,8 +446,8 @@ onMounted(() => {
           placeholder="Ex: 1500"
           variant="filled"
           density="compact"
+					type="number"
           prepend-inner-icon="ri-phone-line"
-          :disabled="props.isEditMode"
           persistent-placeholder
           :rules="[requiredValidator]"
           :error-messages="props.errors?.debours"

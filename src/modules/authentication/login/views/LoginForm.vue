@@ -74,7 +74,7 @@ const loginFormRef = ref<FormRef>();
       // globalStore.value?.setSession(result);
       toast.success("Connexion réussie !");
       setTimeout(() => {
-        router.push({ name: "/operators" });
+        router.push({ name: "operators" });
       }, 2000);
       return;
     // }

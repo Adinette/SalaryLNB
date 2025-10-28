@@ -17,8 +17,10 @@ const router = createRouter({
 	routes,
 	
 });
-console.log("routes", routes);
-
+// ...existing code...
+console.log("Available routes:", router.getRoutes().map(r => ({ name: r.name, path: r.path })));
+console.log("setupLayouts routes:", routes);
+// ...existing code...
 router.beforeEach(authGuard);
 router.beforeEach(permissionGuard);
 

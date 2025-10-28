@@ -14,7 +14,7 @@ export default class AppSessionStorage {
 	/**
 	 * Prefix used for all keys stored to avoid collisions with other applications
 	 */
-	private static readonly PREFIX = "sahges-eval-";
+	private static readonly PREFIX = "salarylnb";
 
 	/**
 	 * Key used to store the authentication token

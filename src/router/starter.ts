@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from "vue-router";
 
-import NProgress from "nprogress/nprogress.js";
+import NProgress from "nprogress";
 
 // Main layouts
 import LayoutBackend from "@/layouts/variations/BackendStarter.vue";

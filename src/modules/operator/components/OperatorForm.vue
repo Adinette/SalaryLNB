@@ -60,13 +60,24 @@ async function onSubmit() {
   }
 }
 
+watch(machines, (newVal) => {
+  console.log("Machines reçues :", newVal);
+});
+
 const formattedMachine = computed(() => {
-		return machines.value.filter((m) => m.is_active).map((machine) => ({
-			...machine,
-			label: `${machine.code} - ${machine.emplacement}`,
-			id: machine.id,
-		}));
-	});
+  return machines.value
+    ?.filter((m) => m.is_active && (!m.operator_id || m.operator_id === null))
+    .map((machine) => ({
+      ...machine,
+      label: `${machine.code} - ${machine.emplacement}`,
+      id: machine.id,
+    })) || [];
+});
+
+
+onMounted(async () => {
+  console.log(formattedMachine.value, "formattedMachine");
+});	
 </script>
 
 <template>

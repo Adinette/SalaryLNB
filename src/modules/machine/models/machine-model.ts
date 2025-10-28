@@ -5,12 +5,14 @@ export class MachineModel extends ApiResourceModel implements MachineInterface {
   code: MachineInterface["code"];
   emplacement: MachineInterface["emplacement"];
   is_active: MachineInterface["is_active"];
+  operator_id?: MachineInterface["operator_id"];
 
   constructor(data: MachineInterface) {
     super(data);
     this.code = data.code;
     this.emplacement = data.emplacement;
     this.is_active = data.is_active;
+    this.operator_id = data.operator_id;
   }
 
   get interface(): MachineInterface {
@@ -19,6 +21,7 @@ export class MachineModel extends ApiResourceModel implements MachineInterface {
       code: this.code,
       emplacement: this.emplacement,
       is_active: this.is_active,
+      operator_id: this.operator_id,
     };
   }
 
@@ -26,4 +29,7 @@ export class MachineModel extends ApiResourceModel implements MachineInterface {
     return JSON.stringify(this.interface);
   }
 
+  get estAttribuee() {
+    return !!this.operator_id;
+  }
 }

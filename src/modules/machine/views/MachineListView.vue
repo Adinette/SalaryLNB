@@ -167,6 +167,7 @@ onMounted(async () => {
             <div class="info-detail">
               <i class="fa fa-map-marker me-1"></i>{{ machines.emplacement }}
             </div>
+            <span>{{ machines.estAttribuee ? "Attribuée" : "Disponible" }}</span>
           </td>
           <td>
             <span :class="getStatusBadge(machines.is_active)">

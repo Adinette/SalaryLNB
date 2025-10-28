@@ -49,7 +49,7 @@ export function validateRoutes<T extends Record<string, string>>(
 	// Cette fonction sera utilisée en développement pour vérifier
 	// que toutes les routes déclarées existent réellement
 	Object.values(routes).forEach((routeName) => {
-		if (process.env.NODE_ENV === "development") {
+if (import.meta.env.MODE === "development") {
 			// En développement, on peut ajouter des vérifications supplémentaires
 			console.debug(`Route validée: ${routeName}`);
 		}

@@ -28,25 +28,16 @@ export default {
         {
           name: "Liste",
           icon: "ri-list-check-2",
-          to: "machines",
+          to: appRoutes.machines.list,
           permissions: [AppPermissions.Operator.VIEW_MACHINES],
         },
          {
           name: "Ajouter",
           icon: "ri-function-add-fill",
-          to: "machines-add",
+          to: appRoutes.machines.add,
           permissions: [
             AppPermissions.Operator.ADD_MACHINES,
             AppPermissions.Operator.ADD_MACHINES,
-          ],
-        },
-        {
-          name: "Exportation",
-          icon: "ri-export-fill",
-          to: "machines-exportation",
-          permissions: [
-            AppPermissions.Operator.EXPORT_MACHINES,
-            AppPermissions.Operator.EXPORT_MACHINES,
           ],
         },
       ],
@@ -72,15 +63,6 @@ export default {
             AppPermissions.Operator.ADD_OPERATORS,
           ],
         },
-        {
-          name: "Exportation",
-          icon: "ri-export-fill",
-          to: "operators-exportation",
-          permissions: [
-            AppPermissions.Operator.VIEW_MACHINES,
-            AppPermissions.Operator.EXPORT_OPERATORS,
-          ],
-        },
       ],
     },
     {
@@ -104,15 +86,13 @@ export default {
             AppPermissions.Operator.ADD_OPERATORS_SALARY,
           ],
         },
-        {
-          name: "Exportation",
-          icon: "ri-export-fill",
-          to: "operators-salary-exportation",
-          permissions: [
-            AppPermissions.Operator.VIEW_OPERATORS_SALARY,
-            AppPermissions.Operator.EXPORT_OPERATORS_SALARY,
-          ],
-        },
+      ],
+    },
+      {
+      name: "Administration",
+      heading: true,
+      permissions: [
+        AppPermissions.Administration.VIEW_USERS,
       ],
     },
     {

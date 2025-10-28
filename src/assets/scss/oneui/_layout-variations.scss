@@ -8,7 +8,7 @@
 	> #page-header .content,
 	> #main-container .content,
 	> #page-footer .content {
-		max-width: $space-main-max-width;
+		
 	}
 
 	@include media-breakpoint-up(xl) {
@@ -27,7 +27,7 @@
 		> #page-header .content,
 		> #main-container .content,
 		> #page-footer .content {
-			max-width: $space-boxed;
+			// max-width: $space-boxed;
 		}
 	}
 
@@ -133,7 +133,7 @@
 			#sidebar.with-mini-nav {
 				.content-header,
 				.content-side {
-					width: $sidebar-width - $sidebar-mini-nav-width !important;
+					width: 300px !important;
 				}
 			}
 

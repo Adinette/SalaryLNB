@@ -3,6 +3,7 @@
 	import { useRoute } from "vue-router";
 	import { useTemplateStore } from "../stores/template";
     import type { RouteNamedMap } from "vue-router/auto";
+import { useGlobalStore } from "../stores/global";
 
 
 	// Define the navigation node type
@@ -20,6 +21,7 @@
 
 	// Main store and Route
 	const store = useTemplateStore();
+	const useStore = useGlobalStore();
 	const route = useRoute();
 
 	// Component properties
@@ -112,9 +114,10 @@
 </script>
 
 <template>
-	<ul :class="classContainer">
+
+<ul :class="classContainer" v-if="!useStore.loading">
 		<li
-			v-for="(node, index) in nodes"
+			v-for="(node, index) in props.nodes"
 			:key="`node-${index}`"
 			:class="{
 				'nav-main-heading': node.heading,

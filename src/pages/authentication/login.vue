@@ -47,7 +47,7 @@ meta:
 				class="fs-sm text-center text-muted py-3 flex justify-center items-center gap-2 flex-col sm:flex-row"
 			>
 				<div>
-					<strong>{{ store.app.name + " " + store.app.version }}</strong> &copy;
+					<strong>{{ store.app.name}}</strong> &copy;
 					{{ store.app.copyright }}
 				</div>
 				<div class="hidden sm:inline">&mdash;</div>

@@ -86,15 +86,16 @@ get interface(): OperatorSalaryInterface & Partial<OperatorSalaryCreateInterface
     return (this.payement || 0) * (this.percentFraisMomo || 0) / 100;
   }
 
-  get autresPrelevements() {
-    return (
-      (this.penalite || 0) +
-      (this.remboursement || 0) +
-      (this.dette || 0) +
-      (this.ecart || 0) +
-      (this.calculatedFraisMomo || 0)
-    );
-  }
+get autresPrelevements() {
+  return (
+    Number(this.penalite || 0) +
+    Number(this.remboursement || 0) +
+    Number(this.dette || 0) +
+    Number(this.ecart || 0) +
+    Number(this.calculatedFraisMomo || 0)
+  );
+}
+
 
   get totalPrelevements() {
     return this.fel + this.aib + this.autresPrelevements;

@@ -218,6 +218,7 @@ onMounted(async () => {
 								}}</VTooltip>
 							</button>
 							<button
+							v-if="operators.is_active"
                 type="button"
                 :class="tableClasses.button.action"
                 @click="goToAddSalary(operators.id)"

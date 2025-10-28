@@ -215,10 +215,15 @@ export const useTemplateStore = defineStore("template", {
 			// Set new theme
 // Get theme and ensure it's a string. If not, consider it unset.
 			// This prevents errors if an object is passed by mistake.
-			const theme = (typeof payload.theme === "string") ? payload.theme : undefined;
+const theme =
+  typeof payload.theme === "string" &&
+  Object.values(ColorThemeEnum).includes(payload.theme as any)
+    ? (payload.theme as (typeof ColorThemeEnum)[keyof typeof ColorThemeEnum])
+    : ColorThemeEnum.Modern;
 
-			// Set new theme in store. Use Modern as fallback if theme is undefined.
-			this.settings.colorTheme = theme ?? ColorThemeEnum.Modern;
+	
+	// Set new theme in store. Use Modern as fallback if theme is undefined.
+	this.settings.colorTheme = theme;
 
 			// Remove all classes which start with 'theme-' from body element
 			lHtml.className = lHtml.className.replace(regx, "");

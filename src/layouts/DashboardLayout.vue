@@ -64,15 +64,18 @@ import { ApplicationModel } from "../modules/applications/models/application_mod
 		<!-- Using the available v-slot, we can override the default Header content from layouts/partials/Sidebar.vue -->
 		<template #sidebar>
 			<!-- Sidebar Mini Nav -->
-			<div class="sidebar-mini-nav">
+			<!-- <div class="sidebar-mini-nav"> -->
 				<!-- Logo -->
-				<RouterLink :to="{ name: appRoutes.dashboard }" class="mini-nav-item h-header">
-					<AppLogoIcon class="mx-2" />
-				</RouterLink>
+				<!-- <RouterLink :to="{ name: appRoutes.dashboard }" class="mini-nav-item h-header">
+						<span class="smini-visible">
+							<h2 class="text-2xl font-extrabold text-green-700 font-[Quicksand, sans-serif]">TEA</h2>
+							<p class="text-xs font-extrabold text-green-700 font-[Quicksand, sans-serif]">Services</p>
+						</span>				
+				</RouterLink> -->
 				<!-- END Logo -->
 
 				<!-- Mini Main Nav -->
-				<nav class="flex-grow-1 space-y-1">
+				<!-- <nav class="flex-grow-1 space-y-1">
 					<a
 						v-for="app in appsToShowOnMiniNav"
 						:key="app.id"
@@ -82,17 +85,17 @@ import { ApplicationModel } from "../modules/applications/models/application_mod
 					>
 						<i :class="app.icon + ' fs-sm'"></i>
 					</a>
-				</nav>
+				</nav> -->
 				<!-- END Mini Main Nav -->
 
 				<!-- Mini User Nav -->
-				<nav class="space-y-1 pb-2">
+				<!-- <nav class="space-y-1 pb-2">
 					<a class="mini-nav-item" href="javascript:void(0)" @click="handleLogout">
 						<i class="text-white si si-logout fs-sm"></i>
 					</a>
-				</nav>
+				</nav> -->
 				<!-- END Mini User Nav -->
-			</div>
+			<!-- </div> -->
 			<!-- END Sidebar Mini Nav -->
 
 			<!-- Sidebar Scrolling -->
@@ -102,10 +105,10 @@ import { ApplicationModel } from "../modules/applications/models/application_mod
 					<!-- Logo -->
 					<RouterLink :to="{ name: appRoutes.dashboard }" class="fw-semibold text-dual">
 						<span class="smini-visible">
-							<AppLogoIcon class="h-2" />
+							<!-- <AppLogoIcon class="h-2" /> -->
 						</span>
 						<span class="smini-hide fs-5 tracking-wider">
-							<AppLogo class="w-full" />
+							<!-- <AppLogo class="w-full" /> -->
 						</span>
 					</RouterLink>
 					<!-- END Logo -->

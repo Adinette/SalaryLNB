@@ -36,8 +36,8 @@ export const useGlobalStore = defineStore(globalStoreDefinition.key, {
 		async resetPasswordChallenge(token: string) {
 			return globalStoreActions.resetPasswordChallenge(this, token);
 		},
-		async resetPassword(data: ResetPasswordInterface, token: string) {
-			return globalStoreActions.resetPassword(this, data, token);
+		async resetPassword(token: string) {
+			return globalStoreActions.resetPassword(this, token);
 		},
 		setSession(session: GlobalStoreInterface["session"]) {
 			globalStoreActions.setSession(this, session);

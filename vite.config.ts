@@ -18,12 +18,18 @@ VueRouter({
   routesFolder: "./src/pages",
   dts: "typed-router.d.ts",
   getRouteName: (routeNode) => {
-    const fileName = routeNode.fullPath.replace(/\.[tj]sx?$/, "");
-    return fileName.charAt(0).toUpperCase() + fileName.slice(1);
+    const fileName = routeNode.fullPath.replace(/\.[tj]sx?$/, "").replace(/^\//, "");
+    const name = fileName
+      .split("/")
+      .filter(Boolean)
+      .map(part => part.replace(/^index$/i, ""))
+      .filter(Boolean)
+      .join("-")
+      .toLowerCase();
+    return name || "root";
   },
   routeBlockLang: "yaml",
 }),
-
 
     vueDevTools(),
 

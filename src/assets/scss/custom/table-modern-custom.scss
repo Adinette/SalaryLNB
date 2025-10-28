@@ -1,0 +1,245 @@
+//
+// Table Moderne custom - Styles Factorisés
+// Applicable à toutes les listes : EmployeeListView, UserListView, PositionListView
+//
+
+// Classe principale pour toutes les tables modernes
+.table-custom {
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 2px 8px rgba(0, 90, 167, 0.08);
+	border: 1px solid #e1e6ec;
+
+	// Header avec dégradé custom
+	thead,
+	&.table thead {
+		background: linear-gradient(135deg, #005aa7 0%, #009ddc 100%) !important;
+
+		th {
+			color: white !important;
+			font-weight: 600 !important;
+			text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+			text-transform: uppercase;
+			font-size: 0.85rem !important;
+			letter-spacing: 0.05em;
+			border: none !important;
+			padding: 1.25rem 1rem !important;
+
+			&:first-child {
+				border-top-left-radius: 8px;
+			}
+
+			&:last-child {
+				border-top-right-radius: 8px;
+			}
+		}
+	}
+
+	// Spécificité supplémentaire pour s'assurer que les headers sont bien stylés
+	&.table.table-striped thead th {
+		color: white !important;
+		font-weight: 600 !important;
+		text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+	}
+
+	// Corps de table avec effets hover
+	tbody {
+		tr {
+			transition: all 0.2s ease;
+			border-bottom: 1px solid #f0f3f7;
+
+			&:hover {
+				background-color: rgba(0, 157, 220, 0.04);
+				transform: translateY(-1px);
+				box-shadow: 0 4px 12px rgba(0, 90, 167, 0.05);
+			}
+
+			&.table-primary {
+				background-color: rgba(0, 157, 220, 0.08);
+				border-left: 3px solid #009ddc;
+			}
+
+			&:last-child {
+				border-bottom: none;
+			}
+		}
+
+		td {
+			padding: 1rem;
+			vertical-align: middle;
+			border: none;
+		}
+	}
+
+	// Personnalisation des checkboxes Vuetify
+	.v-checkbox {
+		margin: 0;
+		padding: 0;
+
+		.v-selection-control {
+			min-height: auto;
+
+			.v-selection-control__wrapper {
+				.v-selection-control__input {
+					.v-selection-control__input__icon {
+						color: #005aa7;
+					}
+				}
+			}
+		}
+	}
+}
+
+// Badges/chips modernes pour positions, statuts, etc.
+.badge-custom {
+	&.bg-primary-light {
+		background: rgba(0, 90, 167, 0.1) !important;
+		color: #005aa7 !important;
+		border: 1px solid rgba(0, 90, 167, 0.2) !important;
+		font-weight: 500 !important;
+		padding: 0.4rem 0.8rem;
+		border-radius: 16px;
+		font-size: 0.75rem;
+	}
+
+	&.bg-success-light {
+		background: rgba(59, 175, 41, 0.1) !important;
+		color: #3baf29 !important;
+		border: 1px solid rgba(59, 175, 41, 0.2);
+	}
+
+	&.bg-danger-light {
+		background: rgba(211, 47, 47, 0.1) !important;
+		color: #d32f2f !important;
+		border: 1px solid rgba(211, 47, 47, 0.2);
+	}
+
+	&.bg-warning-light {
+		background: rgba(255, 179, 0, 0.1) !important;
+		color: #ffb300 !important;
+		border: 1px solid rgba(255, 179, 0, 0.2);
+	}
+}
+
+// Boutons d'action modernisés
+.btn-group-custom {
+	.btn {
+		border-radius: 6px;
+		margin: 0 2px;
+		transition: all 0.2s ease;
+
+		&.btn-alt-secondary {
+			background: #f8f9fc;
+			border: 1px solid #e1e6ec;
+			color: #005aa7;
+
+			&:hover {
+				background: #005aa7;
+				color: white;
+				transform: translateY(-1px);
+				box-shadow: 0 2px 8px rgba(0, 90, 167, 0.3);
+			}
+
+			&.text-error:hover {
+				background: #d32f2f;
+				border-color: #d32f2f;
+			}
+		}
+	}
+}
+
+// Layout pour les colonnes d'information (employé, utilisateur, position)
+.info-column-custom {
+	.info-name {
+		font-weight: 700;
+		color: #2f3e4d;
+		margin-bottom: 0.25rem;
+	}
+
+	.info-detail {
+		color: #6c757d;
+		font-size: 0.75rem;
+		margin-bottom: 0.25rem;
+
+		.fa {
+			margin-right: 0.5rem;
+			color: #009ddc;
+			opacity: 0.7;
+			width: 12px;
+		}
+	}
+
+	.info-badge {
+		margin: 0.25rem 0;
+	}
+}
+
+// Icônes modernes pour les actions
+.icon-custom {
+	&.fa-envelope::before {
+		content: "✉️";
+	}
+	&.fa-phone::before {
+		content: "📞";
+	}
+	&.fa-building::before {
+		content: "🏢";
+	}
+	&.fa-calendar::before {
+		content: "📅";
+	}
+}
+
+// États de chargement
+.loading-custom {
+	.fa-spinner {
+		color: #009ddc;
+		animation: spin 1s linear infinite;
+	}
+
+	.fa-exclamation-triangle {
+		color: #ffb300;
+	}
+}
+
+// Responsive design
+@media (max-width: 768px) {
+	.table-custom {
+		font-size: 0.875rem;
+
+		thead th,
+		tbody td {
+			padding: 0.75rem 0.5rem;
+		}
+
+		.info-column-custom {
+			.info-detail {
+				font-size: 0.7rem;
+			}
+		}
+	}
+}
+
+// Animation keyframes
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+// Classes utilitaires
+.text-custom-primary {
+	color: #005aa7 !important;
+}
+.text-custom-secondary {
+	color: #009ddc !important;
+}
+.bg-custom-light {
+	background-color: #f8f9fc !important;
+}
+.border-custom {
+	border-color: #e1e6ec !important;
+}

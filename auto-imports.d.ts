@@ -32,17 +32,11 @@ declare global {
   export type { MachineStore } from './src/modules/machine/store/index'
   import('./src/modules/machine/store/index')
   // @ts-ignore
-  export type { OperatorSalaryStore } from './src/modules/operator-salary/store/index'
-  import('./src/modules/operator-salary/store/index')
-  // @ts-ignore
   export type { OperatorStore } from './src/modules/operator/store/index'
   import('./src/modules/operator/store/index')
   // @ts-ignore
   export type { PermissionStore } from './src/modules/permissions/store/index'
   import('./src/modules/permissions/store/index')
-  // @ts-ignore
-  export type { RoleStore } from './src/modules/roles/store/index'
-  import('./src/modules/roles/store/index')
   // @ts-ignore
   export type { UserStore } from './src/modules/users/store/index'
   import('./src/modules/users/store/index')
@@ -77,18 +71,6 @@ declare global {
   export type { MachineStoreInterface } from './src/modules/machine/interfaces/machine_store_interface'
   import('./src/modules/machine/interfaces/machine_store_interface')
   // @ts-ignore
-  export type { OperatorSalaryCreateInterface } from './src/modules/operator-salary/interfaces/operator_salary_create_interface'
-  import('./src/modules/operator-salary/interfaces/operator_salary_create_interface')
-  // @ts-ignore
-  export type { OperatorSalaryUpdateInterface } from './src/modules/operator-salary/interfaces/operator_salary_update_interface'
-  import('./src/modules/operator-salary/interfaces/operator_salary_update_interface')
-  // @ts-ignore
-  export type { OperatorSalaryStoreInterface } from './src/modules/operator-salary/interfaces/operator_salary_store_interface'
-  import('./src/modules/operator-salary/interfaces/operator_salary_store_interface')
-  // @ts-ignore
-  export type { OperatorSalaryListFilterInterface } from './src/modules/operator-salary/interfaces/operator_salary_list_filter_interface'
-  import('./src/modules/operator-salary/interfaces/operator_salary_list_filter_interface')
-  // @ts-ignore
   export type { OperatorInterface } from './src/modules/operator/interfaces/operator_interface'
   import('./src/modules/operator/interfaces/operator_interface')
   // @ts-ignore
@@ -115,18 +97,6 @@ declare global {
   // @ts-ignore
   export type { PermissionUpdateInterface } from './src/modules/permissions/interfaces/permission_update_interface'
   import('./src/modules/permissions/interfaces/permission_update_interface')
-  // @ts-ignore
-  export type { RoleInterface } from './src/modules/roles/interfaces/role_interface'
-  import('./src/modules/roles/interfaces/role_interface')
-  // @ts-ignore
-  export type { RoleCreateInterface } from './src/modules/roles/interfaces/role_create_interface'
-  import('./src/modules/roles/interfaces/role_create_interface')
-  // @ts-ignore
-  export type { RoleUpdateInterface } from './src/modules/roles/interfaces/role_update_interface'
-  import('./src/modules/roles/interfaces/role_update_interface')
-  // @ts-ignore
-  export type { RoleStoreInterface } from './src/modules/roles/interfaces/role_store_interface'
-  import('./src/modules/roles/interfaces/role_store_interface')
   // @ts-ignore
   export type { UserInterface } from './src/modules/users/interfaces/user_interface'
   import('./src/modules/users/interfaces/user_interface')
@@ -155,9 +125,6 @@ declare global {
   export type { MachineModel } from './src/modules/machine/models/machine-model'
   import('./src/modules/machine/models/machine-model')
   // @ts-ignore
-  export type { OperatorSalaryModel } from './src/modules/operator-salary/models/operator-salary-model'
-  import('./src/modules/operator-salary/models/operator-salary-model')
-  // @ts-ignore
   export type { OperatorModel } from './src/modules/operator/models/operator-model'
   import('./src/modules/operator/models/operator-model')
   // @ts-ignore
@@ -166,9 +133,6 @@ declare global {
   // @ts-ignore
   export type { PermissionModel } from './src/modules/permissions/models/permission_model'
   import('./src/modules/permissions/models/permission_model')
-  // @ts-ignore
-  export type { RoleModel } from './src/modules/roles/models/role_model'
-  import('./src/modules/roles/models/role_model')
   // @ts-ignore
   export type { UserModel } from './src/modules/users/models/user_model'
   import('./src/modules/users/models/user_model')
@@ -236,7 +200,6 @@ namespace _ComponentCustomProperties {
   const { OperatorModel }: typeof import('./src/modules/operator/models/operator-model')
   const { OperatorSalaryModel }: typeof import('./src/modules/operator/models/operator-salary-model')
   const { PermissionModel }: typeof import('./src/modules/permissions/models/permission_model')
-  const { RoleModel }: typeof import('./src/modules/roles/models/role_model')
   const { SessionModel }: typeof import('./src/modules/authentication/models/session_model')
   const { UserModel }: typeof import('./src/modules/users/models/user_model')
   const { acceptHMRUpdate, createPinia, defineStore, getActivePinia, mapActions, mapGetters, mapState, mapStores, mapWritableState, setActivePinia, setMapStoreSuffix, storeToRefs }: typeof import('pinia')
@@ -258,19 +221,15 @@ namespace _ComponentCustomProperties {
   const { hexToRgba }: typeof import('./src/utils/hex_to_rgba')
   const { machineStoreDefinition }: typeof import('./src/modules/machine/store/definition')
   const { numberFormatter }: typeof import('./src/utils/number_formatter')
-  const { operatorSalaryStoreDefinition }: typeof import('./src/modules/operator-salary/store/definition')
   const { operatorStoreDefinition }: typeof import('./src/modules/operator/store/definition')
   const { permissionStoreDefinition, useInitializedPermissionStore }: typeof import('./src/modules/permissions/store/index')
   const { registerPlugins }: typeof import('./src/utils/plugins')
-  const { roleStoreDefinition }: typeof import('./src/modules/roles/store/definition')
   const { showAlert }: typeof import('./src/utils/show_alert')
   const { toast }: typeof import('./src/utils/toast')
   const { useGlobalStore, useInitializedGlobalStore }: typeof import('./src/stores/global/index')
   const { useI18n }: typeof import('vue-i18n')
   const { useInitializedMachineStore }: typeof import('./src/modules/machine/store/index')
-  const { useInitializedOperatorSalaryStore }: typeof import('./src/modules/operator-salary/store/index')
   const { useInitializedOperatorStore }: typeof import('./src/modules/operator/store/index')
-  const { useInitializedRoleStore }: typeof import('./src/modules/roles/store/index')
   const { useInitializedUserStore }: typeof import('./src/modules/users/store/index')
   const { userStoreDefinition }: typeof import('./src/modules/users/store/definition')
 }

@@ -1,9 +1,10 @@
 /* eslint-disable regex/invalid */
 import appConfig from "../../config";
-import { router } from "../../router";
+// import { router } from "../../router";
 import axios from "axios";
 import { useInitializedGlobalStore } from "../../stores";
 import AppLocalStorage from "../../services/AppLocalStorage";
+import router from "../../router";
 
 const salaryApiClient = axios.create({
 	baseURL: appConfig.env.apiUrl,

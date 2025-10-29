@@ -135,7 +135,7 @@ declare global {
   const refDefault: typeof import('@vueuse/core')['refDefault']
   const refThrottled: typeof import('@vueuse/core')['refThrottled']
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
-  const registerPlugins: typeof import('./src/utils/plugins')['registerPlugins']
+  const registerPlugins: typeof import('./src/router/index')['registerPlugins']
   const removeWhitespace: typeof import('./src/utils/remove_white_space')['removeWhitespace']
   const resolveComponent: typeof import('vue')['resolveComponent']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
@@ -721,7 +721,7 @@ declare module 'vue' {
     readonly refDefault: UnwrapRef<typeof import('@vueuse/core')['refDefault']>
     readonly refThrottled: UnwrapRef<typeof import('@vueuse/core')['refThrottled']>
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
-    readonly registerPlugins: UnwrapRef<typeof import('./src/utils/plugins')['registerPlugins']>
+    readonly registerPlugins: UnwrapRef<typeof import('./src/router/index')['registerPlugins']>
     readonly removeWhitespace: UnwrapRef<typeof import('./src/utils/remove_white_space')['removeWhitespace']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>

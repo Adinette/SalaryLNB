@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import menu from '../../data/menu';
-import { useTemplateStore } from '../../stores/template';
-import { ColorThemeEnum } from '../../enums';
-import { appRoutes } from '../../router/routes';
 import BaseNavigation from '../../components/BaseNavigation.vue';
 
 // SimpleBar, for more info and examples you can check out https://github.com/Grsmto/simplebar/tree/master/packages/simplebar-vue
@@ -20,8 +17,6 @@ const navigation = menu.main;
 		},
 	});
 
-	// Main store
-	const store = useTemplateStore();
 
 	// Init SimpleBar (custom scrolling)
 	onMounted(() => {

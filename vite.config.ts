@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import tailwindcss from "@tailwindcss/vite";
-import VueRouter from "unplugin-vue-router/vite";
+// import VueRouter from "unplugin-vue-router/vite";
 import vuetify from "vite-plugin-vuetify";
 // import vueDevTools from "vite-plugin-vue-devtools";
 import AutoImport from "unplugin-auto-import/vite";
@@ -17,23 +17,23 @@ export default defineConfig({
   plugins: [
     // unplugin-vue-router doit être avant vue()
    // vite.config.ts
-VueRouter({
-  routesFolder: "./src/pages",
-  dts: "typed-router.d.ts",
-   getRouteName: (routeNode) => {
-    // retire extension et slash initial
-    const fileName = routeNode.fullPath.replace(/\.[tj]sx?$/, "").replace(/^\//, "");
-    const parts = fileName
-      .split("/")
-      .filter(Boolean)
-      .map(part => part.replace(/^index$/i, "")) // supprime "index"
-      .filter(Boolean);
-    const name = parts.join("-").toLowerCase();
-    return name || "root";
-  },
+// VueRouter({
+//   routesFolder: "./src/pages",
+//   dts: "typed-router.d.ts",
+//    getRouteName: (routeNode) => {
+//     // retire extension et slash initial
+//     const fileName = routeNode.fullPath.replace(/\.[tj]sx?$/, "").replace(/^\//, "");
+//     const parts = fileName
+//       .split("/")
+//       .filter(Boolean)
+//       .map(part => part.replace(/^index$/i, "")) // supprime "index"
+//       .filter(Boolean);
+//     const name = parts.join("-").toLowerCase();
+//     return name || "root";
+//   },
   
-  routeBlockLang: "yaml",
-}),
+//   routeBlockLang: "yaml",
+// }),
 
 
     // vueDevTools(),

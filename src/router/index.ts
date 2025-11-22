@@ -1,11 +1,12 @@
 // import { createRouter, createWebHistory } from "vue-router/auto";
-import * as autoRoutes from "vue-router/auto-routes";
+// import * as autoRoutes from "vue-router/auto-routes";
 import { setupLayouts } from "virtual:generated-layouts";
 import { authGuard } from "./middlewares/auth_guard";
 import { permissionGuard } from "./middlewares/permission_guard";
 import { createRouter, createWebHistory } from "vue-router";
+import generatedRoutes from 'virtual:generated-pages'
 
-const generatedRoutes = (autoRoutes as any).routes ?? (autoRoutes as any).default ?? (autoRoutes as any);
+// const generatedRoutes = (autoRoutes as any).routes ?? (autoRoutes as any).default ?? (autoRoutes as any);
 const routes = setupLayouts(generatedRoutes)
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -7,7 +7,10 @@ import vuetify from "vite-plugin-vuetify";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import { VueUseComponentsResolver } from "unplugin-vue-components/resolvers";
-import VueLayouts from "vite-plugin-vue-layouts";
+// import VueLayouts from "vite-plugin-vue-layouts";
+import VueLayouts from 'vite-plugin-vue-layouts-next'
+import Pages from 'vite-plugin-pages'
+
 import config from "./src/config";
 
 export default defineConfig({
@@ -76,7 +79,7 @@ VueRouter({
       layoutsDirs: "src/layouts",
       defaultLayout: "blank",
     }),
-
+    Pages(),
     tailwindcss(),
     vuetify({ autoImport: true }),
 

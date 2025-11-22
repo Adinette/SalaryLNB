@@ -1,25 +1,28 @@
 // import { createRouter, createWebHistory } from "vue-router/auto";
-import { routes as generatedRoutes } from "vue-router/auto-routes";
+import * as autoRoutes from "vue-router/auto-routes";
 import { setupLayouts } from "virtual:generated-layouts";
 import { authGuard } from "./middlewares/auth_guard";
 import { permissionGuard } from "./middlewares/permission_guard";
 import { createRouter, createWebHistory } from "vue-router";
 
-const routes = setupLayouts(generatedRoutes);
-
+const generatedRoutes = (autoRoutes as any).routes ?? (autoRoutes as any).default ?? (autoRoutes as any);
+const routes = setupLayouts(generatedRoutes)
 const router = createRouter({
-	history: createWebHistory(import.meta.env.BASE_URL),
-	scrollBehavior(to) {
-		if (to.hash) return { el: to.hash, behavior: "smooth", top: 60 };
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes,
+  scrollBehavior(to) {
+    if (to.hash) return { el: to.hash, behavior: 'smooth', top: 60 }
+    return { top: 0 }
+  },
+})
 
-		return { top: 0 };
-	},
-	routes,
-});
+// Guards
+router.beforeEach(authGuard)
+router.beforeEach(permissionGuard)
 
-router.beforeEach(authGuard);
-router.beforeEach(permissionGuard);
+export function registerPlugins(app: any) {
+  app.use(router)
+}
 
-export { router };
+export default router
 
-export default router;

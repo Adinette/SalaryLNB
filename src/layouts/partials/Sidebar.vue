@@ -1,12 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import menu from '../../data/menu';
-import { useTemplateStore } from '../../stores/template';
-
-	// import { onMounted } from "vue";
-	// import { useTemplateStore } from "@/stores/template";
-
-	// import BaseNavigation from "@/components/BaseNavigation.vue";
+import BaseNavigation from '../../components/BaseNavigation.vue';
 
 	// // SimpleBar, for more info and examples you can check out https://github.com/Grsmto/simplebar/tree/master/packages/simplebar-vue
 	import SimpleBar from "simplebar";
@@ -29,8 +24,6 @@ import { useTemplateStore } from '../../stores/template';
 		},
 	});
 
-	// Main store
-	const store = useTemplateStore();
 
 	// Init SimpleBar (custom scrolling)
 	onMounted(() => {

@@ -1,4 +1,4 @@
-import type { OperatorStore } from "..";
+// import type { OperatorStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { OperatorUpdateRoute } from "../../apis/operator_update_route";
 import type { OperatorInterface, OperatorUpdateInterface } from "../../interfaces";
@@ -10,7 +10,7 @@ import type { OperatorInterface, OperatorUpdateInterface } from "../../interface
  * @returns {Promise<OperatorModel | ApiError>}
  */
 export async function updateOperator(
-	store: OperatorStore,
+	// store: OperatorStore,
 	{ elementId, data }: { elementId: OperatorInterface["id"]; data: OperatorUpdateInterface }
 ) {
 	const apiRoute = new OperatorUpdateRoute(elementId, data);

@@ -9,10 +9,10 @@ interface PersistableStore {
 	$id: string;
 }
 
-interface PersistableService {
-	save: (state: any) => Promise<void>;
-	isCritical?: boolean;
-}
+// interface PersistableService {
+// 	save: (state: any) => Promise<void>;
+// 	isCritical?: boolean;
+// }
 
 interface AutoPersistedOptions<T = unknown> {
 	service: GenericStoreService<T>;

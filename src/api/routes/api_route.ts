@@ -93,7 +93,7 @@ export class ApiRoute implements ApiRouteInterface {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleAxiosError(error: AxiosError<any, any>): ApiError {
     if (!error.response)
-      return new GeneralApiError(0, { message: error.message, data: {} });
+      return new GeneralApiError({ message: error.message, data: {} });
 
     if (error.status === 422) {
       const unprocessableEntityApiError = new UnprocessableEntityApiError(
@@ -132,6 +132,6 @@ export class ApiRoute implements ApiRouteInterface {
 
     if (error.status === 409) return new ConflictApiError(error.response?.data);
 
-    return new GeneralApiError(error.status || 0, error.response?.data);
+    return new GeneralApiError( error.response?.data);
   }
 }

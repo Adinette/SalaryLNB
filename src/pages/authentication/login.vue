@@ -1,7 +1,7 @@
 <script setup lang="ts">
 	import { useTemplateStore } from "../../stores/template";
 
-	import { appLocalesMapping } from "../../locales/appLocalesMapping";
+	// import { appLocalesMapping } from "../../locales/appLocalesMapping";
 	// Vuelidate, for more info and examples you can check out https://github.com/vuelidate/vuelidate
 	import LoginForm from "@/modules/authentication/login/views/LoginForm.vue";
 	

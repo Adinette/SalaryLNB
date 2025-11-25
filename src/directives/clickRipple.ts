@@ -3,14 +3,14 @@
  */
 
 export default {
-  beforeMount: function (el) {
+  beforeMount: function (el:any) {
     // Add specific CSS styles to element
     el.style.overflow = "hidden";
     el.style.position = "relative";
     el.style.zIndex = 1;
 
     // Setup ripple functionality
-    el.clickRipple = (event, el) => {
+    el.clickRipple = (event:any, el:any) => {
       let cssClass = "click-ripple";
       let ripple = el.querySelectorAll("." + cssClass);
       let d, x, y;
@@ -57,11 +57,11 @@ export default {
     };
 
     // Attach the click event to the element
-    el.addEventListener("click", (event) => {
+    el.addEventListener("click", (event: any) => {
       el.clickRipple(event, el);
     });
   },
-  unmounted: (el) => {
+  unmounted: (el:any) => {
     el.removeEventListener("click", el.clickRipple);
   },
 };

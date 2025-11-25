@@ -1,4 +1,4 @@
-import { ref, onUnmounted } from "vue";
+import { onUnmounted } from "vue";
 
 export function useBootstrapToast() {
 	const containerId = "global-bootstrap-toast-container";

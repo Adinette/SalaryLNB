@@ -1,4 +1,4 @@
-import type { UserStore } from "..";
+// import type { UserStore } from "..";
 import ApiError from "../../../../api/errors/ApiError";
 import { UserDeleteRoute } from "../../apis/user_delete_route";
 import type { UserInterface } from "../../interfaces";
@@ -10,7 +10,7 @@ import type { UserInterface } from "../../interfaces";
  * @returns {Promise<UserModel | ApiError>}
  */
 export async function deleteUser(
-	store: UserStore,
+	// store: UserStore,
 	{ elementId }: { elementId: UserInterface["id"] }
 ) {
 	const apiRoute = new UserDeleteRoute(elementId);

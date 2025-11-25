@@ -1,4 +1,4 @@
-import type { MachineStore } from "..";
+// import type { MachineStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { MachineFindRoute } from "../../apis/machine_find_route";
 import type { MachineInterface } from "../../interfaces";
@@ -11,7 +11,7 @@ import type { MachineInterface } from "../../interfaces";
  * @returns {Promise<MachineModel | ApiError>}
  */
 export async function findMachine(
-	store: MachineStore,
+	// store: MachineStore,
 	{ elementId }: { elementId: MachineInterface["id"] }
 ) {
 	const apiRoute = new MachineFindRoute({ elementId });

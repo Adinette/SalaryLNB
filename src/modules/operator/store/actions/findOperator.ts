@@ -1,4 +1,4 @@
-import type { OperatorStore } from "..";
+// import type { OperatorStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { OperatorFindRoute } from "../../apis/operator_find_route";
 import type { OperatorInterface } from "../../interfaces";
@@ -11,7 +11,7 @@ import type { OperatorInterface } from "../../interfaces";
  * @returns {Promise<OperatorModel | ApiError>}
  */
 export async function findOperator(
-	store: OperatorStore,
+	// store: OperatorStore,
 	{ elementId }: { elementId: OperatorInterface["id"] }
 ) {
 	const apiRoute = new OperatorFindRoute({ elementId });

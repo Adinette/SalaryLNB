@@ -1,4 +1,4 @@
-import type { MachineStore } from "..";
+// import type { MachineStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { MachineDeactivateUpdateRoute } from "../../apis/machine_deactivate_update_route";
 import type { MachineInterface } from "../../interfaces";
@@ -10,7 +10,7 @@ import type { MachineInterface } from "../../interfaces";
  * @returns {Promise<MachineModel | ApiError>}
  */
 export async function updateMachineDeactivate(
-  store: MachineStore,
+  // store: MachineStore,
   {
     elementId,
     mock = false,

@@ -1,4 +1,4 @@
-import type { OperatorStore } from "..";
+// import type { OperatorStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { OperatorDeleteRoute } from "../../apis/operator_delete_route";
 import type { OperatorInterface } from "../../interfaces";
@@ -10,7 +10,7 @@ import type { OperatorInterface } from "../../interfaces";
  * @returns {Promise<OperatorModel | ApiError>}
  */
 export async function deleteOperator(
-	store: OperatorStore,
+	// store: OperatorStore,
 	{ elementId }: { elementId: OperatorInterface["id"] }
 ) {
 	const apiRoute = new OperatorDeleteRoute(elementId);

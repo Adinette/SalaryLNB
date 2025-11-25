@@ -10,35 +10,35 @@
 	}
 
 	const props = defineProps<Props>();
-	const { variant, duration = 3000 } = props;
+	const { variant } = props;
 	const snackbar = ref(false);
 	const snackbarMessage = ref("");
 	const snackbarTitle = ref("");
 	const snackbarVariant = ref(variant);
-	const snackbarDuration = ref(duration);
+	// const snackbarDuration = ref(duration);
 	const snackbarTimeout = ref<ReturnType<typeof setTimeout> | null>(null);
 
-	const showSnackbar = (
-		message: string,
-		title: string,
-		variant: Props["variant"],
-		duration: number
-	) => {
-		snackbarMessage.value = message;
-		snackbarTitle.value = title;
-		snackbarVariant.value = variant;
-		snackbarDuration.value = duration;
-		snackbar.value = true;
+	// const showSnackbar = (
+	// 	message: string,
+	// 	title: string,
+	// 	variant: Props["variant"],
+	// 	duration: number
+	// ) => {
+	// 	snackbarMessage.value = message;
+	// 	snackbarTitle.value = title;
+	// 	snackbarVariant.value = variant;
+	// 	snackbarDuration.value = duration;
+	// 	snackbar.value = true;
 
-		if (snackbarTimeout.value) {
-			clearTimeout(snackbarTimeout.value);
-		}
+	// 	if (snackbarTimeout.value) {
+	// 		clearTimeout(snackbarTimeout.value);
+	// 	}
 
-		snackbarTimeout.value = setTimeout(() => {
-			snackbar.value = false;
-			snackbarTimeout.value = null;
-		}, duration);
-	};
+	// 	snackbarTimeout.value = setTimeout(() => {
+	// 		snackbar.value = false;
+	// 		snackbarTimeout.value = null;
+	// 	}, duration);
+	// };
 	const closeSnackbar = () => {
 		snackbar.value = false;
 		if (snackbarTimeout.value) {
@@ -46,14 +46,14 @@
 			snackbarTimeout.value = null;
 		}
 	};
-	const snackbarClasses = computed(() => {
-		return {
-			"bg-green-500": snackbarVariant.value === "success",
-			"bg-red-500": snackbarVariant.value === "error",
-			"bg-blue-500": snackbarVariant.value === "info",
-			"bg-yellow-500": snackbarVariant.value === "warning",
-		};
-	});
+	// const snackbarClasses = computed(() => {
+	// 	return {
+	// 		"bg-green-500": snackbarVariant.value === "success",
+	// 		"bg-red-500": snackbarVariant.value === "error",
+	// 		"bg-blue-500": snackbarVariant.value === "info",
+	// 		"bg-yellow-500": snackbarVariant.value === "warning",
+	// 	};
+	// });
 	const snackbarIcon = computed(() => {
 		switch (snackbarVariant.value) {
 			case "success":

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-	import { ref, onMounted, onUnmounted, computed } from "vue";
+	import { ref, onMounted, onUnmounted } from "vue";
 	import { useRouter } from "vue-router";
 	import { useTemplateStore } from "../../stores/template";
 
-	const { formatInitials } = useFormatting();
+	// const { formatInitials } = useFormatting();
 
 	// Grab example data
-	import { UserModel } from "../../modules/users/models/user_model";
-	import { useFormatting } from "../../composables/useFormatting";
+	// import { UserModel } from "../../modules/users/models/user_model";
+	// import { useFormatting } from "../../composables/useFormatting";
 	import { useCurrentSession } from "../../composables/useCurrentSession";
 import { useInitializedGlobalStore, type GlobalStore } from "../../stores";
 
@@ -18,19 +18,19 @@ import { useInitializedGlobalStore, type GlobalStore } from "../../stores";
 
 	const globalStore = ref<GlobalStore | null>(null);
 
-	const currentSession = computed(() => {
-		return globalStore.value?.currentSession || null;
-	});
+	// const currentSession = computed(() => {
+	// 	return globalStore.value?.currentSession || null;
+	// });
 
-	const currentEmployee = computed(() => {
-		return currentSession.value?.user ? new UserModel(currentSession.value.user) : null;
-	});
+	// const currentEmployee = computed(() => {
+	// 	return currentSession.value?.user ? new UserModel(currentSession.value.user) : null;
+	// });
 
-	const currentUser = computed(() => {
-		return currentSession.value?.user ? new UserModel(currentSession.value.user) : null;
-	});
+	// const currentUser = computed(() => {
+	// 	return currentSession.value?.user ? new UserModel(currentSession.value.user) : null;
+	// });
 
-	const defaultAvatar = "/assets/media/avatars/avatar10.jpg";
+	// const defaultAvatar = "/assets/media/avatars/avatar10.jpg";
 
 	// Reactive variables
 	const baseSearchTerm = ref("");

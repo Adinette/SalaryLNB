@@ -8,7 +8,7 @@
 
 	import { DarkModeEnum } from "../enums";
 	import { useTemplateStore } from "../stores/template";
-	import { ref, computed, onMounted } from "vue";
+	import { ref, onMounted } from "vue";
 
 	const store = useTemplateStore();
 	
@@ -19,9 +19,9 @@
 	const buttonRef = ref<HTMLElement | null>(null);
 	const dropdownMenuRef = ref<HTMLElement | null>(null);
 
-	const iconButton = computed(() => {
-		return store.settings.darkModeActive ? "fa fa-fw fa-moon" : "far fa-fw fa-sun";
-	});
+	// const iconButton = computed(() => {
+	// 	return store.settings.darkModeActive ? "fa fa-fw fa-moon" : "far fa-fw fa-sun";
+	// });
 
 	// Fonction pour fermer le dropdown
 	const closeDropdown = () => {

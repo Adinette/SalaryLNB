@@ -11,16 +11,15 @@
 
 	// Import navigation composable
 	import { useNavigation } from "../composables/useNavigation";
-	import { applicationsMock } from "../data/applications";
-	import { useCurrentSession } from "../composables/useCurrentSession";
+	// import { applicationsMock } from "../data/applications";
+	// import { useCurrentSession } from "../composables/useCurrentSession";
 import { useInitializedGlobalStore, type GlobalStore } from "../stores";
 import type { AppAlertInterface } from "../interfaces/AppAlertInterface";
-import { computed, onMounted, ref } from "vue";
-import { ApplicationModel } from "../modules/applications/models/application_model";
+import { onMounted, ref } from "vue";
+// import { ApplicationModel } from "../modules/applications/models/application_model";
 
 	// Get filtered navigation with permissions
 	const { navigation } = useNavigation();
-	const { handleLogout } = useCurrentSession();
 
 	// Main store
 	const store = useTemplateStore();
@@ -29,10 +28,10 @@ import { ApplicationModel } from "../modules/applications/models/application_mod
 	// Alerts for AppAlerts component
 	const alerts = ref<AppAlertInterface[]>([]);
 
-	const apps = applicationsMock.map((app) => {
-		return new ApplicationModel(app);
-	});
-	const appsToShowOnMiniNav = computed(() => apps.slice(0, 10));
+	// const apps = applicationsMock.map((app) => {
+	// 	return new ApplicationModel(app);
+	// });
+	// const appsToShowOnMiniNav = computed(() => apps.slice(0, 10));
 
 	// Set default elements for this layout
 	store.setLayout({

@@ -1,5 +1,5 @@
 
-import type { AppLocalStorageService } from '../../services/AppLocalStorage';
+import AppLocalStorageService from '../../services/AppLocalStorage';
 
 export interface AppStoresInterface {
 	global: AppLocalStorageService;

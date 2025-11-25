@@ -1,6 +1,6 @@
 import { defaultStoreState } from "../../constants";
 import { AppLocalesEnum } from "../../locales";
-import { AppLocalStorageService } from "../../services/local_storage";
+import AppLocalStorageService from "../../services/AppLocalStorage";
 import type { GlobalStoreInterface } from "../interfaces/global_store_interface";
 
 export class GlobalLocalStorageService extends AppLocalStorageService {
@@ -9,7 +9,7 @@ export class GlobalLocalStorageService extends AppLocalStorageService {
 	save: any;
 
 	constructor() {
-		super(GlobalLocalStorageService.storeName);
+		super();
 	}
 
 	get default(): GlobalStoreInterface {

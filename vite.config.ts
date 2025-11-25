@@ -81,7 +81,7 @@ export default defineConfig({
     }),
     Pages(),
     tailwindcss(),
-    vuetify({ autoImport: true }),
+    vuetify({ autoImport: true, styles: { configFile: "src/styles/settings.scss" } }),
 
   ],
 
@@ -97,7 +97,7 @@ export default defineConfig({
         target: config.env.apiUrl,
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/sahges-eval-api/, ""),
+        rewrite: (path: string) => path.replace(/^\/sahges-eval-api/, ""),
       },
     },
   },

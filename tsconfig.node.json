@@ -5,14 +5,16 @@
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
+
     "types": ["vuetify"],
 
-
-    /* Bundler mode */
+    /* Resolving */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
+
+    /* Build */
     "noEmit": true,
 
     /* Linting */
@@ -21,7 +23,22 @@
     "noUnusedParameters": false,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    /* Paths */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
   },
-  "include": ["vite.config.ts"]
+
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "src/**/*.d.ts",
+    "src/types/**/*.d.ts",   // <-- important pour virtual:generated-pages
+    "vite.config.ts"
+  ],
+
+  "exclude": ["node_modules"]
 }

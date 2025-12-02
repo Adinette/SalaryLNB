@@ -33,9 +33,11 @@ export class RoleModel extends ApiResourceModel implements RoleInterface {
 		return JSON.stringify(this.interface);
 	}
 
-	static toEnum(code: string): AppRole | undefined {
-		return Object.values(AppRoles).find((v) => v === code);
-	}
+    static toEnum(code: string): AppRole | undefined {
+        const values = Object.values(AppRoles) as Array<{ code: AppRole }>;
+        const found = values.find((v) => v.code === code);
+        return found?.code;
+    }
 
 	get enum(): AppRole | undefined {
 		return RoleModel.toEnum(this.code);

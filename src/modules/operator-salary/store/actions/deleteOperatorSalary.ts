@@ -1,4 +1,4 @@
-// import type { OperatorSalaryStore } from "..";
+import type { OperatorSalaryStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { OperatorSalaryDeleteRoute } from "../../apis/operator_salary_delete_route";
 import type { OperatorSalaryInterface } from "../../interfaces";
@@ -10,7 +10,7 @@ import type { OperatorSalaryInterface } from "../../interfaces";
  * @returns {Promise<OperatorSalaryModel | ApiError>}
  */
 export async function deleteOperatorSalary(
-	// store: OperatorSalaryStore,
+	_store: OperatorSalaryStore,
 	{ elementId }: { elementId: OperatorSalaryInterface["id"] }
 ) {
 	const apiRoute = new OperatorSalaryDeleteRoute(elementId);

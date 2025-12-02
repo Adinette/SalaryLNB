@@ -1,4 +1,5 @@
-import type { RouteNamedMap } from "vue-router/auto";
+// Define RouteNamedMap locally if not available in vue-router/auto
+type RouteNamedMap = Record<string, string>;
 
 /**
  * Utilitaire pour créer des déclarations de routes typées

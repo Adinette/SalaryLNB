@@ -1,4 +1,4 @@
-// import type { MachineStore } from "..";
+import type { MachineStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { MachineUpdateRoute } from "../../apis/machine_update_route";
 import type { MachineInterface, MachineUpdateInterface } from "../../interfaces";
@@ -10,7 +10,7 @@ import type { MachineInterface, MachineUpdateInterface } from "../../interfaces"
  * @returns {Promise<MachineModel | ApiError>}
  */
 export async function updateMachine(
-	// store: MachineStore,
+	_store: MachineStore,
 	{ elementId, data }: { elementId: MachineInterface["id"]; data: MachineUpdateInterface }
 ) {
 	const apiRoute = new MachineUpdateRoute(elementId, data);

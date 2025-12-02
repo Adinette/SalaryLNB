@@ -1,4 +1,4 @@
-// import type { OperatorStore } from "..";
+import type { OperatorStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { OperatorDeactivateUpdateRoute } from "../../apis/operator_deactivate_update_route";
 import type { OperatorInterface } from "../../interfaces";
@@ -10,7 +10,7 @@ import type { OperatorInterface } from "../../interfaces";
  * @returns {Promise<OperatorModel | ApiError>}
  */
 export async function updateOperatorDeactivate(
-  // store: OperatorStore,
+  _store: OperatorStore,
   {
     elementId,
     mock = false,

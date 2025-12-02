@@ -1,5 +1,5 @@
 
-// import type { RoleStore } from "..";
+import type { RoleStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { RoleDeleteRoute } from "../../apis/role_delete_route";
 import type { RoleInterface } from "../../interfaces";
@@ -11,7 +11,7 @@ import type { RoleInterface } from "../../interfaces";
  * @returns {Promise<RoleModel | ApiError>}
  */
 export async function deleteRole(
-  // store: RoleStore, 
+  _store: RoleStore, 
   { elementId, mock = false }: { elementId: RoleInterface["id"], mock?: boolean }) {
   const apiRoute = new RoleDeleteRoute(elementId);
   const result = mock ? await apiRoute.mock() : await apiRoute.request();

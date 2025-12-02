@@ -54,12 +54,12 @@ const router = createRouter({
 /*eslint-disable no-unused-vars*/
 NProgress.configure({ showSpinner: false });
 
-router.beforeResolve((to, from, next) => {
+router.beforeResolve(( _from: any, next: any) => {
   NProgress.start();
   next();
 });
 
-router.afterEach((to, from) => {
+router.afterEach((_to: any, _from: any) => {
   NProgress.done();
 });
 /*eslint-enable no-unused-vars*/

@@ -81,7 +81,7 @@ export default defineConfig({
     }),
     Pages(),
     tailwindcss(),
-    vuetify({ autoImport: true, styles: { configFile: "src/styles/settings.scss" } }),
+    vuetify({ autoImport: true }),
 
   ],
 

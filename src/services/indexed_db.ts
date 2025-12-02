@@ -17,12 +17,12 @@ export class AppIndexedDBService {
 	private initDB(): void {
 		const request = indexedDB.open(this.dbName, 1);
 
-		request.onupgradeneeded = (event) => {
+		request.onupgradeneeded = (event:any) => {
 			const db = (event.target as IDBOpenDBRequest).result;
 			if (!db.objectStoreNames.contains(this.storeName))
 				db.createObjectStore(this.storeName, { keyPath: "key" });
 		};
-		request.onerror = (event) => {
+		request.onerror = (event:any) => {
 			AppUtils.logger.error("Failed to open IndexedDB:", event);
 		};
 	}

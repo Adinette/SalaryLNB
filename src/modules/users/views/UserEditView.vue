@@ -7,12 +7,13 @@ import { UserModel } from "../models/user_model";
 import type { UserCreateInterface } from "../interfaces";
 import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 import { useInitializedUserStore, type UserStore } from "../store";
-import { useRoute } from "vue-router";
+// import { useRoute } from "vue-router";
 import { createLogger } from "../../../utils/logger";
 import { ApiError, UnprocessableEntityApiError } from "../../../api/errors";
 import { AppUtils } from "../../../utils";
 import { toast } from "../../../utils/toast";
 import router from "../../../router";
+import { useRoute } from "vue-router";
 
 const logger = createLogger("userEditView");
 

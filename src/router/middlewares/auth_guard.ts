@@ -1,6 +1,6 @@
 // import appRoutes from "../routes";
 // import { useInitializedGlobalStore } from "../../stores";
-import type { NavigationGuardNext } from "vue-router";
+// import type { RouteLocationNormalized } from "vue-router";
 // import type { RouteNamedMap } from "vue-router/auto";
 
 /**
@@ -20,7 +20,7 @@ import type { NavigationGuardNext } from "vue-router";
 export async function authGuard(
 	// to: RouteLocationNormalized,
 	// from: RouteLocationNormalized,
-	next: NavigationGuardNext
+	// next: NavigationGuardNext
 ) {
 	// const globalStore = await useInitializedGlobalStore();
 
@@ -32,5 +32,5 @@ export async function authGuard(
 	// 	return next({ name: appRoutes.authentication.login });
 	// }
 
-	return next();
+	return ;
 }

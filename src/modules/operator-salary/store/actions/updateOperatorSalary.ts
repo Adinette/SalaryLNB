@@ -1,4 +1,4 @@
-// import type { OperatorSalaryStore } from "..";
+import type { OperatorSalaryStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { OperatorSalaryUpdateRoute } from "../../apis/operator_salary_update_route";
 import type { OperatorSalaryInterface, OperatorSalaryUpdateInterface } from "../../interfaces";
@@ -10,7 +10,7 @@ import type { OperatorSalaryInterface, OperatorSalaryUpdateInterface } from "../
  * @returns {Promise<OperatorSalaryModel | ApiError>}s
  */
 export async function updateOperatorSalary(
-	// store: OperatorSalaryStore,
+	_store: OperatorSalaryStore,
 	{ elementId, data }: { elementId: OperatorSalaryInterface["id"]; data: OperatorSalaryUpdateInterface }
 ) {
 	const apiRoute = new OperatorSalaryUpdateRoute(elementId, data);

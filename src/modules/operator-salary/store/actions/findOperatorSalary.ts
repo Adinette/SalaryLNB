@@ -1,4 +1,4 @@
-// import type { OperatorSalaryStore } from "..";
+import type { OperatorSalaryStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { OperatorSalaryFindRoute } from "../../apis/operator_salary_find_route";
 import type { OperatorSalaryInterface } from "../../interfaces";
@@ -11,7 +11,7 @@ import type { OperatorSalaryInterface } from "../../interfaces";
  * @returns {Promise<OperatorSalaryModel | ApiError>}
  */
 export async function findOperatorSalary(
-	// store: OperatorSalaryStore,
+	_store: OperatorSalaryStore,
 	{ elementId }: { elementId: OperatorSalaryInterface["id"] }
 ) {
 	const apiRoute = new OperatorSalaryFindRoute({ elementId });

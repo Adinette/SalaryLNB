@@ -8,8 +8,9 @@ import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 import { createLogger } from "../../../utils/logger";
 import { toast } from "../../../utils/toast";
 import { AppUtils } from "../../../utils";
-import { router } from "../../../router";
+// import { router } from "../../../router";
 import { ApiError, UnprocessableEntityApiError } from "../../../api/errors";
+import router from "../../../router";
 
 const logger = createLogger("userAddView");
 

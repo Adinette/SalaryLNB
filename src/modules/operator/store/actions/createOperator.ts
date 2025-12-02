@@ -1,11 +1,11 @@
-// import type { OperatorStore } from "..";
+import type { OperatorStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import type { OperatorCreateInterface } from "../../interfaces";
 
 import { OperatorCreateRoute } from "../../apis/operator_create_route";
 
 export async function createOperator(
-	// store: OperatorStore, 
+	_store: OperatorStore, 
 	{ data }: { data: OperatorCreateInterface }) {
 	const apiRoute = new OperatorCreateRoute(data);
 	const result = await apiRoute.mock();

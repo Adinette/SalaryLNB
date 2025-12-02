@@ -32,6 +32,8 @@ export default function (app: App) {
         service: userStoreDefinition.service,
         throttleMs: 1000, // 1 second throttle for non-critical stores
       },
+      [StoreKeysEnum.Role]: undefined, // Add Role key with undefined or appropriate value
+      [StoreKeysEnum.Permission]: undefined, // Add Permission key with undefined or appropriate value
     })
   );
   app.use(pinia);

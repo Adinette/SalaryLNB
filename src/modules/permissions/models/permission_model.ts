@@ -30,8 +30,21 @@ export class PermissionModel extends ApiResourceModel implements PermissionInter
 		return JSON.stringify(this.interface);
 	}
 
-	static toEnum(code: string): typeof AppPermissions[keyof typeof AppPermissions] | undefined {
-	return Object.values(AppPermissions).find((v) => v === code);
+// ...existing code...
+static toEnum(code: string): typeof AppPermissions[keyof typeof AppPermissions][keyof typeof AppPermissions[keyof typeof AppPermissions]] | undefined {
+    // Types for nested groups and permission values
+    type PermissionGroup = typeof AppPermissions[keyof typeof AppPermissions];
+    type PermissionValue = PermissionGroup[keyof PermissionGroup];
+
+    // Get groups, then their values, and search for the matching permission value
+    const groups = Object.values(AppPermissions) as PermissionGroup[];
+    for (const g of groups) {
+        const values = Object.values(g) as PermissionValue[];
+        const found = values.find((v) => v === (code as unknown as PermissionValue));
+        if (found) return found;
+    }
+
+    return undefined;
 }
 
 

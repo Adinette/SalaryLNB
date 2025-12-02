@@ -2,7 +2,8 @@
 	import { computed, onMounted } from "vue";
 	import { useRoute } from "vue-router";
 	import { useTemplateStore } from "../stores/template";
-    import type { RouteNamedMap } from "vue-router/auto";
+	// Removed import of RouteNamedMap as vue-router/auto is not a valid module
+	type RouteNamedMap = Record<string, any>; // Define a generic type as a placeholder
 import { useGlobalStore } from "../stores/global";
 
 

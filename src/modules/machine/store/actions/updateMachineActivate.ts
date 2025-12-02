@@ -1,7 +1,7 @@
 import { ApiError } from "../../../../api/errors";
 import { MachineActivateUpdateRoute } from "../../apis/machine_activate_update_route";
 import type { MachineInterface } from "../../interfaces";
-// import { type MachineStore } from "../index";
+import { type MachineStore } from "../index";
 /**
  * findMachine action
  *
@@ -10,7 +10,7 @@ import type { MachineInterface } from "../../interfaces";
  * @returns {Promise<MachineModel | ApiError>}
  */
 export async function updateMachineActivate(
-  // store: MachineStore,
+  _store: MachineStore,
   {
     elementId,
     mock = false,

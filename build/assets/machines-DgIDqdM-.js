@@ -1,0 +1,1 @@
+const e={id:"048bb848-52a2-4913-8d7e-5108a19a645x",code:"001123",emplacement:"Bohicon",is_active:!0,created_at:new Date().toISOString(),updated_at:new Date().toISOString()},a=[e];export{e as a,a as m};

@@ -1,4 +1,4 @@
-// import type { RoleStore } from "..";
+import type { RoleStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { RoleFindRoute } from "../../apis/role_find_route";
 import type { RoleInterface } from "../../interfaces";
@@ -10,7 +10,7 @@ import type { RoleInterface } from "../../interfaces";
  * @returns {Promise<RoleModel | ApiError>}
  */
 export async function findRole(
-  // store: RoleStore, 
+  _store: RoleStore, 
   { elementId, mock = false }: { elementId: RoleInterface["id"], mock?: boolean }) {
   const apiRoute = new RoleFindRoute({ elementId });
   const result = mock ? await apiRoute.mock() : await apiRoute.request();

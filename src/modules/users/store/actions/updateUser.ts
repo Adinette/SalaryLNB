@@ -1,4 +1,4 @@
-// import type { UserStore } from "..";
+import type { UserStore } from "..";
 import { ApiError } from "../../../../api/errors";
 import { UserUpdateRoute } from "../../apis/user_update_route";
 import type { UserInterface, UserUpdateInterface } from "../../interfaces";
@@ -11,7 +11,7 @@ import type { UserInterface, UserUpdateInterface } from "../../interfaces";
  * @returns {Promise<UserModel | ApiError>}
  */
 export async function updateUser(
-	// store: UserStore,
+	_store: UserStore,
 	{ elementId, data }: { elementId: UserInterface["id"]; data: UserUpdateInterface }
 ) {
 	const apiRoute = new UserUpdateRoute(elementId, data);

@@ -1,4 +1,4 @@
-// import type { UserStore } from "..";
+import type { UserStore } from "..";
 import ApiError from "../../../../api/errors/ApiError";
 import { UserCreateRoute } from "../../apis/user_create_route";
 import type { UserCreateInterface } from "../../interfaces";
@@ -11,7 +11,7 @@ import type { UserCreateInterface } from "../../interfaces";
  * @returns {Promise<UserModel | ApiError>}
  */
 export async function createUser(
-	// store: UserStore, 
+	_store: UserStore, 
 	{ data }: { data: UserCreateInterface }) {
 	const apiRoute = new UserCreateRoute(data);
 	const result = await apiRoute.mock();

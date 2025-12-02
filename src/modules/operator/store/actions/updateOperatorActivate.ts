@@ -1,7 +1,7 @@
 import { ApiError } from "../../../../api/errors";
 import { OperatorActivateUpdateRoute } from "../../apis/operator_activate_update_route";
 import type { OperatorInterface } from "../../interfaces";
-// import { type OperatorStore } from "../index";
+import { type OperatorStore } from "../index";
 /**
  * findOperator action
  *
@@ -10,7 +10,7 @@ import type { OperatorInterface } from "../../interfaces";
  * @returns {Promise<OperatorModel | ApiError>}
  */
 export async function updateOperatorActivate(
-  // store: OperatorStore,
+  _store: OperatorStore,
   {
     elementId,
     mock = false,

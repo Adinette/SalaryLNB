@@ -2,7 +2,7 @@
 import type { UserInterface } from "../../interfaces";
 import { UserFindRoute } from "../../apis/user_find_route";
 import { ApiError } from "../../../../api/errors";
-// import type { UserStore } from "..";
+import type { UserStore } from "..";
 /**
  * findUser action
  *
@@ -11,7 +11,7 @@ import { ApiError } from "../../../../api/errors";
  * @returns {Promise<UserModel | ApiError>}
  */
 export async function findUser(
-	// store: UserStore,
+	_store: UserStore,
 	{ elementId }: { elementId: UserInterface["id"] }
 ) {
 	const apiRoute = new UserFindRoute({ elementId });

@@ -2,7 +2,7 @@
 import {
   requiredValidator,
 } from "../../../utils/validators";
-import { ref, watch, defineEmits, defineProps, computed, watchEffect, onMounted } from "vue";
+import { ref, watch, computed, watchEffect, onMounted } from "vue";
 import type { OperatorSalaryCreateInterface } from "../interfaces";
 import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 import { VRow } from "vuetify/components";
@@ -148,12 +148,22 @@ const formattedOperators = computed(() => {
 	});
 
 onMounted(() => {
+  // 👉 Pré-remplir operator_id si passé dans l’URL
   if (route.query.operatorId) {
     operatorIdFromQuery.value = String(route.query.operatorId);
-    // On pré-remplit le formulaire si l'ID existe
     localForm.value.operator_id = operatorIdFromQuery.value;
   }
+
+  // 👉 Remplit la date automatiquement si elle n’est pas déjà définie
+  if (!localForm.value.date) {
+    const today = new Date().toISOString().split("T")[0]; // format YYYY-MM-DD
+    localForm.value.date = today;
+
+    // Mise à jour du v-model
+    emit("update:modelValue", { ...localForm.value });
+  }
 });
+
 </script>
 
 <template>
@@ -195,18 +205,19 @@ onMounted(() => {
       <VCol cols="12">
         <VLabel class="mb-3" for="operator-salary-date">Date de calcul du salaire *</VLabel>
         <VTextField
-          id="operator-salary-date"
-          v-model="localForm.date"
-          placeholder="Ex: 01/10/2025"
-          :rules="[requiredValidator]"
-          variant="filled"
-          density="compact"
-					type="date"
-          prepend-inner-icon="ri-operator-line"
-          persistent-placeholder
-          :error-messages="props.errors?.date"
-          @update:model-value="(val:any) => updateField('date', val)"
-        />
+  id="operator-salary-date"
+  v-model="localForm.date"
+  placeholder="Ex: 01/10/2025"
+  :rules="[requiredValidator]"
+  variant="filled"
+  density="compact"
+  type="date"
+  prepend-inner-icon="ri-operator-line"
+  persistent-placeholder
+  :error-messages="props.errors?.date"
+  @update:model-value="(val:any) => updateField('date', val)"
+/>
+
       </VCol>
       <VCol cols="12" md="6">
         <VLabel class="mb-3" for="operator-salary-chiffre-affaire-ttc">Chiffre d'affaire TTC  *</VLabel>

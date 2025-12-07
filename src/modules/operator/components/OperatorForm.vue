@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import {
   requiredValidator,
-  emailValidator,
   phoneValidator,
 } from "../../../utils/validators";
-import { ref, watch, defineEmits, defineProps, onMounted, computed } from "vue";
+import { ref, watch, onMounted, computed } from "vue";
 import type { OperatorCreateInterface } from "../interfaces";
 import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 import { useMachineActions } from "../../machine/composable/use_machine_actions";
@@ -121,22 +120,7 @@ onMounted(async () => {
           @update:model-value="(val:any) => updateField('last_name', val)"
         />
       </VCol>
-      <VCol cols="12" md="6">
-        <VLabel class="mb-3" for="operator-email">Email *</VLabel>
-        <VTextField
-          id="operator-email"
-          v-model="localForm.email"
-          placeholder="Ex: jean.dupont@example.com"
-          :rules="[requiredValidator, emailValidator]"
-          variant="filled"
-          density="compact"
-          prepend-inner-icon="ri-mail-line"
-          :disabled="props.isEditMode"
-          persistent-placeholder
-          :error-messages="props.errors?.email"
-          @update:model-value="(val:any) => updateField('email', val)"
-        />
-      </VCol>
+     
       <VCol cols="12" md="6">
         <VLabel class="mb-3" for="operator-phone">Téléphone</VLabel>
         <VTextField

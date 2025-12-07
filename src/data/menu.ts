@@ -43,7 +43,7 @@ export default {
       ],
     },
     {
-      name: "Operators",
+      name: "Operateurs",
       icon: "ri-file-user-fill",
       subActivePaths: "/operators",
       permissions: [AppPermissions.Operator.VIEW_OPERATORS],

@@ -179,9 +179,9 @@ onMounted(async () => {
           </td>
           <td class="info-column-">
             <div class="info-name">{{ operators.fullName }}</div>
-            <div class="info-detail">
+            <!-- <div class="info-detail">
               <i class="fa fa-envelope me-1"></i>{{ operators.email }}
-            </div>
+            </div> -->
             <div v-if="operators.phone" class="info-detail">
               <i class="fa fa-phone me-1"></i>{{ operators.phone }}
             </div>

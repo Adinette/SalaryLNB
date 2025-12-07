@@ -160,7 +160,7 @@ onMounted(() => {
 							<h2 class="text-2xl font-bold text-green-700 mb-2 text-center">Informations de l’opérateur</h2>
 							<div class="">
 									<p v-if="operatorSalary.operator_id" class="mb-2">
-										<span class="text-lg font-bold">Nom et Prénoms:</span> {{ getOperatorById(operatorSalary.operator_id)?.first_name }} {{ getOperatorById(operatorSalary.operator_id)?.last_name }}
+										<span class="text-lg font-bold">Nom et Prénoms :</span> {{ getOperatorById(operatorSalary.operator_id)?.first_name }} {{ getOperatorById(operatorSalary.operator_id)?.last_name }}
 									</p>
 									<p v-if="operatorSalary.operator_id"><span class="text-lg font-bold">Téléphone :</span> <span class="text-base font-medium">{{ getOperatorById(operatorSalary.operator_id)?.phone }}</span> </p>
 							</div>

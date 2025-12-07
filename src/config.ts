@@ -4,7 +4,7 @@ import type { TemplateSettingsInterface } from "./stores/interfaces/template_set
 import {appEnv} from "../env";
 
 
-const env = appEnv[EnvEnum.PRODUCTION];
+const env = import.meta.env.DEV ? appEnv[EnvEnum.LOCAL] : appEnv[EnvEnum.PRODUCTION];
 
 const templateSettings: TemplateSettingsInterface = {
 	colorTheme: ColorThemeEnum.Modern,

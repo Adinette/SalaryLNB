@@ -14,9 +14,6 @@ export const useGlobalStore = defineStore(globalStoreDefinition.key, {
 	getters: globalStoreGetters,
 
 	actions: {
-		async initialize(params?: { reset?: boolean }) {
-			return globalStoreActions.initialize(this, params ?? {});
-		},
 		setLoading(loading: boolean) {
 			globalStoreActions.setLoading(this, loading);
 		},
@@ -51,12 +48,7 @@ export const useGlobalStore = defineStore(globalStoreDefinition.key, {
 			globalStoreActions.clearAlerts(this);
 		},
 	},
+	persist: true,
 });
-
-export async function useInitializedGlobalStore(): Promise<ReturnType<typeof useGlobalStore>> {
-	const store = useGlobalStore();
-	if (!store.initialized) await store.initialize();
-	return store;
-}
 
 export type GlobalStore = ReturnType<typeof useGlobalStore>;

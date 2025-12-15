@@ -138,3 +138,16 @@ export class AppStorageService {
 		logger.info("Tous les storages applicatifs ont été vidés");
 	}
 }
+
+
+// export class AppStorageService {
+//   constructor({ name }: { name: string }) {}
+//   computeStorageKey(key: string) { return `debug-${key}`; }
+//   async get<T>(key: string) {
+//     try { const raw = localStorage.getItem(this.computeStorageKey(key)); return raw ? JSON.parse(raw) as T : null; } catch { return null; }
+//   }
+//   async set<T>(key: string, value: T) {
+//     try { localStorage.setItem(this.computeStorageKey(key), JSON.stringify(value)); } catch {}
+//   }
+//   remove(key: string) { localStorage.removeItem(this.computeStorageKey(key)); }
+// }

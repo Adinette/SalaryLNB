@@ -13,6 +13,7 @@ declare global {
   const AppLogger: typeof import('./src/utils/logger')['AppLogger']
   const AppSessionStorage: typeof import('./src/services/AppSessionStorage')['default']
   const AppStorageService: typeof import('./src/services/app_storage_service')['AppStorageService']
+  const AppStorageServiceDebug: typeof import('./src/services/app_storage_service')['AppStorageServiceDebug']
   const AppUtils: typeof import('./src/utils/index')['AppUtils']
   const ApplicationModel: typeof import('./src/modules/applications/models/application_model')['ApplicationModel']
   const DateTime: typeof import('./src/utils/luxon')['DateTime']

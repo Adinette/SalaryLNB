@@ -2,7 +2,7 @@
 import {
   requiredValidator,
 } from "../../../utils/validators";
-import { ref, watch, defineEmits, defineProps } from "vue";
+import { ref, watch } from "vue";
 import type { MachineCreateInterface } from "../interfaces";
 import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 

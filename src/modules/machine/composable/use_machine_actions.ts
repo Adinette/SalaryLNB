@@ -7,6 +7,7 @@ import { useInitializedMachineStore } from "../store";
 import { toast } from "../../../utils/toast";
 import { AppUtils } from "../../../utils";
 import { ApiError } from "../../../api/errors";
+import { useElementStore } from "../../../stores/element";
 
 const logger = createLogger("use_machine_actions");
 
@@ -53,6 +54,8 @@ export const useMachineActions = () => {
   };
 
   const createMachine = async (data: MachineCreateInterface) => {
+    console.log(data, "data in create machine");
+    const elementStore = useElementStore();
     if (!machineStore.value) {
       machineStore.value = await useInitializedMachineStore();
     }
@@ -66,6 +69,7 @@ export const useMachineActions = () => {
       );
       return result;
     }
+    elementStore.addElement(data);
 
     toast.success(`Utilisateur créé avec succès.`);
 

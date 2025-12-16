@@ -1,7 +1,5 @@
-import { globalStoreDefinition } from "../definition";
 import type { AppLocalesEnum } from "../../../locales";
 import { createLogger } from "../../../utils/logger";
-import { createBaseStoreActions } from "../../utils/create_base_store_actions";
 import type { GlobalStore } from "../..";
 import type { LoginInterface } from "../../../modules/authentication/interfaces/login_interface";
 import type { ForgotPasswordInterface } from "../../../modules/authentication/interfaces/forgot_password_interface";
@@ -11,8 +9,6 @@ import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 const logger = createLogger("GlobalStoreActions");
 
 export const globalStoreActions = {
-	...createBaseStoreActions(globalStoreDefinition.service),
-
 	async initialize(store: GlobalStore, { reset = false } = {}) {
 		if (store.initialized && !reset) {
 			return;

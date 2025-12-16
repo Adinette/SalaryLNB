@@ -9,7 +9,7 @@ import type { AppAlertInterface } from "../../interfaces/AppAlertInterface";
 import type { AppLocalesEnum } from "../../locales";
 
 export const useGlobalStore = defineStore(globalStoreDefinition.key, {
-	state: (): GlobalStoreInterface => ({ ...globalStoreDefinition.service.defaults }),
+	state: (): GlobalStoreInterface => ({ ...globalStoreDefinition.defaults }),
 
 	getters: globalStoreGetters,
 

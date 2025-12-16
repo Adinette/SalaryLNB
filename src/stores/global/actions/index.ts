@@ -13,6 +13,16 @@ const logger = createLogger("GlobalStoreActions");
 export const globalStoreActions = {
 	...createBaseStoreActions(globalStoreDefinition.service),
 
+	async initialize(store: GlobalStore, { reset = false } = {}) {
+		if (store.initialized && !reset) {
+			return;
+		}
+		if (reset) {
+			store.$reset();
+		}
+		store.initialized = true;
+	},
+
 	setLocale(store: GlobalStore, locale: AppLocalesEnum): void {
 		logger.info(`[🌍][${store.$id}]: Setting locale to ${locale}`);
 		store.locale = locale;

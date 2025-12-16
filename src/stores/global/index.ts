@@ -1,12 +1,14 @@
 import { defineStore } from "pinia";
 import { globalStoreDefinition } from "./definition";
 import { globalStoreGetters } from "./getters";
-import { globalStoreActions } from "./actions";
 import type { GlobalStoreInterface } from "../interfaces/global_store_interface";
 import type { LoginInterface } from "../../modules/authentication/interfaces/login_interface";
 import type { ForgotPasswordInterface } from "../../modules/authentication/interfaces/forgot_password_interface";
 import type { AppAlertInterface } from "../../interfaces/AppAlertInterface";
 import type { AppLocalesEnum } from "../../locales";
+import { createLogger } from "../../utils/logger";
+
+const logger = createLogger("GlobalStore");
 
 export const useGlobalStore = defineStore(globalStoreDefinition.key, {
 	state: (): GlobalStoreInterface => ({ ...globalStoreDefinition.defaults }),
@@ -14,41 +16,70 @@ export const useGlobalStore = defineStore(globalStoreDefinition.key, {
 	getters: globalStoreGetters,
 
 	actions: {
-		async initialize(params?: { reset?: boolean }) {
-			return globalStoreActions.initialize(this, params ?? {});
+		initialize({ reset = false } = {}) {
+			if (this.initialized && !reset) {
+				return;
+			}
+			if (reset) {
+				this.$reset();
+			}
+			this.initialized = true;
 		},
+
 		setLoading(loading: boolean) {
-			globalStoreActions.setLoading(this, loading);
+			this.loading = loading;
 		},
+
 		setLocale(locale: AppLocalesEnum) {
-			globalStoreActions.setLocale(this, locale);
+			logger.info(`[🌍] Setting locale to ${locale}`);
+			this.locale = locale;
 		},
+
 		async loginAction(payload: LoginInterface) {
-			return globalStoreActions.loginAction(this, payload);
+			logger.info(`[🔐] Logging in with ${payload.credential}`);
+			// La logique de connexion doit être implémentée ici
 		},
+
 		async logoutAction() {
-			return globalStoreActions.logoutAction(this);
+			logger.info(`[🔐] Logging out`);
+			this.session = null;
+			this.loading = false;
 		},
+
 		async forgotPassword(data: ForgotPasswordInterface) {
-			return globalStoreActions.forgotPassword(this, data);
+			logger.info(`[🔐] Forgot password for ${data.credential}`);
+			return {};
 		},
+
 		async resetPasswordChallenge(token: string) {
-			return globalStoreActions.resetPasswordChallenge(this, token);
+			logger.info(`[🔐] Reset password challenge with token ${token}`);
+			return {};
 		},
+
 		async resetPassword(token: string) {
-			return globalStoreActions.resetPassword(this, token);
+			logger.info(`[🔐] Reset password with token ${token}`);
+			return {};
 		},
+
 		setSession(session: GlobalStoreInterface["session"]) {
-			globalStoreActions.setSession(this, session);
+			logger.info(`[🌍] Setting session`);
+			this.session = session;
+			this.loading = false;
 		},
+
 		addAlert(alert: AppAlertInterface) {
-			globalStoreActions.addAlert(this, alert);
+			logger.info(`[🌍] Adding alert`, alert);
+			this.alerts.push(alert);
 		},
+
 		removeAlert(alertId: AppAlertInterface["id"]) {
-			globalStoreActions.removeAlert(this, alertId);
+			logger.info(`[🌍] Removing alert with ID ${alertId}`);
+			this.alerts = this.alerts.filter((alert: any) => alert.id !== alertId);
 		},
+
 		clearAlerts() {
-			globalStoreActions.clearAlerts(this);
+			logger.info(`[🌍] Clearing all alerts`);
+			this.alerts = [];
 		},
 	},
 	persist: true,
@@ -56,7 +87,9 @@ export const useGlobalStore = defineStore(globalStoreDefinition.key, {
 
 export async function useInitializedGlobalStore(): Promise<ReturnType<typeof useGlobalStore>> {
 	const store = useGlobalStore();
-	if (!store.initialized) await store.initialize();
+	if (!store.initialized) {
+		store.initialize();
+	}
 	return store;
 }
 

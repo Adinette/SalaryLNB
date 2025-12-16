@@ -71,7 +71,8 @@ const loginFormRef = ref<FormRef>();
 
     // if (result instanceof SessionModel) {
       // console.log("result après", result);
-      // globalStore.value?.setSession(result);
+      const fakeSession = { user: { id: '123', name: 'Test User' }, token: 'fake-jwt-token' };
+      globalStore.value?.setSession(fakeSession);
       toast.success("Connexion réussie !");
       setTimeout(() => {
         router.push({ name: "operators" });

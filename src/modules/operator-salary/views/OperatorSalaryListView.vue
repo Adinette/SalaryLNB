@@ -128,7 +128,7 @@ onMounted(async () => {
     <template #options>
       <div class="flex justify-end items-center gap-2">
 				<!--Champ de filtre des operateurs-->
-				<VCol cols="4">
+				<VCol cols="4" class="ml-3">
 					<VSelect
 						v-model="operatorIdQuery"
 						:items="operators"

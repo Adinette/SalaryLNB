@@ -30,7 +30,6 @@ const {
   clearSelection,
 } = useSelectableList<MachineModel>(() => machines.value);
 
-const elementStore = useElementStore();
 
 // Configuration de la table 
 const { tableClasses, getStatusBadge, getStatusText, commonHeaders } =
@@ -92,9 +91,7 @@ onMounted(async () => {
       </div>
     </template>
     <template #options>
-			<div class="flex justify-end items-center gap-2">
-				<div>{{ elementStore.getElements }} éléments</div>
-   
+			<div class="flex justify-end items-center gap-2">   
         <!-- Champ de recherche -->
         <!-- <VTextField
           v-model="searchQuery"

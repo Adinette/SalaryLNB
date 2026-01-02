@@ -3,7 +3,7 @@ import { useInitializedOperatorStore, type OperatorStore } from "../store";
 
 
 export class OperatorRoute extends ApiRoute {
-  static name = "operators";
+  static name = "operator";
 
   get store(): Promise<OperatorStore> {
     return useInitializedOperatorStore();

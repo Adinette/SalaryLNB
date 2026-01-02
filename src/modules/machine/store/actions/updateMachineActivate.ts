@@ -17,7 +17,7 @@ export async function updateMachineActivate(
   }: { elementId: MachineInterface["id"]; mock?: boolean }
 ) {
   const apiRoute = new MachineActivateUpdateRoute({ elementId });
-  const result = mock ? await apiRoute.mock() : await apiRoute.request();
+  const result = mock ? await apiRoute.request() : await apiRoute.request();
   if (result instanceof ApiError) return result;
   return result;
 }

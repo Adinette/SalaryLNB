@@ -19,7 +19,7 @@ export async function updateMachineDeactivate(
   const apiRoute = new MachineDeactivateUpdateRoute({ elementId });
   console.log(apiRoute);
 
-  const result = mock ? await apiRoute.mock() : await apiRoute.request();
+  const result = mock ? await apiRoute.request() : await apiRoute.request();
   if (result instanceof ApiError) return result;
   return result;
 }

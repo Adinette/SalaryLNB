@@ -14,7 +14,7 @@ export default class AppLocalStorage {
 	/**
 	 * Prefix used for all stored keys to prevent collision with other apps.
 	 */
-	private static readonly PREFIX = "sahges-eval-";
+	private static readonly PREFIX = "salary-lnb";
 
 	/**
 	 * Key for storing persistent authentication token.

@@ -3,7 +3,7 @@ import { useInitializedOperatorSalaryStore, type OperatorSalaryStore } from "../
 
 
 export class OperatorSalaryRoute extends ApiRoute {
-  static name = "operatorSalary";
+  static name = "operator-salary";
 
   get store(): Promise<OperatorSalaryStore> {
     return useInitializedOperatorSalaryStore();

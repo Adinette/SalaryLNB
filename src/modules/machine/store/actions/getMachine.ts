@@ -12,7 +12,7 @@ import { MachineListRoute } from "../../apis/machine_list_route";
  */
 export async function getMachines(store: MachineStore, { args }: { args?: ListApiArgsInterface } = {}) {
 	const apiRoute = new MachineListRoute(args);
-	const result = await apiRoute.mock();
+	const result = await apiRoute.request();
 
 	if (result instanceof ApiError) return result;
 

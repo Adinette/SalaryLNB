@@ -14,7 +14,7 @@ export async function deleteUser(
 	{ elementId }: { elementId: UserInterface["id"] }
 ) {
 	const apiRoute = new UserDeleteRoute(elementId);
-	const result = await apiRoute.mock();
+	const result = await apiRoute.request();
 	if (result instanceof ApiError) return result;
 	return result;
 }

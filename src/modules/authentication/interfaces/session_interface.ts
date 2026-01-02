@@ -5,4 +5,6 @@ export interface SessionInterface {
   token: string;
   user: UserInterface;
   role?: RoleInterface;
+      access_token?: string;
+
 }

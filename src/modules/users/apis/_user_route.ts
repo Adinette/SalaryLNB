@@ -2,7 +2,7 @@ import { ApiRoute } from "../../../api/routes/api_route";
 import { useInitializedUserStore, type UserStore } from "../store";
 
 export class UserRoute extends ApiRoute {
-  static name = "users";
+  static name = "user";
 
   get store(): Promise<UserStore> {
     return useInitializedUserStore();

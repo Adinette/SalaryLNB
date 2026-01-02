@@ -14,7 +14,7 @@ export async function deleteMachine(
 	{ elementId }: { elementId: MachineInterface["id"] }
 ) {
 	const apiRoute = new MachineDeleteRoute(elementId);
-	const result = await apiRoute.mock();
+	const result = await apiRoute.request();
 	if (result instanceof ApiError) return result;
 	return result;
 }

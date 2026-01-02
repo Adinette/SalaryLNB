@@ -10,6 +10,9 @@ import router from "../../../../router";
 import {
   requiredValidator,
 } from "../../../../utils/validators";
+import LoginRoute from "../../apis/login_route";
+import SessionModel from "../models/session_model";
+import { ApiError, UnauthorizedApiError, UnprocessableEntityApiError } from "../../../../api/errors";
 
 
 interface FormRef {
@@ -25,13 +28,13 @@ const loginFormRef = ref<FormRef>();
 	const loading = ref(false);
 
 	const form = ref<LoginInterface>({
-		credential: "",
+		email: "",
 		password: "",
 		// remember_me: false,
 	});
 
 	const fieldsErrors = ref<{ [key in keyof LoginInterface]: string[] }>({
-		credential: [],
+		email: [],
 		password: [],
 	});
 
@@ -46,12 +49,12 @@ const loginFormRef = ref<FormRef>();
   AppUtils.logger.info("Submitting login form", form.value);
 
   // ✅ Validation manuelle
-  if (!form.value.credential) {
-    fieldsErrors.value.credential = ["L'email ou identifiant est requis"];
+  if (!form.value.email) {
+    fieldsErrors.value.email = ["L'email ou identifiant est requis"];
     loading.value = false;
     return;
   } else {
-    fieldsErrors.value.credential = [];
+    fieldsErrors.value.email = [];
   }
 
   if (!form.value.password) {
@@ -62,37 +65,36 @@ const loginFormRef = ref<FormRef>();
     fieldsErrors.value.password = [];
   }
 
-  try {
-    console.log("VALID => continue dans le try");
-    console.log("result avant", form.value);
+ try {
+    const route = new LoginRoute(form.value);
+    const result = await route.request();
+    
+    console.log(result, "<--- result");
 
-    // const route = new LoginRoute(form.value);
-    // const result = await route.request();
+    // ON FORCE LA REDIRECTION SI PAS D'ERREUR D'API
+    if (!(result instanceof ApiError)) {
+        toast.success("Connexion réussie !");
+        
+        // On utilise window.location pour BYPASSER totalement le router Vue 
+        // et voir si la page 'operators' est accessible
+        window.location.href = "/operators"; 
+        return;
+    }
 
-    // if (result instanceof SessionModel) {
-      // console.log("result après", result);
-      // globalStore.value?.setSession(result);
-      toast.success("Connexion réussie !");
-      setTimeout(() => {
-        router.push({ name: "operators" });
-      }, 2000);
-      return;
-    // }
-
-    // if (result instanceof UnprocessableEntityApiError) {
-    //   fieldsErrors.value.credential = result.data.credential ?? [];
-    //   fieldsErrors.value.password = result.data.password ?? [];
-    // } else if (
-    //   result instanceof UnauthorizedApiError ||
-    //   result instanceof ApiError
-    // ) {
-    //   alert.value = {
-    //     type: "danger",
-    //     id: faker.string.uuid(),
-    //     title: "Erreur",
-    //     message: result.message,
-    //   };
-    // }
+    if (result instanceof UnprocessableEntityApiError) {
+      fieldsErrors.value.email = result.data.email ?? [];
+      fieldsErrors.value.password = result.data.password ?? [];
+    } else if (
+      result instanceof UnauthorizedApiError ||
+      result instanceof ApiError
+    ) {
+      alert.value = {
+        type: "danger",
+        id: faker.string.uuid(),
+        title: "Erreur",
+        message: result.message,
+      };
+    }
   } catch (error) {
     console.error("Erreur inattendue pendant la connexion:", error);
     alert.value = {
@@ -131,14 +133,14 @@ const loginFormRef = ref<FormRef>();
 						<VLabel class="mb-2" for="email">Email</VLabel>
 						<VTextField
 						id="email"
-						v-model="form.credential"
+						v-model="form.email"
 						placeholder="Example@gmail.com"
 						:rules="[requiredValidator]"
 						variant="filled"
 						density="compact"
 						prepend-inner-icon="fa fa-envelope"
 						persistent-placeholder
-						:error-messages="fieldsErrors.credential"
+						:error-messages="fieldsErrors.email"
 					/>
 			</VCol>
 			<VCol cols="12">

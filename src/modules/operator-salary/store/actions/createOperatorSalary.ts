@@ -8,7 +8,7 @@ export async function createOperatorSalary(
 	_store: OperatorSalaryStore, 
 	{ data, }: { data: OperatorSalaryCreateInterface }) {
 	const apiRoute = new OperatorSalaryCreateRoute(data);
-	const result = await apiRoute.mock();
+	const result = await apiRoute.request();
 	if (result instanceof ApiError) return result;
 	return result;
 }

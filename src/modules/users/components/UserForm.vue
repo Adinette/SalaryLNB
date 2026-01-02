@@ -4,7 +4,7 @@ import {
   emailValidator,
   phoneValidator,
 } from "../../../utils/validators";
-import { ref, watch, defineEmits, defineProps } from "vue";
+import { ref, watch } from "vue";
 import type { UserCreateInterface } from "../interfaces/user_create_interface";
 import type { AppAlertInterface } from "../../../interfaces/AppAlertInterface";
 

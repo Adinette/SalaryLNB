@@ -46,6 +46,7 @@ declare module 'vue' {
     ThemeSwitcher: typeof import('./src/components/ThemeSwitcher.vue')['default']
     ThemeSwitcher2: typeof import('./src/components/ThemeSwitcher2.vue')['default']
     Tooltip: typeof import('./src/components/Tooltip.vue')['default']
+    UserActivationForm: typeof import('./src/modules/authentication/components/UserActivationForm.vue')['default']
     UserAddView: typeof import('./src/modules/users/views/UserAddView.vue')['default']
     UserEditView: typeof import('./src/modules/users/views/UserEditView.vue')['default']
     UserForm: typeof import('./src/modules/users/components/UserForm.vue')['default']

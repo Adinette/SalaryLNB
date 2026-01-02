@@ -12,7 +12,7 @@ import type { OperatorSalaryStore } from "..";
  */
 export async function getOperatorSalary(store: OperatorSalaryStore, { args }: { args?: ListApiArgsInterface } = {}) {
 	const apiRoute = new OperatorSalaryListRoute(args);
-	const result = await apiRoute.mock();
+	const result = await apiRoute.request();
 
 	if (result instanceof ApiError) return result;
 

@@ -14,7 +14,7 @@ export async function updateMachine(
 	{ elementId, data }: { elementId: MachineInterface["id"]; data: MachineUpdateInterface }
 ) {
 	const apiRoute = new MachineUpdateRoute(elementId, data);
-	const result = await apiRoute.mock();
+	const result = await apiRoute.request();
 	if (result instanceof ApiError) return result;
 	return result;
 }

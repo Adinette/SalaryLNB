@@ -7,7 +7,7 @@ const logger = createLogger("AppIndexedDBStorage");
 
 const DB_NAME = config.env.apiUrl;
 const STORE_NAME = "secure";
-const PREFIX = "sahges-eval-";
+const PREFIX = "salary-lnb";
 const ENCRYPTED_FLAG = "__ENCRYPTED__:";
 
 let dbPromise: Promise<IDBPDatabase>;

@@ -19,6 +19,7 @@ updateOperatorActivateOrDeactivate,
 
 const {
   machines,
+	getMachines,
 } = useMachineActions();
 
 const router = useRouter();
@@ -82,6 +83,7 @@ const refreshOperators = async () => {
 
 onMounted(async () => {
   await getOperators();
+	await getMachines();
 });
 </script>
 

@@ -17,7 +17,7 @@ export async function getUsers(
   { args }: { args?: ListApiArgsInterface } = {}
 ): Promise<UserModel[]> {
   const apiRoute = new UserListRoute(args);
-  const result = await apiRoute.mock();
+  const result = await apiRoute.request();
 
   if (result instanceof ApiError) {
     // logguer ici si tu veux

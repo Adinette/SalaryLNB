@@ -185,6 +185,7 @@ onMounted(() => {
 					variant="filled"
 					density="compact"
 					:rules="[requiredValidator]"
+					return-object
 					:error-messages="props.errors?.operator_id"
 					@update:model-value="(val: any) => updateField('operator_id', val)"
 				/>

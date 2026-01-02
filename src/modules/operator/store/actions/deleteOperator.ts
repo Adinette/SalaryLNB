@@ -14,7 +14,7 @@ export async function deleteOperator(
 	{ elementId }: { elementId: OperatorInterface["id"] }
 ) {
 	const apiRoute = new OperatorDeleteRoute(elementId);
-	const result = await apiRoute.mock();
+	const result = await apiRoute.request();
 	if (result instanceof ApiError) return result;
 	return result;
 }

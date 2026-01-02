@@ -18,16 +18,16 @@ export const globalStoreActions = {
 		store.locale = locale;
 	},
 
-	async loginAction(store: GlobalStore, { credential }: LoginInterface) {
-		logger.info(`[🔐][${store.$id}]: Logging in with ${credential}`);
+	async loginAction(store: GlobalStore, { email }: LoginInterface) {
+		logger.info(`[🔐][${store.$id}]: Logging in with ${email}`);
 		// login logic here
 	},
 
-	async logoutAction(store: GlobalStore) {
-		logger.info(`[🔐][${store.$id}]: Logging out`);
-		store.session = null;
-		store.loading = false;
-	},
+	// async logoutAction(store: GlobalStore) {
+	// 	logger.info(`[🔐][${store.$id}]: Logging out`);
+	// 	store.session = null;
+	// 	store.loading = false;
+	// },
 
 	async forgotPassword(
 		store: GlobalStore,
@@ -51,10 +51,25 @@ export const globalStoreActions = {
 	},
 
 	setSession(store: GlobalStore, session: GlobalStoreInterface["session"]): void {
-		logger.info(`[🌍][${store.$id}]: Setting session`);
-		store.session = session;
-		store.loading = false;
-	},
+        logger.info(`[🌍][${store.$id}]: Setting session`);
+        store.session = session;
+        
+        // 💾 PERSISTANCE : On sauvegarde le token pour que le Guard le retrouve
+        if (session && session.access_token) {
+            localStorage.setItem("user_token", session.access_token);
+        }
+        
+        store.loading = false;
+    },
+
+    async logoutAction(store: GlobalStore) {
+        logger.info(`[🔐][${store.$id}]: Logging out`);
+        store.session = null;
+        store.loading = false;
+        
+        // 🗑️ NETTOYAGE : On supprime le token
+        localStorage.removeItem("user_token");
+    },
 	addAlert(store: GlobalStore, alert: AppAlertInterface): void {
 		logger.info(`[🌍][${store.$id}]: Adding alert`, alert);
 		store.alerts.push(alert);

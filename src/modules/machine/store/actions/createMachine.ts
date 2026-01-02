@@ -7,7 +7,7 @@ import type { MachineStore } from "..";
 
 export async function createMachine(_store: MachineStore, { data }: { data: MachineCreateInterface }) {
 	const apiRoute = new MachineCreateRoute(data);
-	const result = await apiRoute.mock();
+	const result = await apiRoute.request();
 	if (result instanceof ApiError) return result;
 	return result;
 }

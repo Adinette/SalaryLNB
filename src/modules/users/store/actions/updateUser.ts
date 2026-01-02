@@ -15,7 +15,7 @@ export async function updateUser(
 	{ elementId, data }: { elementId: UserInterface["id"]; data: UserUpdateInterface }
 ) {
 	const apiRoute = new UserUpdateRoute(elementId, data);
-	const result = await apiRoute.mock();
+	const result = await apiRoute.request();
 	if (result instanceof ApiError) return result;
 	return result;
 }

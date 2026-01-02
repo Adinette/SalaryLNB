@@ -425,6 +425,9 @@ declare global {
   export type { ApplicationStoreInterface } from './src/modules/applications/interfaces/application_store_interface'
   import('./src/modules/applications/interfaces/application_store_interface')
   // @ts-ignore
+  export type { ActivateInterface } from './src/modules/authentication/interfaces/activate_interface'
+  import('./src/modules/authentication/interfaces/activate_interface')
+  // @ts-ignore
   export type { ForgotPasswordInterface } from './src/modules/authentication/interfaces/forgot_password_interface'
   import('./src/modules/authentication/interfaces/forgot_password_interface')
   // @ts-ignore

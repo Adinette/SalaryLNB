@@ -1,319 +1,205 @@
 <script setup lang="ts">
-	import { ref, onMounted, onUnmounted } from "vue";
-	import { useRouter } from "vue-router";
-	import { useTemplateStore } from "../../stores/template";
-
-	// const { formatInitials } = useFormatting();
-
-	// Grab example data
-	// import { UserModel } from "../../modules/users/models/user_model";
-	// import { useFormatting } from "../../composables/useFormatting";
-	import { useCurrentSession } from "../../composables/useCurrentSession";
+import { ref, onMounted, onUnmounted } from "vue";
+import { useRouter } from "vue-router";
+import { useTemplateStore } from "../../stores/template";
+import { useCurrentSession } from "../../composables/useCurrentSession";
 import { useInitializedGlobalStore, type GlobalStore } from "../../stores";
 
-	// Main store and Router
-	const store = useTemplateStore();
-	const router = useRouter();
-	const { handleLogout } = useCurrentSession();
+// --- Configuration & Stores ---
+const store = useTemplateStore();
+const router = useRouter();
+const { handleLogout } = useCurrentSession();
+const globalStore = ref<GlobalStore | null>(null);
 
-	const globalStore = ref<GlobalStore | null>(null);
+// --- États Réactifs (UI) ---
+const baseSearchTerm = ref("");
+const isUserDropdownOpen = ref(false);
+const isThemeDropdownOpen = ref(false);
 
-	// const currentSession = computed(() => {
-	// 	return globalStore.value?.currentSession || null;
-	// });
+// --- Logique de Recherche ---
+function onSubmitSearch() {
+  router.push("/backend/pages/generic/search?" + baseSearchTerm.value);
+}
 
-	// const currentEmployee = computed(() => {
-	// 	return currentSession.value?.user ? new UserModel(currentSession.value.user) : null;
-	// });
+function eventHeaderSearch(event: KeyboardEvent) {
+  if (event.key === "Escape") { // Utilisation de .key (plus moderne que .which)
+    event.preventDefault();
+    store.headerSearch({ mode: "off" });
+  }
+}
 
-	// const currentUser = computed(() => {
-	// 	return currentSession.value?.user ? new UserModel(currentSession.value.user) : null;
-	// });
+// --- Logique des Dropdowns ---
+const toggleUserDropdown = () => isUserDropdownOpen.value = !isUserDropdownOpen.value;
+const toggleThemeDropdown = () => isThemeDropdownOpen.value = !isThemeDropdownOpen.value;
 
-	// const defaultAvatar = "/assets/media/avatars/avatar10.jpg";
+function selectTheme(mode: 'light' | 'dark' | 'system') {
+  const darkModeValue = mode === 'dark' ? 'on' : mode === 'light' ? 'off' : 'system';
+  store.darkMode({ mode: darkModeValue });
+  isThemeDropdownOpen.value = false;
+}
 
-	// Reactive variables
-	const baseSearchTerm = ref("");
+// Fermeture intelligente des menus au clic extérieur
+function handleClickOutside(e: MouseEvent) {
+  const target = e.target as HTMLElement;
+  
+  if (!target.closest('#page-header-user-dropdown-container')) {
+    isUserDropdownOpen.value = false;
+  }
+  if (!target.closest('#theme-dropdown-container')) {
+    isThemeDropdownOpen.value = false;
+  }
+}
 
-	// On form search submit functionality
-	function onSubmitSearch() {
-		router.push("/backend/pages/generic/search?" + baseSearchTerm.value);
-	}
+// --- Cycle de vie ---
+onMounted(async () => {
+  document.addEventListener("keydown", eventHeaderSearch);
+  document.addEventListener("click", handleClickOutside);
+  globalStore.value = await useInitializedGlobalStore();
+});
 
-	// When ESCAPE key is hit close the header search section
-	function eventHeaderSearch(event: KeyboardEvent) {
-		if (event.which === 27) {
-			event.preventDefault();
-			store.headerSearch({ mode: "off" });
-		}
-	}
-
-	// Attach ESCAPE key event listener
-	onMounted(async () => {
-		document.addEventListener("keydown", eventHeaderSearch);
-		globalStore.value = await useInitializedGlobalStore();
-	});
-
-	// Remove keydown event listener
-	onUnmounted(() => {
-		document.removeEventListener("keydown", eventHeaderSearch);
-	});
+onUnmounted(() => {
+  document.removeEventListener("keydown", eventHeaderSearch);
+  document.removeEventListener("click", handleClickOutside);
+});
 </script>
 
 <template>
-	<!-- Header -->
-	<header id="page-header">
-		<slot>
-			<!-- Header Content -->
-			<div class="content-header bg-white">
-				<slot name="content">
-					<!-- Left Section -->
-					<div class="d-flex align-items-center">
-						<slot name="content-left">
-							<!-- Toggle Sidebar -->
-							<button
-								type="button"
-								class="btn btn-sm btn-alt-secondary me-2 d-lg-none"
-								@click="store.sidebar({ mode: 'toggle' })"
-							>
-								<i class="fa fa-fw fa-bars"></i>
-							</button>
-							<!-- END Toggle Sidebar -->
-
-							<!-- Open Search Section (visible on smaller screens) -->
-							<button
-								type="button"
-								class="btn btn-sm btn-alt-secondary d-md-none"
-								@click="store.headerSearch({ mode: 'on' })"
-							>
-								<i class="fa fa-fw fa-search"></i>
-							</button>
-							<!-- END Open Search Section -->
-
-							<!-- Search Form (visible on larger screens) -->
-							<form class="d-none d-md-inline-block" @submit.prevent="onSubmitSearch">
-								<div class="input-group input-group-sm">
-									<input
-										type="text"
-										class="form-control form-control-alt"
-										placeholder="Search.."
-										id="page-header-search-input2"
-										name="page-header-search-input2"
-										v-model="baseSearchTerm"
-									/>
-									<span class="input-group-text border-0">
-										<i class="fa fa-fw fa-search"></i>
-									</span>
-								</div>
-							</form>
-							<!-- END Search Form -->
-						</slot>
-					</div>
-					<!-- END Left Section -->
-
-					<!-- Right Section -->
-					<div class="d-flex align-items-center">
-						<slot name="content-right">
-						<span class="fs-xs fw-semibold d-inline-block py-1 px-3 bg-success-light text-success rounded-md">Administration</span>
-
-							<!-- User Dropdown -->
-							<div class="dropdown d-inline-block ms-2">
-								<button
-									type="button"
-									class="btn btn-sm btn-alt-secondary d-flex align-items-center"
-									id="page-header-user-dropdown"
-									data-bs-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-								>
-								<img src="/assets/media/avatars/avatar10.jpg" alt="avatar" class="rounded-circle" style="width: 24px; height: 24px;">
-									<!-- <VAvatar
-									size="x-small"
-									color="primary"
-									:image="defaultAvatar"
-								>
-										{{ formatInitials(currentUser?.fullName || 'XX') }}
-								</VAvatar> -->
-
-									<!-- <span class="d-none d-sm-inline-block ms-2">{{
-										currentUser?.first_name || "..."
-									}}</span>
-									<i
-										class="fa fa-fw fa-angle-down d-none d-sm-inline-block opacity-50 ms-1 mt-1"
-									></i> -->
-								</button>
-								<div
-									class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0"
-									aria-labelledby="page-header-user-dropdown"
-								>
-									<div class="p-3 text-center bg-body-light border-bottom rounded-top">
-										<img src="/assets/media/avatars/avatar10.jpg" alt="avatar" class="rounded-circle" style="width: 24px; height: 24px;">
-										<!-- <p class="mt-2 mb-0 fw-medium">
-											{{ currentUser?.fullName || "..." }}
-										</p> -->
-									</div>
-									<!-- div class="p-2">
-										<a
-											class="dropdown-item d-flex align-items-center justify-content-between"
-											href="javascript:void(0)"
-										>
-											<span class="fs-sm fw-medium">Boîte de réception</span>
-											<span class="badge rounded-pill bg-primary ms-2">3</span>
-										</a>
-										<RouterLink
-											:to="{ name: appRoutes.dashboard }"
-											class="dropdown-item d-flex align-items-center justify-content-between"
-										>
-											<span class="fs-sm fw-medium">Profil</span>
-											<span class="badge rounded-pill bg-primary ms-2">1</span>
-										</RouterLink>
-										<a
-											class="dropdown-item d-flex align-items-center justify-content-between"
-											href="javascript:void(0)"
-										>
-											<span class="fs-sm fw-medium">Paramètres</span>
-										</a>
-									</!-->
-									<div role="separator" class="dropdown-divider m-0"></div>
-									<div class="p-2">
-										<!-- RouterLink
-											:to="{ name: appRoutes.dashboard }"
-											class="dropdown-item d-flex align-items-center justify-content-between"
-										>
-											<span class="fs-sm fw-medium">Verrouiller le compte</span>
-										</!-->
-										<RouterLink
-											:to="{}"
-											@click.prevent="handleLogout"
-											class="dropdown-item d-flex align-items-center justify-content-between"
-										>
-											<span class="fs-sm fw-medium">Déconnexion</span>
-										</RouterLink>
-									</div>
-								</div>
-							</div>
-							<!-- END User Dropdown -->
-
-							<!-- Notifications Dropdown -->
-							<!-- div class="dropdown d-inline-block ms-2">
-								<button
-									type="button"
-									class="btn btn-sm btn-alt-secondary space-x-1"
-									id="page-header-notifications-dropdown"
-									data-bs-toggle="dropdown"
-									aria-haspopup="true"
-									aria-expanded="false"
-								>
-									<i class="fa fa-fw fa-bell"></i>
-									<span v-if="notifications.length > 0" class="text-primary">•</span>
-								</button>
-								<div
-									class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0 border-0 fs-sm"
-									aria-labelledby="page-header-notifications-dropdown"
-								>
-									<div class="p-2 bg-body-light border-bottom text-center rounded-top">
-										<h5 class="dropdown-header text-uppercase">Notifications</h5>
-									</div>
-									<ul class="nav-items mb-0">
-										<li
-											v-for="(notification, index) in notifications"
-											:key="`notification-${index}`"
-										>
-											<a class="text-dark d-flex py-2" :href="`${notification.href}`">
-												<div class="flex-shrink-0 me-2 ms-3">
-													<i :class="`${notification.icon}`"></i>
-												</div>
-												<div class="flex-grow-1 pe-2">
-													<div class="fw-semibold">
-														{{ notification.title }}
-													</div>
-													<span class="fw-medium text-muted">
-														{{ notification.time }}
-													</span>
-												</div>
-											</a>
-										</li>
-										<li v-if="!notifications.length" class="p-2">
-											<div
-												class="alert alert-light d-flex align-items-center space-x-2 mb-0"
-												role="alert"
-											>
-												<i class="fa fa-exclamation-triangle opacity-50"></i>
-												<p class="mb-0">No new ones!</p>
-											</div>
-										</li>
-									</ul>
-									<div v-if="notifications.length > 0" class="p-2 border-top text-center">
-										<a class="d-inline-block fw-medium" href="javascript:void(0)">
-											<i class="fa fa-fw fa-arrow-down me-1 opacity-50"></i>
-											Load More..
-										</a>
-									</div>
-								</div>
-							</!-->
-							<!-- END Notifications Dropdown -->
-
-							<!-- Toggle Side Overlay -->
-							<!-- <button
+  <header id="page-header">
+    <slot>
+      <div class="content-header bg-white">
+        <slot name="content">
+          
+          <div class="d-flex align-items-center">
+            <slot name="content-left">
+              <button
                 type="button"
-                class="btn btn-sm btn-alt-secondary ms-2"
-                @click="store.sideOverlay({ mode: 'toggle' })"
+                class="btn btn-sm btn-alt-secondary me-2 d-lg-none"
+                @click="store.sidebar({ mode: 'toggle' })"
               >
-                <i class="fa fa-fw fa-list-ul fa-flip-horizontal"></i>
-              </button> -->
-							<!-- END Toggle Side Overlay -->
-						</slot>
-					</div>
-					<!-- END Right Section -->
-				</slot>
-			</div>
-			<!-- END Header Content -->
+                <i class="fa fa-fw fa-bars"></i>
+              </button>
 
-			<!-- Header Search -->
-			<div
-				id="page-header-search"
-				class="overlay-header bg-body-extra-light"
-				:class="{ show: store.settings.headerSearch }"
-			>
-				<div class="content-header">
-					<form class="w-100" @submit.prevent="onSubmitSearch">
-						<div class="input-group">
-							<button
-								type="button"
-								class="btn btn-alt-danger"
-								@click="store.headerSearch({ mode: 'off' })"
-							>
-								<i class="fa fa-fw fa-times-circle"></i>
-							</button>
-							<input
-								type="text"
-								class="form-control"
-								placeholder="Search or hit ESC.."
-								id="page-header-search-input"
-								name="page-header-search-input"
-								v-model="baseSearchTerm"
-							/>
-						</div>
-					</form>
-				</div>
-			</div>
-			<!-- END Header Search -->
+              <div id="theme-dropdown-container" class="dropdown d-inline-block" style="position: relative;">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-alt-secondary"
+                  @click="toggleThemeDropdown"
+                  :aria-expanded="isThemeDropdownOpen"
+                >
+                  <i class="fa fa-fw fa-desktop text-primary"></i>
+                </button>
 
-			<!-- Header Loader -->
-			<div
-				id="page-header-loader"
-				class="overlay-header bg-body-extra-light"
-				:class="{ show: store.settings.headerLoader }"
-			>
-				<div class="content-header">
-					<div class="w-100 text-center">
-						<i class="fa fa-fw fa-circle-notch fa-spin"></i>
-					</div>
-				</div>
-			</div>
-			<!-- END Header Loader -->
-		</slot>
-	</header>
-	<!-- END Header -->
+                <div
+                  class="dropdown-menu dropdown-menu-md p-0 border-0"
+                  :class="{ 'show': isThemeDropdownOpen }"
+                  style="position: absolute; left: 0; top: 100%; margin-top: 10px;"
+                >
+                  <div class="p-2">
+                    <button class="dropdown-item d-flex align-items-center justify-content-between" @click="selectTheme('light')">
+                      <span class="fs-sm fw-medium">Mode Clair</span>
+                      <i class="fa fa-sun opacity-50"></i>
+                    </button>
+                    <button class="dropdown-item d-flex align-items-center justify-content-between" @click="selectTheme('dark')">
+                      <span class="fs-sm fw-medium">Mode Sombre</span>
+                      <i class="fa fa-moon opacity-50"></i>
+                    </button>
+                    <div role="separator" class="dropdown-divider"></div>
+                    <button class="dropdown-item d-flex align-items-center justify-content-between" @click="selectTheme('system')">
+                      <span class="fs-sm fw-medium">Système</span>
+                      <i class="fa fa-display opacity-50"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <form class="d-none d-md-inline-block ms-2" @submit.prevent="onSubmitSearch">
+                <div class="input-group input-group-sm">
+                  <input
+                    type="text"
+                    class="form-control form-control-alt"
+                    placeholder="Rechercher.."
+                    v-model="baseSearchTerm"
+                  />
+                  <span class="input-group-text border-0">
+                    <i class="fa fa-fw fa-search"></i>
+                  </span>
+                </div>
+              </form>
+            </slot>
+          </div>
+
+          <div class="d-flex align-items-center">
+            <slot name="content-right">
+              <span class="fs-xs fw-semibold d-inline-block py-1 px-3 bg-success-light text-success rounded-md d-none d-sm-inline-block">
+                Administration
+              </span>
+
+              <div id="page-header-user-dropdown-container" class="dropdown d-inline-block ms-2">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-alt-secondary d-flex align-items-center"
+                  @click="toggleUserDropdown"
+                  :aria-expanded="isUserDropdownOpen"
+                >
+                  <img src="/assets/media/avatars/avatar10.jpg" alt="avatar" class="rounded-circle" style="width: 24px; height: 24px;">
+                  <i class="fa fa-fw fa-angle-down d-none d-sm-inline-block opacity-50 ms-1 mt-1"></i>
+                </button>
+
+                <div
+                  class="dropdown-menu dropdown-menu-md dropdown-menu-end p-0 border-0"
+                  :class="{ 'show': isUserDropdownOpen }"
+                  style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(0px, 38px);"
+                >
+                  <div class="p-3 text-center bg-body-light border-bottom rounded-top">
+                    <img src="/assets/media/avatars/avatar10.jpg" alt="avatar" class="rounded-circle" style="width: 48px; height: 48px;">
+                    <p class="mt-2 mb-0 fw-medium">
+                      {{ globalStore?.session?.user?.first_name || 'Utilisateur' }}
+                    </p>
+                    <p class="mb-0 text-muted fs-sm fw-medium">Administrateur</p>
+                  </div>
+                  <div class="p-2">
+                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                      <span class="fs-sm fw-medium">Profil</span>
+                      <i class="fa fa-user-circle opacity-50"></i>
+                    </a>
+                    <div role="separator" class="dropdown-divider m-0"></div>
+                    <RouterLink
+                      :to="{}"
+                      @click.prevent="handleLogout"
+                      class="dropdown-item d-flex align-items-center justify-content-between text-danger"
+                    >
+                      <span class="fs-sm fw-medium">Déconnexion</span>
+                      <i class="fa fa-sign-out-alt opacity-50"></i>
+                    </RouterLink>
+                  </div>
+                </div>
+              </div>
+            </slot>
+          </div>
+
+        </slot>
+      </div>
+
+      <div id="page-header-search" class="overlay-header bg-body-extra-light" :class="{ show: store.settings.headerSearch }">
+        <div class="content-header">
+          <form class="w-100" @submit.prevent="onSubmitSearch">
+            <div class="input-group">
+              <button type="button" class="btn btn-alt-danger" @click="store.headerSearch({ mode: 'off' })">
+                <i class="fa fa-fw fa-times-circle"></i>
+              </button>
+              <input type="text" class="form-control" placeholder="Rechercher ou ESC.." v-model="baseSearchTerm" />
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="page-header-loader" class="overlay-header bg-body-extra-light" :class="{ show: store.settings.headerLoader }">
+        <div class="content-header">
+          <div class="w-100 text-center">
+            <i class="fa fa-fw fa-circle-notch fa-spin text-primary"></i>
+          </div>
+        </div>
+      </div>
+    </slot>
+  </header>
 </template>
-

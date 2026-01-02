@@ -14,7 +14,7 @@ export async function updateOperator(
 	{ elementId, data }: { elementId: OperatorInterface["id"]; data: OperatorUpdateInterface }
 ) {
 	const apiRoute = new OperatorUpdateRoute(elementId, data);
-	const result = await apiRoute.mock();
+	const result = await apiRoute.request();
 	if (result instanceof ApiError) return result;
 	return result;
 }

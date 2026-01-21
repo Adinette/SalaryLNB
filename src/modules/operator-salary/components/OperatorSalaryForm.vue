@@ -125,19 +125,31 @@ async function onSubmit() {
   const valid = await formRef.value?.validate();
   if (!valid?.valid) return;
 
-  const payload = {
-    chiffreAffaireMensuelttc: localForm.value.chiffreAffaireMensuelttc,
-    percentCommissionBrute: localForm.value.percentCommissionBrute,
-    dette: localForm.value.dette,
-    remboursement: localForm.value.remboursement,
-    ecart: localForm.value.ecart,
-    percentFraisMomo: localForm.value.percentFraisMomo,
-    payement: localForm.value.payement,
-    totalPrelevements: totalPrelevements.value,
-    salaireBrut: salaireBrut.value,
-    date: localForm.value.date,
-    operator_id: localForm.value.operator_id,
-  };
+ const payload = {
+  operator_id: localForm.value.operator_id,
+  date: localForm.value.date,
+
+  chiffreAffaireMensuelttc: localForm.value.chiffreAffaireMensuelttc,
+  chiffreAffaireHorsTaxe: chiffreAffaireHorsTaxe.value,
+
+  percentCommissionBrute: localForm.value.percentCommissionBrute,
+  commissionBrute: commissionBrute.value,
+
+  fel,
+  aib: aib.value,
+  penalite: penalite.value,
+  dette: localForm.value.dette,
+  remboursement: localForm.value.remboursement,
+  ecart: localForm.value.ecart,
+
+  percentFraisMomo: localForm.value.percentFraisMomo,
+  calculatedFraisMomo: calculatedFraisMomo.value,
+  payement: localForm.value.payement,
+
+  totalPrelevements: totalPrelevements.value,
+  salaireBrut: salaireBrut.value,
+};
+
 
   emit("submit", payload);
 }
@@ -179,19 +191,18 @@ onMounted(() => {
             >Sélection de l'opérateur</VLabel
           >
           <VAutocomplete
-					id="operator-select"
-					:items="formattedOperators"
-					item-title="label"
-					item-value="id"
-					v-model="localForm.operator_id"
-					placeholder="Sélectionnez l'opérateur"
-					variant="filled"
-					density="compact"
-					:rules="[requiredValidator]"
-					return-object
-					:error-messages="props.errors?.operator_id"
-					@update:model-value="(val: any) => updateField('operator_id', val)"
-				/>
+  id="operator-select"
+  :items="formattedOperators"
+  item-title="label"
+  item-value="id"
+  v-model="localForm.operator_id"
+  placeholder="Sélectionnez l'opérateur"
+  variant="filled"
+  density="compact"
+  :rules="[requiredValidator]"
+  :error-messages="props.errors?.operator_id"
+/>
+
         </VCardText>
       </VCard>
     </div>

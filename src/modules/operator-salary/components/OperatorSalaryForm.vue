@@ -92,52 +92,55 @@ const salaireBrut = computed(() =>
 );
 
 // --- Sync computed values into localForm ---
-watch(chiffreAffaireHorsTaxe, (val) => {
-  localForm.value.chiffreAffaireHorsTaxe = val;
-});
+// watch(chiffreAffaireHorsTaxe, (val) => {
+//   localForm.value.chiffreAffaireHorsTaxe = val;
+// });
 
-watch(commissionBrute, (val) => {
-  localForm.value.commissionBrute = val;
-});
+// watch(commissionBrute, (val) => {
+//   localForm.value.commissionBrute = val;
+// });
 
-watch(aib, (val) => {
-  localForm.value.aib = val;
-});
+// watch(aib, (val) => {
+//   localForm.value.aib = val;
+// });
 
-watch(penalite, (val) => {
-  localForm.value.penalite = val;
-});
+// watch(penalite, (val) => {
+//   localForm.value.penalite = val;
+// });
 
-watch(calculatedFraisMomo, (val) => {
-  localForm.value.calculatedFraisMomo = val;
-});
+// watch(calculatedFraisMomo, (val) => {
+//   localForm.value.calculatedFraisMomo = val;
+// });
 
-watch(salaireBrut, (val) => {
-  localForm.value.salaireBrut = val;
-});
+// watch(salaireBrut, (val) => {
+//   localForm.value.salaireBrut = val;
+// });
 
-watchEffect(() => {
-  localForm.value.fel = fel;
-});
+// watchEffect(() => {
+//   localForm.value.fel = fel;
+// });
 
 // --- Submit ---
 async function onSubmit() {
   const valid = await formRef.value?.validate();
-  if (valid && valid.valid) {
+  if (!valid?.valid) return;
 
-    // ✅ Force la mise à jour des champs calculés dans localForm avant l’envoi
-    localForm.value.chiffreAffaireHorsTaxe = chiffreAffaireHorsTaxe.value;
-    localForm.value.commissionBrute = commissionBrute.value;
-    localForm.value.aib = aib.value;
-    localForm.value.penalite = penalite.value;
-    localForm.value.calculatedFraisMomo = calculatedFraisMomo.value;
-    localForm.value.fel = fel;
-	localForm.value.salaireBrut = salaireBrut.value;
+  const payload = {
+    chiffreAffaireMensuelttc: localForm.value.chiffreAffaireMensuelttc,
+    percentCommissionBrute: localForm.value.percentCommissionBrute,
+    dette: localForm.value.dette,
+    remboursement: localForm.value.remboursement,
+    ecart: localForm.value.ecart,
+    percentFraisMomo: localForm.value.percentFraisMomo,
+    payement: localForm.value.payement,
+    totalPrelevements: totalPrelevements.value,
+    salaireBrut: salaireBrut.value,
+    date: localForm.value.date,
+    operator_id: localForm.value.operator_id,
+  };
 
-    emit("submit", { ...localForm.value });
-  }
+  emit("submit", payload);
 }
-
 
 const formattedOperators = computed(() => {
 		return operators.value.map((operator) => ({

@@ -6,7 +6,7 @@ import appRoutes from "../../../router/routes";
 import { useOperatorActions } from "../../operator/composable/use_operator_actions";
 import { useModernTableStyles } from "../../../composables/useModernTableStyles";
 import { useOperatorSalaryActions } from "../composable/use_operator_salary_ action";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { OperatorSalaryModel } from "../models/operator-salary-model";
 import { useBootstrapToast } from "../../../composables/useBootstrapToast";
 
@@ -64,6 +64,54 @@ const detailIcons = {
 
 // Fusion des icônes
 const allIcons = { ...icons, ...detailIcons };
+
+const chiffreAffaireHorsTaxe = computed(() => {
+  if (!operatorSalary.value) return 0;
+  return operatorSalary.value.chiffreAffaireMensuelttc / 1.1;
+});
+
+const commissionBrute = computed(() => {
+  if (!operatorSalary.value) return 0;
+  return (
+    chiffreAffaireHorsTaxe.value *
+    (operatorSalary.value.percentCommissionBrute / 100)
+  );
+});
+
+const FEL = 2500;
+
+const aib = computed(() => commissionBrute.value * 0.05);
+
+const penalite = computed(() => {
+  if (!operatorSalary.value) return 0;
+  return (operatorSalary.value.ecart || 0) * 0.15;
+});
+
+const fraisMomo = computed(() => {
+  if (!operatorSalary.value) return 0;
+  return (
+    ((operatorSalary.value.payement || 0) *
+      (operatorSalary.value.percentFraisMomo || 0)) /
+    100
+  );
+});
+
+const totalPrelevements = computed(() => {
+  if (!operatorSalary.value) return 0;
+  return (
+    FEL +
+    aib.value +
+    (operatorSalary.value.dette || 0) +
+    (operatorSalary.value.remboursement || 0) +
+    (operatorSalary.value.ecart || 0) +
+    penalite.value +
+    fraisMomo.value
+  );
+});
+
+const salaireBrut = computed(() => {
+  return commissionBrute.value - totalPrelevements.value;
+});
 
 
 // Fonctions utilitaires
@@ -177,19 +225,19 @@ onMounted(() => {
 									</tr>
 									<tr class="border-b">
 										<td class="py-4 font-bold">Chiffre d’affaire HT</td>
-										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.chiffreAffaireHorsTaxe) }}</td>
+										<td class="py-4 text-right">{{ formatFCFA(chiffreAffaireHorsTaxe) }}</td>
 									</tr>
 									<tr class="border-b">
 										<td class="py-4 font-bold">Commission brute ({{ operatorSalary.percentCommissionBrute }}%)</td>
-										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.commissionBrute) }}</td>
+										<td class="py-4 text-right">{{ formatFCFA(commissionBrute) }}</td>
 									</tr>
 									<tr v-if="operatorSalary.aib" class="border-b">
 										<td class="py-4 font-bold">AIB</td>
-										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.aib) }}</td>
+										<td class="py-4 text-right">{{ formatFCFA(aib) }}</td>
 									</tr>
 										<tr v-if="operatorSalary.fel" class="border-b">
 										<td class="py-4 font-bold">Frais d'entretien LNB</td>
-										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.fel) }}</td>
+										<td class="py-4 text-right">{{ formatFCFA(FEL) }}</td>
 									</tr>
 									<tr v-if="operatorSalary.dette" class="border-b">
 										<td class="py-4 font-bold">Dette</td>
@@ -197,7 +245,7 @@ onMounted(() => {
 									</tr>
 									<tr v-if="operatorSalary.penalite" class="border-b">
 										<td class="py-4 font-bold">Pénalité</td>
-										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.penalite) }}</td>
+										<td class="py-4 text-right">{{ formatFCFA(penalite) }}</td>
 									</tr>
 									<tr v-if="operatorSalary.remboursement" class="border-b">
 										<td class="py-4 font-bold">Remboursement</td>
@@ -209,7 +257,7 @@ onMounted(() => {
 									</tr>
 									<tr v-if="operatorSalary.calculatedFraisMomo" class="border-b">
 										<td class="py-4 font-bold">Frais MoMo</td>
-										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.calculatedFraisMomo) }}</td>
+										<td class="py-4 text-right">{{ formatFCFA(fraisMomo) }}</td>
 									</tr>
 									<tr class="border-t-2 border-gray-700 font-bold">
 										<td class="py-4">Total des prélèvements</td>
@@ -222,7 +270,7 @@ onMounted(() => {
 						   <!-- Salaire Net -->
 						<section class="mt-5 text-right">
 							<h2 class="text-2xl font-extrabold text-green-700">
-								Commission : {{ formatFCFA(operatorSalary.salaireBrut) }}
+								Commission : {{ formatFCFA(salaireBrut) }}
 							</h2>
 						</section>
 					</div>

@@ -21,13 +21,13 @@ const operatorStore = ref<OperatorSalaryStore | null>(null);
 const form = ref<OperatorSalaryCreateInterface>({
   date: "",
   chiffreAffaireMensuelttc: 0,
-  chiffreAffaireHorsTaxe: 0,
+  // chiffreAffaireHorsTaxe: 0,
   percentCommissionBrute: 0,
-	commissionBrute: 0,
-	fel:0,
-	aib:0,
-	penalite:0,
-	calculatedFraisMomo:0,
+	// commissionBrute: 0,
+	// fel:0,
+	// aib:0,
+	// penalite:0,
+	// calculatedFraisMomo:0,
   dette: 0,
   remboursement: 0,
   ecart: 0,
@@ -41,13 +41,13 @@ const form = ref<OperatorSalaryCreateInterface>({
 const fieldsErrors = ref<{ [key in keyof OperatorSalaryCreateInterface]: string[] }>({
   date: [],
   chiffreAffaireMensuelttc: [],
-  chiffreAffaireHorsTaxe: [],
+  // chiffreAffaireHorsTaxe: [],
   percentCommissionBrute: [],
-	commissionBrute: [],
-	fel:[],
-	aib:[],
-	penalite:[],
-	calculatedFraisMomo:[],
+	// commissionBrute: [],
+	// fel:[],
+	// aib:[],
+	// penalite:[],
+	// calculatedFraisMomo:[],
   dette: [],
   remboursement: [],
   ecart: [],
@@ -71,13 +71,13 @@ const setUnprocessableEntityApiErrors = (
 ) => {
   fieldsErrors.value.date = apiError.data.date || [];
   fieldsErrors.value.chiffreAffaireMensuelttc = apiError.data.chiffreAffaireMensuelttc || [];
-  fieldsErrors.value.chiffreAffaireHorsTaxe = apiError.data.chiffreAffaireHorsTaxe || [];
+  // fieldsErrors.value.chiffreAffaireHorsTaxe = apiError.data.chiffreAffaireHorsTaxe || [];
   fieldsErrors.value.percentCommissionBrute = apiError.data.percentCommissionBrute || [];
-  fieldsErrors.value.commissionBrute = apiError.data.commissionBrute || [];
-  fieldsErrors.value.fel = apiError.data.fel || [];
-  fieldsErrors.value.aib = apiError.data.aib || [];
-  fieldsErrors.value.penalite = apiError.data.penalite || [];
-  fieldsErrors.value.calculatedFraisMomo = apiError.data.calculatedFraisMomo || [];
+  // fieldsErrors.value.commissionBrute = apiError.data.commissionBrute || [];
+  // fieldsErrors.value.fel = apiError.data.fel || [];
+  // fieldsErrors.value.aib = apiError.data.aib || [];
+  // fieldsErrors.value.penalite = apiError.data.penalite || [];
+  // fieldsErrors.value.calculatedFraisMomo = apiError.data.calculatedFraisMomo || [];
   fieldsErrors.value.dette = apiError.data.dette || [];
   fieldsErrors.value.remboursement = apiError.data.remboursement || [];
   fieldsErrors.value.ecart = apiError.data.ecart || [];
@@ -108,13 +108,13 @@ const fetchOperatorSalary = async () => {
   form.value = {
     date: currentOperatorSalary.date,
     chiffreAffaireMensuelttc: currentOperatorSalary.chiffreAffaireMensuelttc,
-    chiffreAffaireHorsTaxe: currentOperatorSalary.chiffreAffaireHorsTaxe,
+    // chiffreAffaireHorsTaxe: currentOperatorSalary.chiffreAffaireHorsTaxe,
     percentCommissionBrute: currentOperatorSalary.percentCommissionBrute,
-    commissionBrute: currentOperatorSalary.commissionBrute,
-    fel: currentOperatorSalary.fel,
-    aib: currentOperatorSalary.aib,
-    penalite: currentOperatorSalary.penalite,
-    calculatedFraisMomo: currentOperatorSalary.calculatedFraisMomo,
+    // commissionBrute: currentOperatorSalary.commissionBrute,
+    // fel: currentOperatorSalary.fel,
+    // aib: currentOperatorSalary.aib,
+    // penalite: currentOperatorSalary.penalite,
+    // calculatedFraisMomo: currentOperatorSalary.calculatedFraisMomo,
     dette: currentOperatorSalary.dette,
     remboursement: currentOperatorSalary.remboursement,
     ecart: currentOperatorSalary.ecart,
@@ -160,13 +160,13 @@ const resetForm = () => {
   fieldsErrors.value = {
     date: [],
   chiffreAffaireMensuelttc: [],
-  chiffreAffaireHorsTaxe: [],
+  // chiffreAffaireHorsTaxe: [],
   percentCommissionBrute: [],
-	commissionBrute: [],
-	fel:[],
-	aib:[],
-	penalite:[],
-	calculatedFraisMomo:[],
+	// commissionBrute: [],
+	// fel:[],
+	// aib:[],
+	// penalite:[],
+	// calculatedFraisMomo:[],
   dette: [],
   remboursement: [],
   ecart: [],

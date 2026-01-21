@@ -6,12 +6,12 @@ export type OperatorSalaryCreateInterface = Omit<
   keyof ApiResourceInterface | "operator"
 > & {
   operator_id: string;
-  chiffreAffaireHorsTaxe?: number;
-  commissionBrute?: number;
-  aib?: number;
-  penalite?: number;
-  calculatedFraisMomo?: number;
-  fel?: number;
+  // chiffreAffaireHorsTaxe?: number;
+  // commissionBrute?: number;
+  // aib?: number;
+  // penalite?: number;
+  // calculatedFraisMomo?: number;
+  // fel?: number;
 };
 
 

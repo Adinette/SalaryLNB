@@ -130,24 +130,24 @@ async function onSubmit() {
   date: localForm.value.date,
 
   chiffreAffaireMensuelttc: localForm.value.chiffreAffaireMensuelttc,
-  chiffreAffaireHorsTaxe: chiffreAffaireHorsTaxe.value,
+  // chiffreAffaireHorsTaxe: chiffreAffaireHorsTaxe.value,
 
   percentCommissionBrute: localForm.value.percentCommissionBrute,
-  commissionBrute: commissionBrute.value,
+  // commissionBrute: commissionBrute.value,
 
-  fel,
-  aib: aib.value,
-  penalite: penalite.value,
+  // fel,
+  // aib: aib.value,
+  // penalite: penalite.value,
   dette: localForm.value.dette,
   remboursement: localForm.value.remboursement,
   ecart: localForm.value.ecart,
 
   percentFraisMomo: localForm.value.percentFraisMomo,
-  calculatedFraisMomo: calculatedFraisMomo.value,
+  // calculatedFraisMomo: calculatedFraisMomo.value,
   payement: localForm.value.payement,
 
-  totalPrelevements: totalPrelevements.value,
-  salaireBrut: salaireBrut.value,
+  // totalPrelevements: totalPrelevements.value,
+  // salaireBrut: salaireBrut.value,
 };
 
 
@@ -262,8 +262,7 @@ onMounted(() => {
 					type="number"
           prepend-inner-icon="ri-mail-line"
           persistent-placeholder
-          :error-messages="props.errors?.chiffreAffaireHorsTaxe"
-          @update:model-value="(val:any) => updateField('chiffreAffaireHorsTaxe', val)"
+          readonly
         />
       </VCol>
       <VCol cols="12" md="6">
@@ -294,8 +293,7 @@ onMounted(() => {
           prepend-inner-icon="ri-phone-line"
           persistent-placeholder
           :rules="[requiredValidator]"
-          :error-messages="props.errors?.commissionBrute"
-          @update:model-value="(val:any) => updateField('commissionBrute', val)"
+          readonly
         />
       </VCol>
 			<VCol cols="12" md="6">
@@ -345,8 +343,7 @@ onMounted(() => {
           prepend-inner-icon="ri-phone-line"
           persistent-placeholder
           :rules="[requiredValidator]"
-          :error-messages="props.errors?.fel"
-          @update:model-value="(val:any) => updateField('fel', val)"
+          readonly
         />
       </VCol>
 
@@ -363,8 +360,7 @@ onMounted(() => {
           prepend-inner-icon="ri-phone-line"
           persistent-placeholder
           :rules="[requiredValidator]"
-          :error-messages="props.errors?.aib"
-          @update:model-value="(val:any) => updateField('aib', val)"
+          
         />
       </VCol>
 
@@ -427,8 +423,7 @@ onMounted(() => {
 					type="number"
           prepend-inner-icon="ri-phone-line"
           persistent-placeholder
-          :error-messages="props.errors?.penalite"
-          @update:model-value="(val:any) => updateField('penalite', val)"
+         readonly
         />
       </VCol>
 
@@ -443,8 +438,7 @@ onMounted(() => {
 					type="number"
           prepend-inner-icon="ri-phone-line"
           persistent-placeholder
-          :error-messages="props.errors?.calculatedFraisMomo"
-          @update:model-value="(val:any) => updateField('calculatedFraisMomo', val)"
+         readonly
         />
       </VCol>
 

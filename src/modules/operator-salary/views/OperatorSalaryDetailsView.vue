@@ -134,7 +134,7 @@ onMounted(() => {
         <div class="">
           <div>
             <h1 class="text-4xl text-center font-bold text-gray-900 mb-5">
-              Bulletin de salaire
+              Bulletin de commission
             </h1>
 
 						<!-- Information sur l'entreprise -->
@@ -222,7 +222,7 @@ onMounted(() => {
 						   <!-- Salaire Net -->
 						<section class="mt-5 text-right">
 							<h2 class="text-2xl font-extrabold text-green-700">
-								Salaire : {{ formatFCFA(operatorSalary.salaireBrut) }}
+								Commission : {{ formatFCFA(operatorSalary.salaireBrut) }}
 							</h2>
 						</section>
 					</div>

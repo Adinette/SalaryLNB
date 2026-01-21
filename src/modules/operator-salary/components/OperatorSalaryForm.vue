@@ -149,6 +149,7 @@ async function onSubmit() {
   // totalPrelevements: totalPrelevements.value,
   // salaireBrut: salaireBrut.value,
 };
+console.log(payload);
 
 
   emit("submit", payload);

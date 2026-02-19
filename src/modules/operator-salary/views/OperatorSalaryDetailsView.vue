@@ -96,18 +96,34 @@ const fraisMomo = computed(() => {
   );
 });
 
-const totalPrelevements = computed(() => {
-  if (!operatorSalary.value) return 0;
-  return (
-    FEL +
-    aib.value +
-    (operatorSalary.value.dette || 0) -
-    (operatorSalary.value.remboursement || 0) +
-    (operatorSalary.value.ecart || 0) +
-    penalite.value +
-    fraisMomo.value
-  );
-});
+const autresPrelevements = computed(() =>{
+	if (!operatorSalary.value) return 0;
+	return (
+		(penalite.value || 0)  +
+		(operatorSalary.value.dette || 0) +
+		(operatorSalary.value.ecart || 0) -
+		  (operatorSalary.value.remboursement || 0) +
+		(fraisMomo.value || 0) 
+	)
+})
+
+
+// ✅ totalPrelevements dépend de valeurs réactives => computed aussi
+const totalPrelevements = computed(() =>
+FEL + aib.value + autresPrelevements.value
+);
+// const totalPrelevements = computed(() => {
+//   if (!operatorSalary.value) return 0;
+//   return (
+//     FEL +
+//     aib.value +
+//     (operatorSalary.value.dette || 0) -
+//     (operatorSalary.value.remboursement || 0) +
+//     (operatorSalary.value.ecart || 0) +
+//     penalite.value +
+//     fraisMomo.value
+//   );
+// });
 
 const salaireBrut = computed(() => {
   return commissionBrute.value - totalPrelevements.value;

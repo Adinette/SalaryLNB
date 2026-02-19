@@ -88,7 +88,7 @@ get interface(): OperatorSalaryInterface & Partial<OperatorSalaryCreateInterface
 
 get autresPrelevements() {
   return (
-    Number(this.penalite || 0) +
+    Number(this.penalite || 0) -
     Number(this.remboursement || 0) +
     Number(this.dette || 0) +
     Number(this.ecart || 0) +

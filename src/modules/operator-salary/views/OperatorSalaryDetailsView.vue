@@ -101,7 +101,7 @@ const totalPrelevements = computed(() => {
   return (
     FEL +
     aib.value +
-    (operatorSalary.value.dette || 0) +
+    (operatorSalary.value.dette || 0) -
     (operatorSalary.value.remboursement || 0) +
     (operatorSalary.value.ecart || 0) +
     penalite.value +

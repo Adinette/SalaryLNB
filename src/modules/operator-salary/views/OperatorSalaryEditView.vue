@@ -191,7 +191,7 @@ const onSubmit = async () => {
   });
   if (result) {
     // Navigation temporaire - à remplacer quand les routes seront configurées
-    router.push("/operators");
+    router.push("/operators-salary");
   }
 };
 

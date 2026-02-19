@@ -73,11 +73,11 @@ const calculatedFraisMomo = computed(
 
 // ✅ Transforme aussi ceci en computed pour suivre les changements automatiquement
 const autresPrelevements = computed(() =>
-  (penalite.value || 0) +
-  (localForm.value.remboursement || 0) +
+  (penalite.value || 0)  +
   (localForm.value.dette || 0) +
   (localForm.value.ecart || 0) +
-  (calculatedFraisMomo.value || 0)
+  (calculatedFraisMomo.value || 0) -
+  (localForm.value.remboursement || 0)
 );
 
 
@@ -333,22 +333,6 @@ onMounted(() => {
 					</VCol>
 
 			<VCol cols="12" md="6">
-        <VLabel class="mb-3" for="operator-salary-fel">FEL</VLabel>
-        <VTextField
-          id="operator-salary-fel"
-           :model-value="fel"
-          placeholder="Ex: 1500"
-          variant="filled"
-          density="compact"
-					type="number"
-          prepend-inner-icon="ri-phone-line"
-          persistent-placeholder
-          :rules="[requiredValidator]"
-          readonly
-        />
-      </VCol>
-
-			<VCol cols="12" md="6">
         <VLabel class="mb-3" for="operator-salary-aib">AIB</VLabel>
         <VTextField
           id="operator-salary-aib"
@@ -366,18 +350,18 @@ onMounted(() => {
       </VCol>
 
 			<VCol cols="12" md="6">
-        <VLabel class="mb-3" for="operator-salary-ecart">Écart</VLabel>
+        <VLabel class="mb-3" for="operator-salary-fel">FEL</VLabel>
         <VTextField
-          id="operator-salary-ecart"
-          v-model="localForm.ecart"
+          id="operator-salary-fel"
+           :model-value="fel"
           placeholder="Ex: 1500"
           variant="filled"
           density="compact"
 					type="number"
           prepend-inner-icon="ri-phone-line"
           persistent-placeholder
-          :error-messages="props.errors?.ecart"
-          @update:model-value="(val:any) => updateField('ecart', val)"
+          :rules="[requiredValidator]"
+          readonly
         />
       </VCol>
 
@@ -398,6 +382,37 @@ onMounted(() => {
       </VCol>
 
 			<VCol cols="12" md="6">
+        <VLabel class="mb-3" for="operator-salary-ecart">Écart</VLabel>
+        <VTextField
+          id="operator-salary-ecart"
+          v-model="localForm.ecart"
+          placeholder="Ex: 1500"
+          variant="filled"
+          density="compact"
+					type="number"
+          prepend-inner-icon="ri-phone-line"
+          persistent-placeholder
+          :error-messages="props.errors?.ecart"
+          @update:model-value="(val:any) => updateField('ecart', val)"
+        />
+      </VCol>
+
+						<VCol cols="12" md="6">
+        <VLabel class="mb-3" for="operator-salary-penalite">Pénalité</VLabel>
+        <VTextField
+          id="operator-salary-penalite"
+          :model-value="penalite"
+          placeholder="Ex: 1500"
+          variant="filled"
+          density="compact"
+					type="number"
+          prepend-inner-icon="ri-phone-line"
+          persistent-placeholder
+         readonly
+        />
+      </VCol>
+
+			<VCol cols="12" md="6">
         <VLabel class="mb-3" for="operator-salary-remboursement">Remboursement</VLabel>
         <VTextField
           id="operator-salary-remboursement"
@@ -410,21 +425,6 @@ onMounted(() => {
           persistent-placeholder
           :error-messages="props.errors?.remboursement"
           @update:model-value="(val:any) => updateField('remboursement', val)"
-        />
-      </VCol>
-
-			<VCol cols="12" md="6">
-        <VLabel class="mb-3" for="operator-salary-penalite">Pénalité</VLabel>
-        <VTextField
-          id="operator-salary-penalite"
-          :model-value="penalite"
-          placeholder="Ex: 1500"
-          variant="filled"
-          density="compact"
-					type="number"
-          prepend-inner-icon="ri-phone-line"
-          persistent-placeholder
-         readonly
         />
       </VCol>
 

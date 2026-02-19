@@ -243,6 +243,10 @@ onMounted(() => {
 										<td class="py-4 font-bold">Dette</td>
 										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.dette) }}</td>
 									</tr>
+									<tr v-if="operatorSalary.ecart" class="border-b">
+										<td class="py-4 font-bold">Écart</td>
+										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.ecart) }}</td>
+									</tr>
 									<tr v-if="operatorSalary.penalite" class="border-b">
 										<td class="py-4 font-bold">Pénalité</td>
 										<td class="py-4 text-right">{{ formatFCFA(penalite) }}</td>
@@ -250,10 +254,6 @@ onMounted(() => {
 									<tr v-if="operatorSalary.remboursement" class="border-b">
 										<td class="py-4 font-bold">Remboursement</td>
 										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.remboursement) }}</td>
-									</tr>
-									<tr v-if="operatorSalary.ecart" class="border-b">
-										<td class="py-4 font-bold">Écart</td>
-										<td class="py-4 text-right">{{ formatFCFA(operatorSalary.ecart) }}</td>
 									</tr>
 									<tr v-if="operatorSalary.calculatedFraisMomo" class="border-b">
 										<td class="py-4 font-bold">Frais MoMo</td>
